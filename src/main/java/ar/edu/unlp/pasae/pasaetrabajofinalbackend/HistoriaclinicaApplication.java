@@ -10,5 +10,3 @@ public class HistoriaclinicaApplication {
 		SpringApplication.run(HistoriaclinicaApplication.class, args);
 	}
 }
-
-
