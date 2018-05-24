@@ -1,10 +1,13 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.GenericDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
@@ -62,7 +65,16 @@ public class IngresoPacienteServiceImpl extends GenericServiceImpl implements In
 
 	@Override
 	public List<GenericDTO> list() {
-		return null;
+		 List<IngresoPaciente> ingresos = repository.findAll();
+		 
+		 List<GenericDTO> list = new ArrayList<GenericDTO>();
+		 Iterator<IngresoPaciente> it = ingresos.iterator();
+		 while(it.hasNext()) {
+			 IngresoPaciente ingreso = (IngresoPaciente) it.next();
+			 IngresoPacienteDTO ingresoDTO = this.getGenericTransform().getIngresoPacienteDTO(ingreso);
+			 list.add(ingresoDTO);
+		 }
+		 return list;
 	}
 
 	public Transform getGenericTransform() {

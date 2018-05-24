@@ -9,7 +9,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.IngresoPacienteService;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl.IngresoPacienteServiceImpl;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest()

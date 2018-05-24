@@ -1,6 +1,6 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto;
 
-public class IngresoPacienteDTO extends GenericDTO{
+public class IngresoPacienteDTO implements GenericDTO{
 	
 	private Long id;
 	private String motivoConsulta;
