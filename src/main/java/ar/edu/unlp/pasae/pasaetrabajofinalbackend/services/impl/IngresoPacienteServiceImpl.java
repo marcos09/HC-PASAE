@@ -1,20 +1,28 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.GenericDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.GenericRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.IngresoPacienteRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.IngresoPacienteService;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transform;
 
 @Service
-public class IngresoPacienteServiceImpl implements IngresoPacienteService{
+public class IngresoPacienteServiceImpl extends GenericServiceImpl implements IngresoPacienteService{
 	
 	@Autowired
 	private IngresoPacienteRepository repository;
 
-	public IngresoPacienteRepository getRepository() {
+	@Autowired
+	private Transform genericTransform;
+	
+	public GenericRepository getRepository() {
 		return repository;
 	}
 	
@@ -29,7 +37,8 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService{
 
 	@Override
 	public void create(GenericDTO persistentDTO) {
-
+		
+		repository.save(this.getGenericTransform().getIngresoPaciente((IngresoPacienteDTO) persistentDTO));
 	}
 
 	@Override
@@ -44,6 +53,10 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService{
 
 	@Override
 	public GenericDTO retrive(Long id) {
+		Optional<IngresoPaciente> ingreso = repository.findById(id);
+		if(ingreso.isPresent()) {
+			return genericTransform.getIngresoPacienteDTO(ingreso.get());
+		}
 		return null;
 	}
 
@@ -51,4 +64,14 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService{
 	public List<GenericDTO> list() {
 		return null;
 	}
+
+	public Transform getGenericTransform() {
+		return genericTransform;
+	}
+
+	public void setGenericTransform(Transform genericTransform) {
+		this.genericTransform = genericTransform;
+	}
+	
+	
 }

@@ -8,6 +8,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.GenericDTO;
 
 public interface GenericService {
 	
+	
 	void create(GenericDTO persistentDTO); 
 	void update(GenericDTO persistentDTO);
 	void delete(Long id); 
