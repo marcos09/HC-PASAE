@@ -3,14 +3,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class IngresoPaciente extends GenericPersistentClass{
 	@Id   @GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
+	@NotEmpty(message = "El motivo de consulta no puede ser nulo o vacío")
 	private String motivoConsulta;
+	@NotEmpty(message = "La enfermedad actual no puede ser nula o vacía")
 	private String enfermedadActual;
+	@NotEmpty(message = "El diagnostico sintomatico no puede ser nulo o vacío")
 	private String diagnosticoSintomatico;
+	@NotEmpty(message = "El diagnostico presuntivo no puede ser nulo o vacío")
 	private String diagnosticoPresuntivo;
 	
 	public IngresoPaciente(Long id, String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,

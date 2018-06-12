@@ -1,11 +1,17 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto;
 
+import javax.validation.constraints.NotEmpty;
+
 public class IngresoPacienteDTO implements GenericDTO{
 	
 	private Long id;
+	@NotEmpty(message = "El motivo de consulta no puede ser nulo o vacío")
 	private String motivoConsulta;
+	@NotEmpty(message = "La enfermedad actual no puede ser nula o vacía")
 	private String enfermedadActual;
+	@NotEmpty(message = "El diagnostico sintomatico no puede ser nulo o vacío")
 	private String diagnosticoSintomatico;
+	@NotEmpty(message = "El diagnostico presuntivo no puede ser nulo o vacío")
 	private String diagnosticoPresuntivo;
 	
 	

@@ -46,7 +46,7 @@ public class IngresoPacienteServiceImpl extends GenericServiceImpl implements In
 
 	@Override
 	public void update(GenericDTO person) {
-
+			
 	}
 
 	@Override
