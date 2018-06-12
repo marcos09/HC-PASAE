@@ -31,6 +31,9 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile 'org.springframework.boot:spring-boot-starter-security'
 	compile 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.2.BUILD-SNAPSHOT'
+	compile('org.springframework.boot:spring-boot-starter-aop')
+	compile('org.hibernate.validator:hibernate-validator')
+	compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
 	runtime('com.h2database:h2')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
