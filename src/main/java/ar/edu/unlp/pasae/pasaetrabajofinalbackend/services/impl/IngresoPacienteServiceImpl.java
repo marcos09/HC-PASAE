@@ -46,12 +46,12 @@ public class IngresoPacienteServiceImpl extends GenericServiceImpl implements In
 
 	@Override
 	public void update(GenericDTO person) {
-			
+		repository.save(this.getGenericTransform().getIngresoPaciente((IngresoPacienteDTO) person));
 	}
 
 	@Override
 	public void delete(Long id) {
-		
+		repository.deleteById(id);
 	}
 
 	@Override
