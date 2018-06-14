@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.GenericDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.GenericRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.IngresoPacienteRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.IngresoPacienteService;
@@ -85,5 +86,11 @@ public class IngresoPacienteServiceImpl extends GenericServiceImpl implements In
 		this.genericTransform = genericTransform;
 	}
 	
+	//Prueba para ver si funciona el aspecto que convierte las excepciones no manejadas
+//	@Override
+//	public void thowException() throws BaseException {
+//		throw new RuntimeException("Excepción runtime");
+//	}
+
 	
 }

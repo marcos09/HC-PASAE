@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,14 +16,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.aspect.ExceptionHandlerAspect;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.GenericDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.IngresoPacienteService;
 
 @RestController
 @RequestMapping("/ingreso")
 public class IngresoPacienteController {
 
+	private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlerAspect.class);
+	
 	@Autowired
 	private IngresoPacienteService ingresoService;
 	
@@ -57,4 +63,15 @@ public class IngresoPacienteController {
 	private IngresoPacienteService getIngresoService() {
 		return ingresoService;
 	}
+
+	//Prueba para ver si funciona el aspecto que convierte las excepciones no manejadas
+//	@GetMapping(path = "/exception")
+//	public void exception() {
+//		try {
+//			getIngresoService().thowException();
+//		} catch (final BaseException e) {
+//			logger.error("Excepción {}", e.getLocalizedMessage());
+//		}
+//	}
+
 }
