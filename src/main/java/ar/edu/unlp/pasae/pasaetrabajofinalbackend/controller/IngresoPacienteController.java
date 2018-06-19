@@ -31,6 +31,7 @@ public class IngresoPacienteController {
 	@Autowired
 	private IngresoPacienteService ingresoService;
 	
+	
 	//Listo todos los ingresos
 	@GetMapping(path = "/list")
 	public Collection<GenericDTO> list(){
