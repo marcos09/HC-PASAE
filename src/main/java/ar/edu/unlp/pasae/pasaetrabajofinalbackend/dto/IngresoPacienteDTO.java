@@ -28,6 +28,7 @@ public class IngresoPacienteDTO implements GenericDTO{
 		this.setDiagnosticoSintomatico(diagnosticoSintomatico);
 		this.setDiagnosticoPresuntivo(diagnosticoPresuntivo);
 	}
+	
 
 	public Long getId() {
 		return id;
