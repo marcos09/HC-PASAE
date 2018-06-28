@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class User extends GenericPersistentClass {
@@ -17,6 +18,8 @@ public class User extends GenericPersistentClass {
 	private String password;
 	@NotEmpty(message = "El email no puede ser nulo o vacío")
 	private String email;
+	@NotNull
+	public String authorities;
 	
 	public User() {
 		super();
@@ -24,19 +27,20 @@ public class User extends GenericPersistentClass {
 
 	
 	
-	public User(Long id,String username,String password,String email) {
+	public User(Long id,String username,String password,String email,String authorities) {
 		super();
 		this.setId(id);
-		this.setEmail(email);;
-		this.setPassword(password);;
-		this.setUsername(username);;
+		this.setEmail(email);
+		this.setPassword(password);
+		this.setUsername(username);
+		this.setAuthorities(authorities);
 	}
 
 	public User(String username,String password,String email) {
 		super();
 		this.setEmail(email);;
-		this.setPassword(password);;
-		this.setUsername(username);;
+		this.setPassword(password);
+		this.setUsername(username);
 	}
 
 	private void setId(Long id) {
@@ -71,7 +75,12 @@ public class User extends GenericPersistentClass {
 		return email;
 	}
 
+	public String getAuthorities() {
+		return authorities;
+	}
 
-
+	public void setAuthorities(String authorities) {
+		this.authorities = authorities;
+	}
 
 }

@@ -24,13 +24,13 @@ public class GenericTransform implements Transform{
 	@Override
 	public UserDTO getUserDTO(User user) {
 		// TODO Auto-generated method stub
-		return new UserDTO(user.getId(), user.getUsername(), user.getPassword(), user.getEmail());
+		return new UserDTO(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), user.getAuthorities());
 	}
 
 	@Override
 	public User getUser(UserDTO userDTO) {
 		// TODO Auto-generated method stub
-		return new User(userDTO.getId(), userDTO.getUsername(), userDTO.getPassword(), userDTO.getEmail());
+		return new User(userDTO.getId(), userDTO.getUsername(), userDTO.getPassword(), userDTO.getEmail(), userDTO.getAuthorities());
 	}
 
 

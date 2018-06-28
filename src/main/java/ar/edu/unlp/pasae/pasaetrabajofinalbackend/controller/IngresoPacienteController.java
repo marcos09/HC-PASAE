@@ -3,6 +3,7 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.controller;
 import java.util.Collection;
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -43,6 +44,19 @@ public class IngresoPacienteController {
 	public String testRest(){
 		return "Test correct";
 	}
+	
+	@RolesAllowed("ROLE_STUDENT")
+	@GetMapping(path = "/testStudent")
+	public String testStudent(){
+		return "Test student correct";
+	}
+	
+	@RolesAllowed("ROLE_ADMIN")
+	@GetMapping(path = "/testAdmin")
+	public String testAdmin(){
+		return "Test admin correct";
+	}
+	
 	//Recupero un ingreso con el id
 	 @GetMapping(path = "/{id}", produces = "application/json")
 	   public GenericDTO show(@PathVariable(value = "id") Long id) {
