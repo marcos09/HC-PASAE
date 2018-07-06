@@ -4,7 +4,7 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class UserDTO implements GenericDTO{
+public class UserDTO extends GenericDTOImpl{
 
 	private Long id;
 	@NotEmpty(message = "El nombre de usuario no puede ser nulo o vacío")

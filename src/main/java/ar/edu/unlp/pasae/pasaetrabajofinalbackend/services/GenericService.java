@@ -1,9 +1,6 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services;
 
 import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.GenericDTO;
 
 public interface GenericService {

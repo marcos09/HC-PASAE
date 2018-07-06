@@ -3,7 +3,6 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.controller;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,47 +15,53 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.GenericDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PatologiaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.UserDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PatologiasService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.UserService;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/patologias")
+
+public class PatologiasController {
 	
 	@Autowired
-	private UserService userService;
+	private PatologiasService patologiasService;
 
-	//Listo todos los ingresos
+	//Listo todas las patologias
 	@GetMapping(path = "/list")
 	public Collection<GenericDTO> list(){
-		List<GenericDTO> ingresos = this.getUserService().list();
-		return ingresos;
+		List<GenericDTO> patologias = this.getPatologiasService().list();
+		return patologias;
 	}
 	
-	//Recupero un usuario con el id
+	//Recupero una patologia con el id
 	 @GetMapping(path = "/{id}", produces = "application/json")
 	   public GenericDTO show(@PathVariable(value = "id") Long id) {
-	    return this.getUserService().retrive(id);
+	    return this.getPatologiasService().retrive(id);
 	   }
 	 
-	 //Elimino un usuario con el id
+	 //Elimino una patologia con el id
 	 @DeleteMapping(path = "/{id}")
 	   public void delete(@PathVariable(value = "id") Long id) {
-	     this.getUserService().delete(id);
+	     this.getPatologiasService().delete(id);
 	   }
 	 
-	 //Alta de un usuario
-	 @PutMapping(path = "/crearUsuario", consumes = "application/json", produces = "application/json")
-	   public  void create(@RequestBody @Valid UserDTO user) {
-	        this.getUserService().create(user);
+	 //Alta de una patologia
+	 @PutMapping(path = "/crearPatologia", consumes = "application/json", produces = "application/json")
+	   public  void create(@RequestBody PatologiaDTO patologia) {
+	        this.getPatologiasService().create(patologia);
 	   }
 
-	public UserService getUserService() {
-		return userService;
+	public PatologiasService getPatologiasService() {
+		return patologiasService;
 	}
 
-	public void setUserService(UserService userService) {
-		this.userService = userService;
+	public void setPatologiasService(PatologiasService patologiasService) {
+		this.patologiasService = patologiasService;
 	}
-	 
+
+
 }
+
+

@@ -17,7 +17,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/h2-console/**").permitAll().and()
 			.authorizeRequests()
-				.antMatchers("/", "/home").permitAll()
+				.antMatchers("/", "/home", "/h2-console").permitAll()
 				.anyRequest().fullyAuthenticated()
 				.and()
 	        .formLogin()
@@ -27,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        .logout()
 	            .permitAll()
 	            .and()
-			.csrf().disable().headers().frameOptions().disable();
+			.csrf().disable();
+			//.headers().frameOptions().disable();
 	}
 }

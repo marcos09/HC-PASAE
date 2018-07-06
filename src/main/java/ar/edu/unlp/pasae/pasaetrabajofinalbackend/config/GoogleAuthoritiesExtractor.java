@@ -3,8 +3,8 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.config;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
 import javax.inject.Inject;
+
 
 import org.springframework.boot.autoconfigure.security.oauth2.resource.AuthoritiesExtractor;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,7 +17,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.UserRepository;
 
 @Component
 public class GoogleAuthoritiesExtractor implements AuthoritiesExtractor {
-
+	
 	@Inject
 	private UserRepository userRepository;
 

@@ -26,7 +26,7 @@ public class IngresoPacienteServiceImpl extends GenericServiceImpl implements In
 	@Autowired
 	private Transform genericTransform;
 	
-	public GenericRepository getRepository() {
+	public IngresoPacienteRepository getRepository() {
 		return repository;
 	}
 	

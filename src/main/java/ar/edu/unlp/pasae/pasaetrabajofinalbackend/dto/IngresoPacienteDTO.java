@@ -2,7 +2,7 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto;
 
 import javax.validation.constraints.NotEmpty;
 
-public class IngresoPacienteDTO implements GenericDTO{
+public class IngresoPacienteDTO extends GenericDTOImpl{
 	
 	private Long id;
 	@NotEmpty(message = "El motivo de consulta no puede ser nulo o vacío")
