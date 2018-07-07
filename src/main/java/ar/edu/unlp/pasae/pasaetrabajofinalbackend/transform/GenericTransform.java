@@ -28,12 +28,12 @@ public class GenericTransform implements Transform{
 
 	@Override
 	public UserDTO getUserDTO(User user) {
-		return new UserDTO(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), user.getAuthorities());
+		return new UserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getAuthorities());
 	}
 
 	@Override
 	public User getUser(UserDTO userDTO) {
-		return new User(userDTO.getId(), userDTO.getUsername(), userDTO.getPassword(), userDTO.getEmail(), userDTO.getAuthorities());
+		return new User(userDTO.getId(), userDTO.getUsername(), userDTO.getEmail(), userDTO.getAuthorities());
 	}
 
 	

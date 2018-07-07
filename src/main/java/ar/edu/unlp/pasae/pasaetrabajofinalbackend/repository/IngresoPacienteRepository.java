@@ -7,4 +7,5 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
 
 @Repository
 public interface IngresoPacienteRepository extends JpaRepository<IngresoPaciente,Long>{
+	
 }

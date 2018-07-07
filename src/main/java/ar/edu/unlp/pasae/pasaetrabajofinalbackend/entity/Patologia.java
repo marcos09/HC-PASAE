@@ -17,7 +17,7 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 @Entity
-public class Patologia {
+public class Patologia extends GenericPersistentClass{
 	@Id   @GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
 

@@ -10,8 +10,6 @@ public class UserDTO extends GenericDTOImpl{
 	@NotEmpty(message = "El nombre de usuario no puede ser nulo o vacío")
 	private String username;
 	@NotEmpty(message = "La password no puede ser nula o vacía")
-	private String password;
-	@NotEmpty(message = "El email no puede ser nulo o vacío")
 	private String email;
 	@NotNull
 	public String authorities;
@@ -20,11 +18,10 @@ public class UserDTO extends GenericDTOImpl{
 		super();
 	}
 	
-	public UserDTO(Long id,String username,String password,String email,String authorities) {
+	public UserDTO(Long id,String username,String email,String authorities) {
 		super();
 		this.setId(id);
 		this.setEmail(email);
-		this.setPassword(password);
 		this.setUsername(username);
 		this.setAuthorities(authorities);
 	}
@@ -32,7 +29,6 @@ public class UserDTO extends GenericDTOImpl{
 	public UserDTO(String username,String password,String email) {
 		super();
 		this.setEmail(email);;
-		this.setPassword(password);
 		this.setUsername(username);
 	}
 
@@ -42,10 +38,6 @@ public class UserDTO extends GenericDTOImpl{
 
 	public String getUsername() {
 		return username;
-	}
-
-	public String getPassword() {
-		return password;
 	}
 
 	public String getEmail() {
@@ -58,10 +50,6 @@ public class UserDTO extends GenericDTOImpl{
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public void setEmail(String email) {
