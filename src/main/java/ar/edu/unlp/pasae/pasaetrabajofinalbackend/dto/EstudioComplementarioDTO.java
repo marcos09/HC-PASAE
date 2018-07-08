@@ -2,7 +2,7 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto;
 
 import java.util.Date;
 
-public class EstudioComplementarioDTO implements GenericDTO {
+public class EstudioComplementarioDTO extends GenericDTOImpl {
 
 	private Long id;
 	private Date fechaRealizacion;

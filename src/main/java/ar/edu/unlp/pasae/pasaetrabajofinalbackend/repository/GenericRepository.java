@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
 
 @Repository
-public interface GenericRepository extends JpaRepository<IngresoPaciente,Long> {
+public interface GenericRepository {
 	
 }

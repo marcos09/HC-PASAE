@@ -1,17 +1,12 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class User extends GenericPersistentClass {
+public class User extends GenericPersistentClass{
 
-	@Id   @GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Long id;
 	@NotEmpty(message = "El nombre de usuario no puede ser nulo o vacío")
 	private String username;
 	@NotEmpty(message = "El email no puede ser nulo o vacío")
@@ -22,8 +17,6 @@ public class User extends GenericPersistentClass {
 	public User() {
 		super();
 	}
-
-	
 	
 	public User(Long id,String username,String email,String authorities) {
 		super();
@@ -39,10 +32,6 @@ public class User extends GenericPersistentClass {
 		this.setUsername(username);
 	}
 
-	private void setId(Long id) {
-		this.id = id;
-	}
-
 	private void setUsername(String username) {
 		this.username = username;
 	}
@@ -50,10 +39,6 @@ public class User extends GenericPersistentClass {
 
 	private void setEmail(String email) {
 		this.email = email;
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public String getUsername() {
@@ -72,5 +57,5 @@ public class User extends GenericPersistentClass {
 	public void setAuthorities(String authorities) {
 		this.authorities = authorities;
 	}
-
+	
 }

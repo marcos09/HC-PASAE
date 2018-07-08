@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.GenericDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.UserDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.User;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.GenericRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.UserRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.UserService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transform;
@@ -19,25 +20,18 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transform;
 public class UserServiceImpl extends GenericServiceImpl implements UserService {
 
 	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
-	private Transform genericTransform;
-	
-	public Transform getGenericTransform() {
-		return genericTransform;
-	}
-
-	public void setGenericTransform(Transform genericTransform) {
-		this.genericTransform = genericTransform;
-	}
-	
-	public UserRepository getRepository() {
-		return userRepository;
+	private UserRepository repository;
+		
+	public GenericRepository getRepository() {
+		return (GenericRepository) repository;
 	}
 	
 	public void setRepository(UserRepository repository) {
-		this.userRepository = repository;
+		this.repository = repository;
+	}
+	
+	public UserRepository getParticularRepository() {
+		return repository;
 	}
 	
 	public UserServiceImpl() {
@@ -46,23 +40,23 @@ public class UserServiceImpl extends GenericServiceImpl implements UserService {
 
 	@Override
 	public void create(GenericDTO persistentDTO) {
-		this.getRepository().save(this.getGenericTransform().getUser((UserDTO)persistentDTO));
+		this.getParticularRepository().save(this.getGenericTransform().getUser((UserDTO)persistentDTO));
 
 	}
 
 	@Override
 	public void update(GenericDTO persistentDTO) {
-		this.getRepository().save(this.getGenericTransform().getUser((UserDTO) persistentDTO));
+		this.getParticularRepository().save(this.getGenericTransform().getUser((UserDTO) persistentDTO));
 	}
 
 	@Override
 	public void delete(Long id) {
-		this.getRepository().deleteById(id);
+		this.getParticularRepository().deleteById(id);
 	}
 
 	@Override
 	public GenericDTO retrive(Long id) {
-		Optional<User> user = this.getRepository().findById(id);
+		Optional<User> user = this.getParticularRepository().findById(id);
 		if(user.isPresent()) {
 			return this.getGenericTransform().getUserDTO(user.get());
 		}
@@ -72,7 +66,7 @@ public class UserServiceImpl extends GenericServiceImpl implements UserService {
 	@Override
 	public List<GenericDTO> list() {
 			
-		 List<User> users = this.getRepository().findAll();
+		 List<User> users = this.getParticularRepository().findAll();
 		 
 		 List<GenericDTO> list = new ArrayList<GenericDTO>();
 		 Iterator<User> it = users.iterator();

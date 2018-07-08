@@ -13,6 +13,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PatologiaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Patologia;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.GenericRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.PatologiasRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PatologiasService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transform;
@@ -23,9 +24,6 @@ public class PatologiasServiceImpl extends GenericServiceImpl implements Patolog
 	
 	@Autowired
 	private PatologiasRepository repository;
-
-	@Autowired
-	private Transform genericTransform;
 
 	@Override
 	public void create(GenericDTO persistentDTO) {
@@ -48,7 +46,7 @@ public class PatologiasServiceImpl extends GenericServiceImpl implements Patolog
 	public GenericDTO retrive(Long id) {
 		Optional<Patologia> patologia = repository.findById(id);
 		if(patologia.isPresent()) {
-			return genericTransform.getPatologiaDTO(patologia.get());
+			return this.getGenericTransform().getPatologiaDTO(patologia.get());
 		}
 		return null;
 	}
@@ -67,20 +65,12 @@ public class PatologiasServiceImpl extends GenericServiceImpl implements Patolog
 		 return list;
 	}
 
-	public PatologiasRepository getRepository() {
-		return repository;
+	public GenericRepository getRepository() {
+		return (GenericRepository) repository;
 	}
 
 	public void setRepository(PatologiasRepository repository) {
 		this.repository = repository;
-	}
-
-	public Transform getGenericTransform() {
-		return genericTransform;
-	}
-
-	public void setGenericTransform(Transform genericTransform) {
-		this.genericTransform = genericTransform;
 	}
 
 }

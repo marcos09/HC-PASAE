@@ -1,5 +1,8 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
 
-public class Prescripcion {
+import javax.persistence.Entity;
 
+@Entity
+public class Prescripcion extends GenericPersistentClass{
+	
 }

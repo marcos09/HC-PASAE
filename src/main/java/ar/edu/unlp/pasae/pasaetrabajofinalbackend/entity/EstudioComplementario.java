@@ -3,14 +3,10 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
 @Entity
 public class EstudioComplementario extends GenericPersistentClass{
 	
-	@Id   @GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Long id;
 
 	private Date fechaRealizacion;
 	private Date fechaResultado;
@@ -20,22 +16,20 @@ public class EstudioComplementario extends GenericPersistentClass{
 	
 	public EstudioComplementario(Long id, Date fechaRealizacion, Date fechaResultado, String informeResultado) {
 		super();
-		this.id = id;
-		this.fechaRealizacion = fechaRealizacion;
-		this.fechaResultado = fechaResultado;
-		this.informeResultado = informeResultado;
+		this.setId(id);
+		this.setFechaRealizacion(fechaRealizacion);
+		this.setFechaResultado(fechaResultado);
+		this.setInformeResultado(informeResultado);
 	}
 	
 	
 	
 	public EstudioComplementario(Date fechaRealizacion, Date fechaResultado, String informeResultado) {
 		super();
-		this.fechaRealizacion = fechaRealizacion;
-		this.fechaResultado = fechaResultado;
-		this.informeResultado = informeResultado;
+		this.setFechaRealizacion(fechaRealizacion);
+		this.setFechaResultado(fechaResultado);
+		this.setInformeResultado(informeResultado);
 	}
-
-
 
 	public EstudioComplementario() {
 		super();
@@ -59,7 +53,5 @@ public class EstudioComplementario extends GenericPersistentClass{
 	}
 	public void setInformeResultado(String informeResultado) {
 		this.informeResultado = informeResultado;
-	}
-	
-	
+	}	
 }

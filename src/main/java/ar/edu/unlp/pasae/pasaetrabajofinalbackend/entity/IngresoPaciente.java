@@ -1,16 +1,10 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-public class IngresoPaciente extends GenericPersistentClass {
-	@Id   @GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Long id;
-	
-	
+public class IngresoPaciente extends GenericPersistentClass{	
+
 	@NotEmpty(message = "El motivo de consulta no puede ser nulo o vacío")
 	private String motivoConsulta;
 	@NotEmpty(message = "La enfermedad actual no puede ser nula o vacía")
@@ -34,14 +28,6 @@ public class IngresoPaciente extends GenericPersistentClass {
 
 	public IngresoPaciente() {
 		super();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	private void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getMotivoConsulta() {
@@ -89,8 +75,9 @@ public class IngresoPaciente extends GenericPersistentClass {
 		this.motivoConsulta = motivoConsulta;
 	}
 	public void editId(Long id) {
-		this.id = id;
+		this.setId(id);
 	}
 
+	
 }
 	

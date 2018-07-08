@@ -7,9 +7,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -17,10 +14,7 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 @Entity
-public class Patologia extends GenericPersistentClass{
-	@Id   @GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Long id;
-
+public class Patologia extends GenericPersistentClass {
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Patologia father;
@@ -41,7 +35,7 @@ public class Patologia extends GenericPersistentClass{
 	
 	public Patologia(Long id, String nombre, String otroDato) {
 		super();
-		this.id = id;
+		this.setId(id);
 		this.setNombre(nombre);
 		this.setOtroDato(otroDato);
 	}
@@ -49,7 +43,7 @@ public class Patologia extends GenericPersistentClass{
 	
 	public Patologia(Long id, Patologia father, Set<Patologia> childs, String nombre, String otroDato) {
 		super();
-		this.id = id;
+		this.setId(id);
 		this.setFather(father);
 		this.setChilds(new HashSet<Patologia>());
 		if(childs != null)
@@ -79,14 +73,6 @@ public class Patologia extends GenericPersistentClass{
 
 	public void setOtroDato(String otroDato) {
 		this.otroDato = otroDato;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public Patologia getFather() {

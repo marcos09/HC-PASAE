@@ -1,26 +1,23 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 
 @Entity
-public class Seguimiento extends GenericPersistentClass{
-
-	@Id   @GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Long id;
+public class Seguimiento extends GenericPersistentClass {
 
 	private Date fecha;
 	private String resultado;
 	
+	@OneToMany
 	private Set<Prescripcion> prescripciones;
+	
+	@OneToMany
 	private Set<EstudioComplementario> estudiosComplementarios;
 	
 	public Seguimiento() {
@@ -55,7 +52,5 @@ public class Seguimiento extends GenericPersistentClass{
 	public void setEstudiosComplementarios(Set<EstudioComplementario> estudiosComplementarios) {
 		this.estudiosComplementarios = estudiosComplementarios;
 	}
-	
-	
-	
+
 }

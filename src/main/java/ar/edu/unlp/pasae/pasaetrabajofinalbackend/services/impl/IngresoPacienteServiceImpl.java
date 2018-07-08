@@ -23,11 +23,9 @@ public class IngresoPacienteServiceImpl extends GenericServiceImpl implements In
 	@Autowired
 	private IngresoPacienteRepository repository;
 
-	@Autowired
-	private Transform genericTransform;
 	
-	public IngresoPacienteRepository getRepository() {
-		return repository;
+	public GenericRepository getRepository() {
+		return (GenericRepository) repository;
 	}
 	
 	
@@ -59,7 +57,7 @@ public class IngresoPacienteServiceImpl extends GenericServiceImpl implements In
 	public GenericDTO retrive(Long id) {
 		Optional<IngresoPaciente> ingreso = repository.findById(id);
 		if(ingreso.isPresent()) {
-			return genericTransform.getIngresoPacienteDTO(ingreso.get());
+			return this.getGenericTransform().getIngresoPacienteDTO(ingreso.get());
 		}
 		return null;
 	}
@@ -76,14 +74,6 @@ public class IngresoPacienteServiceImpl extends GenericServiceImpl implements In
 			 list.add(ingresoDTO);
 		 }
 		 return list;
-	}
-
-	public Transform getGenericTransform() {
-		return genericTransform;
-	}
-
-	public void setGenericTransform(Transform genericTransform) {
-		this.genericTransform = genericTransform;
 	}
 	
 	//Prueba para ver si funciona el aspecto que convierte las excepciones no manejadas
