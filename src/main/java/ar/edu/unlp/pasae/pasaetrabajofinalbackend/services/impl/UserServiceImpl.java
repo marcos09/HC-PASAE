@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.GenericDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.UserDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.User;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.GenericRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.UserRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.UserService;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transform;
 
 @Service
 public class UserServiceImpl extends GenericServiceImpl implements UserService {
@@ -22,8 +22,8 @@ public class UserServiceImpl extends GenericServiceImpl implements UserService {
 	@Autowired
 	private UserRepository repository;
 		
-	public GenericRepository getRepository() {
-		return (GenericRepository) repository;
+	public GenericRepository<User,Long> getRepository() {
+		return (GenericRepository<User,Long>) repository;
 	}
 	
 	public void setRepository(UserRepository repository) {
@@ -38,29 +38,10 @@ public class UserServiceImpl extends GenericServiceImpl implements UserService {
 		super();
 	}
 
-	@Override
-	public void create(GenericDTO persistentDTO) {
-		this.getParticularRepository().save(this.getGenericTransform().getUser((UserDTO)persistentDTO));
-
-	}
 
 	@Override
 	public void update(GenericDTO persistentDTO) {
 		this.getParticularRepository().save(this.getGenericTransform().getUser((UserDTO) persistentDTO));
-	}
-
-	@Override
-	public void delete(Long id) {
-		this.getParticularRepository().deleteById(id);
-	}
-
-	@Override
-	public GenericDTO retrive(Long id) {
-		Optional<User> user = this.getParticularRepository().findById(id);
-		if(user.isPresent()) {
-			return this.getGenericTransform().getUserDTO(user.get());
-		}
-		return null;
 	}
 
 	@Override

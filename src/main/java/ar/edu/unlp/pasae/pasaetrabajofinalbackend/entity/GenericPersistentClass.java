@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public abstract class GenericPersistentClass {
+public abstract class GenericPersistentClass implements GenericPersistentEntity {
 	@Id   @GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
 

@@ -1,13 +1,13 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform;
 
 import java.util.Iterator;
-import java.util.Set;
-
 import org.springframework.stereotype.Component;
-
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.GenericDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PatologiaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.UserDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.GenericPersistentClass;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.GenericPersistentEntity;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Patologia;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.User;
@@ -70,6 +70,34 @@ public class GenericTransform implements Transform{
 		}
 		return patologia;
 		
+	}
+
+	@Override
+	public GenericDTO getEntityDTO(GenericPersistentEntity genericPersistentClass) {
+		switch(genericPersistentClass.getClass().getName()) {
+		case "ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente":
+			return this.getIngresoPacienteDTO((IngresoPaciente) genericPersistentClass);
+		case "ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Patologia":
+			return this.getPatologiaDTO((Patologia) genericPersistentClass);
+		case "ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.User":
+			return this.getUserDTO((User) genericPersistentClass);
+		default:
+			return null;
+		}
+	}
+	
+	public GenericPersistentClass getEntity(GenericDTO genericDTO) {
+		switch(genericDTO.getClass().getName()) {
+		case "ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacientDTOe":
+			return this.getIngresoPaciente((IngresoPacienteDTO) genericDTO);
+		case "ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PatologiaDTO":
+			return this.getPatologia((PatologiaDTO) genericDTO);
+		case "ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.UserDTO":
+			return this.getUser ((UserDTO) genericDTO);
+		default:
+			return null;
+		}
+
 	}
 
 }
