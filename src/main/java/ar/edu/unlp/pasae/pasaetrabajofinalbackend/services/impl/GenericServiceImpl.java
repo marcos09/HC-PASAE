@@ -1,10 +1,14 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.GenericDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.GenericPersistentClass;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.GenericPersistentEntity;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.GenericService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transform;
@@ -56,7 +60,20 @@ public abstract class GenericServiceImpl implements GenericService {
 		this.create(genericDTO);
 	}
 
-	
+	@Override
+	public List<GenericDTO> list() {
+		 List<GenericPersistentEntity> result = this.getRepository().findAll();
+		 
+		 List<GenericDTO> list = new ArrayList<GenericDTO>();
+		 Iterator<GenericPersistentEntity> it = result.iterator();
+		 while(it.hasNext()) {
+			 GenericPersistentEntity element = (GenericPersistentClass) it.next();
+			 GenericDTO genericDTO = this.getGenericTransform().getEntityDTO(element);
+			 list.add(genericDTO);
+		 }
+		 return list;
+	}
+
 	/*
 	public List<GenericDTO> list(){
 		//List<GenericPersistentClass> result = this.getRepository();
