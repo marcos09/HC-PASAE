@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        .logout()
 	            .permitAll()
 	            .and()
-			.csrf().disable();
-			//.headers().frameOptions().disable();
+			.csrf().disable()
+			.headers().frameOptions().disable();
 	}
 }

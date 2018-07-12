@@ -34,6 +34,7 @@ public class IngresoPacienteController {
 	
 	
 	//Listo todos los ingresos
+	
 	@GetMapping(path = "/list")
 	public Collection<GenericDTO> list(){
 		List<GenericDTO> ingresos = this.getIngresoService().list();

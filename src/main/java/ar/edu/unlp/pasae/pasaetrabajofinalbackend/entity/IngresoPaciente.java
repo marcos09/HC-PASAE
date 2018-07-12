@@ -1,8 +1,10 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
+@PrimaryKeyJoinColumn(name="id")
 public class IngresoPaciente extends GenericPersistentClass{	
 
 	@NotEmpty(message = "El motivo de consulta no puede ser nulo o vacío")
