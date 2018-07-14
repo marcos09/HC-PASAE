@@ -1,14 +1,12 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 
-@Entity
-@Inheritance(strategy=InheritanceType.JOINED)
+@MappedSuperclass
+
 public abstract class GenericPersistentClass implements GenericPersistentEntity {
 	@Id   @GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;

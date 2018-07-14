@@ -34,12 +34,12 @@ public class User extends GenericPersistentClass{
 		this.setUsername(username);
 	}
 
-	private void setUsername(String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
 
 
-	private void setEmail(String email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 

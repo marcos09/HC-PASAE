@@ -1,20 +1,24 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 
 
 
-public interface IngresoPacienteService extends GenericService{
+public interface IngresoPacienteService{
+	
+	
+	void create(IngresoPacienteDTO persistentDTO); 
+	void update(IngresoPacienteDTO persistentDTO);
+	void delete(Long id); 
+	IngresoPacienteDTO retrive(Long id);
+	List<IngresoPacienteDTO> list();
 	
 	//Prueba para ver si funciona el aspecto que convierte las excepciones no manejadas
 	//void thowException() throws BaseException;
 
-	/*
-	PersonDTO findByNameAndSurname(String name, String surname) throws PersonNotFoundException;
-	Collection<PersonDTO> findByNameStartingWithOrderBySurnameDesc(String prefix) throws PersonNotFoundException;
-	PersonDTO save(String name, String lastname, String phoneNumber);
-
-	*/
 }

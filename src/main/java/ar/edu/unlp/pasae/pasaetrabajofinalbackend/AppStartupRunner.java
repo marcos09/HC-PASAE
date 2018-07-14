@@ -35,8 +35,8 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.getIngresoRepository().save(new IngresoPaciente(3L, "motivo3", "enfermedad 3", "diagostico sintomático3", "diagnostico presuntivo 3"));
 		
 		
-		this.getUserRepository().save(new User(4L, "gmastro", "mastronardi.gonzalo@gmail.com", "ROLE_STUDENT"));
-		this.getUserRepository().save(new User(5L, "marcosmat","iriarte.marcos@gmail.com", "ROLE_STUDENT"));
+//		this.getUserRepository().save(new User(4L, "gmastro", "mastronardi.gonzalo@gmail.com", "ROLE_STUDENT"));
+//		this.getUserRepository().save(new User(5L, "marcosmat","iriarte.marcos@gmail.com", "ROLE_STUDENT"));
 		
 		
 		Patologia patologia1 = new Patologia(1L, null, null, "patologia padre", "padre de hija1,2");
