@@ -8,9 +8,11 @@ import org.springframework.stereotype.Component;
 import java.util.HashSet;
 import java.util.List;
 
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Patologia;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.User;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.EstudioComplementarioRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.IngresoPacienteRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.PatologiasRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.UserRepository;
@@ -26,13 +28,33 @@ public class AppStartupRunner implements ApplicationRunner {
 	
 	@Autowired
 	private PatologiasRepository patologiasRepository;
+	
+	@Autowired
+	private EstudioComplementarioRepository estudioRepository;
 
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		this.getIngresoRepository().save(new IngresoPaciente(1L, "motivo1", "enfermedad 1", "diagostico sintomático1", "diagnostico presuntivo 1"));
-		this.getIngresoRepository().save(new IngresoPaciente(2L, "motivo2", "enfermedad 2", "diagostico sintomático2", "diagnostico presuntivo 2"));
-		this.getIngresoRepository().save(new IngresoPaciente(3L, "motivo3", "enfermedad 3", "diagostico sintomático3", "diagnostico presuntivo 3"));
+		
+		EstudioComplementario estudio1 = new EstudioComplementario();
+		EstudioComplementario estudio2 = new EstudioComplementario();
+		EstudioComplementario estudio3 = new EstudioComplementario();
+		EstudioComplementario estudio4 = new EstudioComplementario();
+		HashSet<EstudioComplementario> estudiosP1 = new HashSet<EstudioComplementario>();
+		HashSet<EstudioComplementario> estudiosP2 = new HashSet<EstudioComplementario>();
+		HashSet<EstudioComplementario> estudiosP3 = new HashSet<EstudioComplementario>();
+		estudiosP1.add(estudio1);
+		estudiosP2.add(estudio2);
+		estudiosP3.add(estudio3);
+		estudiosP1.add(estudio4);
+		this.getEstudioRepository().save(estudio1);
+		this.getEstudioRepository().save(estudio2);
+		this.getEstudioRepository().save(estudio3);
+		this.getEstudioRepository().save(estudio4);
+		
+		this.getIngresoRepository().save(new IngresoPaciente(1L, "motivo1", "enfermedad 1", "diagostico sintomático1", "diagnostico presuntivo 1", estudiosP1));
+		this.getIngresoRepository().save(new IngresoPaciente(2L, "motivo2", "enfermedad 2", "diagostico sintomático2", "diagnostico presuntivo 2", estudiosP2));
+		this.getIngresoRepository().save(new IngresoPaciente(3L, "motivo3", "enfermedad 3", "diagostico sintomático3", "diagnostico presuntivo 3", estudiosP3));
 		
 		
 //		this.getUserRepository().save(new User(4L, "gmastro", "mastronardi.gonzalo@gmail.com", "ROLE_STUDENT"));
@@ -51,6 +73,8 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.getPatologiasRepository().save(patologia2);
 		this.getPatologiasRepository().save(patologia3);
 		this.getPatologiasRepository().save(patologia4);
+		
+		
 		
 		List<Patologia> patologias = this.getPatologiasRepository().findAll();
 		//public Patologia(Long id, Patologia father, Set<Patologia> childs, String nombre, String otroDato) {
@@ -79,6 +103,14 @@ public class AppStartupRunner implements ApplicationRunner {
 
 	public void setPatologiasRepository(PatologiasRepository patologiasRepository) {
 		this.patologiasRepository = patologiasRepository;
+	}
+
+	public EstudioComplementarioRepository getEstudioRepository() {
+		return estudioRepository;
+	}
+
+	public void setEstudioRepository(EstudioComplementarioRepository estudioRepository) {
+		this.estudioRepository = estudioRepository;
 	}
 	
 	

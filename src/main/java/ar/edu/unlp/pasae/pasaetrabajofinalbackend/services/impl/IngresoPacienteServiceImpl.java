@@ -65,7 +65,7 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService{
 	@Override
 	public void create(IngresoPacienteDTO dto) {
 		// TODO Auto-generated method stub
-		IngresoPaciente ip = new IngresoPaciente(dto.getId(),dto.getMotivoConsulta(),dto.getEnfermedadActual(),dto.getDiagnosticoSintomatico(),dto.getDiagnosticoPresuntivo());
+		IngresoPaciente ip = new IngresoPaciente(dto.getId(),dto.getMotivoConsulta(),dto.getEnfermedadActual(),dto.getDiagnosticoSintomatico(),dto.getDiagnosticoPresuntivo(),dto.getEstudiosComplementarios());
 		Set<ConstraintViolation<IngresoPaciente>> validations = validator.validate(ip);//si esta vacio no hubieron errores de validacion
 		if (validations.isEmpty()) {
 			this.getRepository().save(ip);

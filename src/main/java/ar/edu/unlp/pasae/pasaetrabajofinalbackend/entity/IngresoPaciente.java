@@ -1,5 +1,9 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotEmpty;
 
@@ -16,20 +20,26 @@ public class IngresoPaciente extends GenericPersistentClass{
 	@NotEmpty(message = "El diagnostico presuntivo no puede ser nulo o vacío")
 	private String diagnosticoPresuntivo;
 	
+	@OneToMany
+	private Set<EstudioComplementario> estudiosComplementarios;
+	
 	
 	
 	public IngresoPaciente(Long id, String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
-			String diagnosticoPresuntivo) {
+			String diagnosticoPresuntivo, Set<EstudioComplementario> estudios) {
 		super();
 		this.setId(id);
 		this.setMotivoConsulta(motivoConsulta);
 		this.setEnfermedadActual(enfermedadActual);
 		this.setDiagnosticoSintomatico(diagnosticoSintomatico);
 		this.setDiagnosticoPresuntivo(diagnosticoPresuntivo);
+		this.setEstudiosComplementarios(estudios);
+
 	}
 
 	public IngresoPaciente() {
 		super();
+		this.setEstudiosComplementarios(new HashSet<EstudioComplementario>());
 	}
 
 	public String getMotivoConsulta() {
@@ -76,6 +86,13 @@ public class IngresoPaciente extends GenericPersistentClass{
 	public void editMotivoConsulta(String motivoConsulta) {
 		this.motivoConsulta = motivoConsulta;
 	}
+	public Set<EstudioComplementario> getEstudiosComplementarios() {
+		return estudiosComplementarios;
+	}
+	public void setEstudiosComplementarios(Set<EstudioComplementario> estudiosComplementarios) {
+		this.estudiosComplementarios = estudiosComplementarios;
+	}
+	
 	public void editId(Long id) {
 		this.setId(id);
 	}

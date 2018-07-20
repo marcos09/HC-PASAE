@@ -1,6 +1,11 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.validation.constraints.NotEmpty;
+
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
 
 public class IngresoPacienteDTO extends GenericDTOImpl{
 	
@@ -14,19 +19,22 @@ public class IngresoPacienteDTO extends GenericDTOImpl{
 	@NotEmpty(message = "El diagnostico presuntivo no puede ser nulo o vacío")
 	private String diagnosticoPresuntivo;
 	
+	private Set<EstudioComplementario> estudiosComplementarios;
+	
 	
 	public IngresoPacienteDTO() {
 		super();
 	}
 
 	public IngresoPacienteDTO(Long id, String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
-			String diagnosticoPresuntivo) {
+			String diagnosticoPresuntivo, Set<EstudioComplementario> estudios) {
 		super();
 		this.setId(id);
 		this.setMotivoConsulta(motivoConsulta);
 		this.setEnfermedadActual(enfermedadActual);
 		this.setDiagnosticoSintomatico(diagnosticoSintomatico);
 		this.setDiagnosticoPresuntivo(diagnosticoPresuntivo);
+		this.setEstudiosComplementarios(estudios);
 	}
 	
 
@@ -68,6 +76,12 @@ public class IngresoPacienteDTO extends GenericDTOImpl{
 
 	public void setDiagnosticoPresuntivo(String diagnosticoPresuntivo) {
 		this.diagnosticoPresuntivo = diagnosticoPresuntivo;
+	}
+	public Set<EstudioComplementario> getEstudiosComplementarios() {
+		return estudiosComplementarios;
+	}
+	public void setEstudiosComplementarios(Set<EstudioComplementario> estudiosComplementarios) {
+		this.estudiosComplementarios = estudiosComplementarios;
 	}
 	
 	
