@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.aspect.ExceptionHandlerAspect;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.GenericDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.IngresoPacienteService;
@@ -34,9 +33,10 @@ public class IngresoPacienteController {
 	
 	
 	//Listo todos los ingresos
+	
 	@GetMapping(path = "/list")
-	public Collection<GenericDTO> list(){
-		List<GenericDTO> ingresos = this.getIngresoService().list();
+	public List<IngresoPacienteDTO> list(){
+		List<IngresoPacienteDTO> ingresos = this.getIngresoService().list();
 		return ingresos;
 	}
 	
@@ -59,7 +59,7 @@ public class IngresoPacienteController {
 	
 	//Recupero un ingreso con el id
 	 @GetMapping(path = "/{id}", produces = "application/json")
-	   public GenericDTO show(@PathVariable(value = "id") Long id) {
+	   public IngresoPacienteDTO show(@PathVariable(value = "id") Long id) {
 	    return this.getIngresoService().retrive(id);
 	   }
 	 

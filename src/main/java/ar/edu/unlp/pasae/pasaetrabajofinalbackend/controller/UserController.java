@@ -1,6 +1,5 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.controller;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.GenericDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.UserDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.UserService;
 
@@ -28,14 +26,14 @@ public class UserController {
 
 	//Listo todos los ingresos
 	@GetMapping(path = "/list")
-	public Collection<GenericDTO> list(){
-		List<GenericDTO> ingresos = this.getUserService().list();
+	public List<UserDTO> list(){
+		List<UserDTO> ingresos = this.getUserService().list();
 		return ingresos;
 	}
 	
 	//Recupero un usuario con el id
 	 @GetMapping(path = "/{id}", produces = "application/json")
-	   public GenericDTO show(@PathVariable(value = "id") Long id) {
+	   public UserDTO show(@PathVariable(value = "id") Long id) {
 	    return this.getUserService().retrive(id);
 	   }
 	 

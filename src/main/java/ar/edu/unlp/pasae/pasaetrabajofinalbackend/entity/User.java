@@ -1,10 +1,12 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@PrimaryKeyJoinColumn(name="id")
 public class User extends GenericPersistentClass{
 
 	@NotEmpty(message = "El nombre de usuario no puede ser nulo o vacío")
@@ -32,12 +34,12 @@ public class User extends GenericPersistentClass{
 		this.setUsername(username);
 	}
 
-	private void setUsername(String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
 
 
-	private void setEmail(String email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 

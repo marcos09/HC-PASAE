@@ -1,8 +1,14 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
+@PrimaryKeyJoinColumn(name="id")
 public class IngresoPaciente extends GenericPersistentClass{	
 
 	@NotEmpty(message = "El motivo de consulta no puede ser nulo o vacío")
@@ -14,7 +20,10 @@ public class IngresoPaciente extends GenericPersistentClass{
 	@NotEmpty(message = "El diagnostico presuntivo no puede ser nulo o vacío")
 	private String diagnosticoPresuntivo;
 	
-	
+	@OneToMany
+	private Set<EstudioComplementario> estudiosComplementarios;
+	@OneToMany
+	private Set<Prescripcion> prescripciones;
 	
 	public IngresoPaciente(Long id, String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
 			String diagnosticoPresuntivo) {
@@ -24,10 +33,28 @@ public class IngresoPaciente extends GenericPersistentClass{
 		this.setEnfermedadActual(enfermedadActual);
 		this.setDiagnosticoSintomatico(diagnosticoSintomatico);
 		this.setDiagnosticoPresuntivo(diagnosticoPresuntivo);
+		this.setEstudiosComplementarios(new HashSet<EstudioComplementario>());
+		this.setPrescripciones(new HashSet<Prescripcion>());
+
+	}
+	
+	public IngresoPaciente(Long id, String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
+			String diagnosticoPresuntivo, Set<EstudioComplementario> estudios,Set<Prescripcion> prescripciones ) {
+		super();
+		this.setId(id);
+		this.setMotivoConsulta(motivoConsulta);
+		this.setEnfermedadActual(enfermedadActual);
+		this.setDiagnosticoSintomatico(diagnosticoSintomatico);
+		this.setDiagnosticoPresuntivo(diagnosticoPresuntivo);
+		this.setEstudiosComplementarios(estudios);
+		this.setPrescripciones(prescripciones);
+
 	}
 
 	public IngresoPaciente() {
 		super();
+		this.setEstudiosComplementarios(new HashSet<EstudioComplementario>());
+		this.setPrescripciones(new HashSet<Prescripcion>());
 	}
 
 	public String getMotivoConsulta() {
@@ -74,6 +101,32 @@ public class IngresoPaciente extends GenericPersistentClass{
 	public void editMotivoConsulta(String motivoConsulta) {
 		this.motivoConsulta = motivoConsulta;
 	}
+	public Set<EstudioComplementario> getEstudiosComplementarios() {
+		return estudiosComplementarios;
+	}
+	public void setEstudiosComplementarios(Set<EstudioComplementario> estudiosComplementarios) {
+		this.estudiosComplementarios = estudiosComplementarios;
+	}
+	public Set<Prescripcion> getPrescripciones() {
+		return prescripciones;
+	}
+	public void setPrescripciones(Set<Prescripcion> prescripciones) {
+		this.prescripciones = prescripciones;
+	}
+	
+	public void addEstudio(EstudioComplementario estudio) {
+		this.getEstudiosComplementarios().add(estudio);
+	}
+	public void addPrescripcion(Prescripcion prescripcion) {
+		this.getPrescripciones().add(prescripcion);
+	}
+	public void removeEstudio(EstudioComplementario estudio) {
+		this.getEstudiosComplementarios().remove(estudio);
+	}
+	public void removePrescripcion(Prescripcion prescripcion) {
+		this.getPrescripciones().remove(prescripcion);
+	}
+	
 	public void editId(Long id) {
 		this.setId(id);
 	}

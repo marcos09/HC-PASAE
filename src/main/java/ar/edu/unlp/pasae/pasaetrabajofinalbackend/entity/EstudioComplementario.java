@@ -3,8 +3,10 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
+@PrimaryKeyJoinColumn(name="id")
 public class EstudioComplementario extends GenericPersistentClass{
 	
 

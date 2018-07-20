@@ -6,9 +6,11 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 
 @Entity
+@PrimaryKeyJoinColumn(name="id")
 public class Seguimiento extends GenericPersistentClass {
 
 	private Date fecha;
