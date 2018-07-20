@@ -18,13 +18,13 @@ public class IngresoPacienteTransformer implements Transformer<IngresoPaciente, 
 	@Override
 	public IngresoPacienteDTO toDTO(IngresoPaciente ip) {
 		// TODO Auto-generated method stub
-		return new IngresoPacienteDTO(ip.getId(),ip.getMotivoConsulta(),ip.getEnfermedadActual(),ip.getDiagnosticoSintomatico(),ip.getDiagnosticoPresuntivo(),ip.getEstudiosComplementarios());
+		return new IngresoPacienteDTO(ip.getId(),ip.getMotivoConsulta(),ip.getEnfermedadActual(),ip.getDiagnosticoSintomatico(),ip.getDiagnosticoPresuntivo(),ip.getEstudiosComplementarios(),ip.getPrescripciones());
 	}
 
 	@Override
 	public IngresoPaciente toEntity(IngresoPacienteDTO dto) {
 		// TODO Auto-generated method stub
-		return new IngresoPaciente(dto.getId(),dto.getMotivoConsulta(),dto.getEnfermedadActual(),dto.getDiagnosticoSintomatico(),dto.getDiagnosticoPresuntivo(),dto.getEstudiosComplementarios());
+		return new IngresoPaciente(dto.getId(),dto.getMotivoConsulta(),dto.getEnfermedadActual(),dto.getDiagnosticoSintomatico(),dto.getDiagnosticoPresuntivo(),dto.getEstudiosComplementarios(),dto.getPrescripciones());
 	}
 
 	@Override

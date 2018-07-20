@@ -22,11 +22,24 @@ public class IngresoPaciente extends GenericPersistentClass{
 	
 	@OneToMany
 	private Set<EstudioComplementario> estudiosComplementarios;
-	
-	
+	@OneToMany
+	private Set<Prescripcion> prescripciones;
 	
 	public IngresoPaciente(Long id, String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
-			String diagnosticoPresuntivo, Set<EstudioComplementario> estudios) {
+			String diagnosticoPresuntivo) {
+		super();
+		this.setId(id);
+		this.setMotivoConsulta(motivoConsulta);
+		this.setEnfermedadActual(enfermedadActual);
+		this.setDiagnosticoSintomatico(diagnosticoSintomatico);
+		this.setDiagnosticoPresuntivo(diagnosticoPresuntivo);
+		this.setEstudiosComplementarios(new HashSet<EstudioComplementario>());
+		this.setPrescripciones(new HashSet<Prescripcion>());
+
+	}
+	
+	public IngresoPaciente(Long id, String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
+			String diagnosticoPresuntivo, Set<EstudioComplementario> estudios,Set<Prescripcion> prescripciones ) {
 		super();
 		this.setId(id);
 		this.setMotivoConsulta(motivoConsulta);
@@ -34,12 +47,14 @@ public class IngresoPaciente extends GenericPersistentClass{
 		this.setDiagnosticoSintomatico(diagnosticoSintomatico);
 		this.setDiagnosticoPresuntivo(diagnosticoPresuntivo);
 		this.setEstudiosComplementarios(estudios);
+		this.setPrescripciones(prescripciones);
 
 	}
 
 	public IngresoPaciente() {
 		super();
 		this.setEstudiosComplementarios(new HashSet<EstudioComplementario>());
+		this.setPrescripciones(new HashSet<Prescripcion>());
 	}
 
 	public String getMotivoConsulta() {
@@ -91,6 +106,25 @@ public class IngresoPaciente extends GenericPersistentClass{
 	}
 	public void setEstudiosComplementarios(Set<EstudioComplementario> estudiosComplementarios) {
 		this.estudiosComplementarios = estudiosComplementarios;
+	}
+	public Set<Prescripcion> getPrescripciones() {
+		return prescripciones;
+	}
+	public void setPrescripciones(Set<Prescripcion> prescripciones) {
+		this.prescripciones = prescripciones;
+	}
+	
+	public void addEstudio(EstudioComplementario estudio) {
+		this.getEstudiosComplementarios().add(estudio);
+	}
+	public void addPrescripcion(Prescripcion prescripcion) {
+		this.getPrescripciones().add(prescripcion);
+	}
+	public void removeEstudio(EstudioComplementario estudio) {
+		this.getEstudiosComplementarios().remove(estudio);
+	}
+	public void removePrescripcion(Prescripcion prescripcion) {
+		this.getPrescripciones().remove(prescripcion);
 	}
 	
 	public void editId(Long id) {

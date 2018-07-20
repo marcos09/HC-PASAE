@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.validation.constraints.NotEmpty;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Prescripcion;
 
 public class IngresoPacienteDTO extends GenericDTOImpl{
 	
@@ -20,14 +21,14 @@ public class IngresoPacienteDTO extends GenericDTOImpl{
 	private String diagnosticoPresuntivo;
 	
 	private Set<EstudioComplementario> estudiosComplementarios;
-	
+	private Set<Prescripcion> prescripciones;
 	
 	public IngresoPacienteDTO() {
 		super();
 	}
 
 	public IngresoPacienteDTO(Long id, String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
-			String diagnosticoPresuntivo, Set<EstudioComplementario> estudios) {
+			String diagnosticoPresuntivo, Set<EstudioComplementario> estudios, Set<Prescripcion> prescripciones) {
 		super();
 		this.setId(id);
 		this.setMotivoConsulta(motivoConsulta);
@@ -35,6 +36,20 @@ public class IngresoPacienteDTO extends GenericDTOImpl{
 		this.setDiagnosticoSintomatico(diagnosticoSintomatico);
 		this.setDiagnosticoPresuntivo(diagnosticoPresuntivo);
 		this.setEstudiosComplementarios(estudios);
+		this.setPrescripciones(prescripciones);
+	}
+	
+	public IngresoPacienteDTO(Long id, String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
+			String diagnosticoPresuntivo) {
+		super();
+		this.setId(id);
+		this.setMotivoConsulta(motivoConsulta);
+		this.setEnfermedadActual(enfermedadActual);
+		this.setDiagnosticoSintomatico(diagnosticoSintomatico);
+		this.setDiagnosticoPresuntivo(diagnosticoPresuntivo);
+		this.setEstudiosComplementarios(new HashSet<EstudioComplementario>());
+		this.setPrescripciones(new HashSet<Prescripcion>());
+		
 	}
 	
 
@@ -83,7 +98,26 @@ public class IngresoPacienteDTO extends GenericDTOImpl{
 	public void setEstudiosComplementarios(Set<EstudioComplementario> estudiosComplementarios) {
 		this.estudiosComplementarios = estudiosComplementarios;
 	}
-	
+
+	public Set<Prescripcion> getPrescripciones() {
+		return prescripciones;
+	}
+
+	public void setPrescripciones(Set<Prescripcion> prescripciones) {
+		this.prescripciones = prescripciones;
+	}
+	public void addEstudio(EstudioComplementario estudio) {
+		this.getEstudiosComplementarios().add(estudio);
+	}
+	public void addPrescripcion(Prescripcion prescripcion) {
+		this.getPrescripciones().add(prescripcion);
+	}
+	public void removeEstudio(EstudioComplementario estudio) {
+		this.getEstudiosComplementarios().remove(estudio);
+	}
+	public void removePrescripcion(Prescripcion prescripcion) {
+		this.getPrescripciones().remove(prescripcion);
+	}
 	
 
 }
