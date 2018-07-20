@@ -3,10 +3,10 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.controller;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,7 +46,8 @@ public class UserController {
 	   }
 	 
 	 //Alta de un usuario
-	 @PutMapping(path = "/crearUsuario", consumes = "application/json", produces = "application/json")
+	 @CrossOrigin
+	 @PutMapping(path = "/crearUsuario", consumes="application/json", produces = "application/json")
 	   public  void create(@RequestBody @Valid UserDTO user) {
 	        this.getUserService().create(user);
 	   }
