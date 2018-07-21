@@ -3,7 +3,6 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services;
 import java.util.List;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 
 
 

@@ -1,6 +1,5 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.controller;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.aspect.ExceptionHandlerAspect;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.IngresoPacienteService;
 
 @RestController

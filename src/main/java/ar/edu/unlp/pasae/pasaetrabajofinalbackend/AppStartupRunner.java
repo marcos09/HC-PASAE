@@ -1,6 +1,5 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend;
 import java.util.HashSet;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -87,12 +86,6 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.getPatologiasRepository().save(patologia2);
 		this.getPatologiasRepository().save(patologia3);
 		this.getPatologiasRepository().save(patologia4);
-		
-		
-		
-		List<Patologia> patologias = this.getPatologiasRepository().findAll();
-		//public Patologia(Long id, Patologia father, Set<Patologia> childs, String nombre, String otroDato) {
-
 	}
 
 	public IngresoPacienteRepository getIngresoRepository() {
@@ -134,9 +127,4 @@ public class AppStartupRunner implements ApplicationRunner {
 	public void setPrescripcionRepository(PrescripcionRepository prescripcionRepository) {
 		this.prescripcionRepository = prescripcionRepository;
 	}
-	
-	
-	
-	
-	
 }
