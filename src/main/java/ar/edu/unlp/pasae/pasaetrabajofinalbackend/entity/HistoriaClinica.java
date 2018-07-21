@@ -1,5 +1,9 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
@@ -12,6 +16,14 @@ public class HistoriaClinica extends GenericPersistentClass {
 	
 	@OneToOne
 	private Egreso egreso;
+	
+	@OneToMany
+	private Set<Seguimiento> seguimientos;
+	
+	public HistoriaClinica() {
+		super();
+		this.setSeguimientos(new HashSet<Seguimiento>());
+	}
 
 	public Egreso getEgreso() {
 		return egreso;
@@ -27,6 +39,14 @@ public class HistoriaClinica extends GenericPersistentClass {
 
 	public void setIngreso(IngresoPaciente ingreso) {
 		this.ingreso = ingreso;
+	}
+
+	public Set<Seguimiento> getSeguimientos() {
+		return seguimientos;
+	}
+
+	public void setSeguimientos(Set<Seguimiento> seguimientos) {
+		this.seguimientos = seguimientos;
 	}
 
 	

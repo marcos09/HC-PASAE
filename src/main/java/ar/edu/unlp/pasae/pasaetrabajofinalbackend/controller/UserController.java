@@ -38,6 +38,7 @@ public class UserController {
 	   }
 	 
 	 //Elimino un usuario con el id
+	 @CrossOrigin
 	 @DeleteMapping(path = "/{id}")
 	   public void delete(@PathVariable(value = "id") Long id) {
 	     this.getUserService().delete(id);
