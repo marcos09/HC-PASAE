@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EstudioComplementarioDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Prescripcion;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.IngresoPacienteService;
 
 @RunWith(SpringRunner.class)
@@ -24,11 +24,11 @@ public class IngresoPacienteApplicationTests {
 	@Test
 	public void create() {
 		
-		EstudioComplementario estudio1 = new EstudioComplementario();
-		HashSet<EstudioComplementario> estudios = new HashSet<EstudioComplementario>();
+		EstudioComplementarioDTO estudio1 = new EstudioComplementarioDTO();
+		HashSet<EstudioComplementarioDTO> estudios = new HashSet<EstudioComplementarioDTO>();
 		estudios.add(estudio1);
-		Prescripcion prescripcion1 = new Prescripcion();
-		HashSet<Prescripcion> prescripciones = new HashSet<Prescripcion>();
+		PrescripcionDTO prescripcion1 = new PrescripcionDTO();
+		HashSet<PrescripcionDTO> prescripciones = new HashSet<PrescripcionDTO>();
 		prescripciones.add(prescripcion1);
 		IngresoPacienteDTO ingreso = new IngresoPacienteDTO(1L, "motivoConsulta", "enfermedadActual", "diagnosticoSintomatico", "diagnosticoPresuntivo",estudios,prescripciones);
 		this.getIngresoService().create(ingreso);

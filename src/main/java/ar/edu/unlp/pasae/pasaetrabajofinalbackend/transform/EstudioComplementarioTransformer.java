@@ -6,9 +6,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.stereotype.Component;
+
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EstudioComplementarioDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
 
+@Component
 public class EstudioComplementarioTransformer implements Transformer<EstudioComplementario, EstudioComplementarioDTO> {
 
 	@Override

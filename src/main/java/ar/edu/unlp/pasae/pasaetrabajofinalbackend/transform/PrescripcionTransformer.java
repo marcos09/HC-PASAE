@@ -6,9 +6,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.stereotype.Component;
+
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Prescripcion;
 
+@Component
 public class PrescripcionTransformer implements Transformer<Prescripcion, PrescripcionDTO> {
 
 	@Override
