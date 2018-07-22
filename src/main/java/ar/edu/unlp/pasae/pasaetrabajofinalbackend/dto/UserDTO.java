@@ -1,10 +1,9 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto;
 
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class UserDTO extends GenericDTOImpl{
+public class UserDTO extends GenericDTOImpl {
 
 	private Long id;
 	@NotEmpty(message = "El nombre de usuario no puede ser nulo o vacío")
@@ -13,12 +12,12 @@ public class UserDTO extends GenericDTOImpl{
 	private String email;
 	@NotNull
 	public String authorities;
-	
+
 	public UserDTO() {
 		super();
 	}
-	
-	public UserDTO(Long id,String username,String email,String authorities) {
+
+	public UserDTO(Long id, String username, String email, String authorities) {
 		super();
 		this.setId(id);
 		this.setEmail(email);
@@ -26,9 +25,10 @@ public class UserDTO extends GenericDTOImpl{
 		this.setAuthorities(authorities);
 	}
 
-	public UserDTO(String username,String password,String email) {
+	public UserDTO(String username, String password, String email) {
 		super();
-		this.setEmail(email);;
+		this.setEmail(email);
+		;
 		this.setUsername(username);
 	}
 
@@ -64,6 +64,4 @@ public class UserDTO extends GenericDTOImpl{
 		this.authorities = authorities;
 	}
 
-	
-	
 }

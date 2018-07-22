@@ -21,13 +21,13 @@ public class UserTransformer implements Transformer<User, UserDTO> {
 	@Override
 	public UserDTO toDTO(User u) {
 		// TODO Auto-generated method stub
-		return new UserDTO(u.getId(),u.getUsername(),u.getEmail(),u.getAuthorities());
+		return new UserDTO(u.getId(), u.getUsername(), u.getEmail(), u.getAuthorities());
 	}
 
 	@Override
 	public User toEntity(UserDTO dto) {
 		// TODO Auto-generated method stub
-		return new User(dto.getId(),dto.getUsername(),dto.getEmail(),dto.getAuthorities());
+		return new User(dto.getId(), dto.getUsername(), dto.getEmail(), dto.getAuthorities());
 	}
 
 	@Override

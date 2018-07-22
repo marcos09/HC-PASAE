@@ -4,10 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class PatologiaDTO extends GenericDTOImpl {
-	
+
 	private String nombre, otroDato;
 	private PatologiaDTO father;
 	private Set<PatologiaDTO> childs;
+
 	public PatologiaDTO() {
 		super();
 		this.setChilds(new HashSet<PatologiaDTO>());
@@ -58,12 +59,9 @@ public class PatologiaDTO extends GenericDTOImpl {
 	public void setChilds(Set<PatologiaDTO> childs) {
 		this.childs = childs;
 	}
-	
+
 	public void addChild(PatologiaDTO child) {
 		childs.add(child);
 	}
-	
-	
-	
 
 }

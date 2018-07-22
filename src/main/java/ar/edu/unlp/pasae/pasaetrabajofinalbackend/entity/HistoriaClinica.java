@@ -1,4 +1,5 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,21 +9,27 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-@PrimaryKeyJoinColumn(name="id")
+@PrimaryKeyJoinColumn(name = "id")
 public class HistoriaClinica extends GenericPersistentClass {
 
 	@OneToOne
 	private IngresoPaciente ingreso;
-	
+
 	@OneToOne
 	private Egreso egreso;
-	
+
 	@OneToMany
 	private Set<Seguimiento> seguimientos;
-	
+
 	public HistoriaClinica() {
 		super();
 		this.setSeguimientos(new HashSet<Seguimiento>());
+	}
+
+	public HistoriaClinica(IngresoPaciente i) {
+		super();
+		this.setSeguimientos(new HashSet<Seguimiento>());
+		this.setIngreso(i);
 	}
 
 	public Egreso getEgreso() {
@@ -49,6 +56,12 @@ public class HistoriaClinica extends GenericPersistentClass {
 		this.seguimientos = seguimientos;
 	}
 
-	
-	
+	public void addSeguimiento(Seguimiento seguimiento) {
+		this.getSeguimientos().add(seguimiento);
+	}
+
+	public void removeSeguimiento(Seguimiento seguimiento) {
+		this.getSeguimientos().remove(seguimiento);
+	}
+
 }
