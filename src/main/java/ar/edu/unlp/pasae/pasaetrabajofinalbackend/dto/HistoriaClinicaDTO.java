@@ -3,6 +3,9 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto;
 import java.util.HashSet;
 import java.util.Set;
 
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Seguimiento;
+
 public class HistoriaClinicaDTO extends GenericDTOImpl {
 
 	private IngresoPacienteDTO ingresoDTO;
@@ -16,6 +19,13 @@ public class HistoriaClinicaDTO extends GenericDTOImpl {
 
 	public HistoriaClinicaDTO(IngresoPacienteDTO i) {
 		super();
+		this.setSeguimientos(new HashSet<SeguimientoDTO>());
+		this.setIngreso(i);
+	}
+	
+	public HistoriaClinicaDTO(Long id, IngresoPacienteDTO i) {
+		super();
+		this.setId(id);
 		this.setSeguimientos(new HashSet<SeguimientoDTO>());
 		this.setIngreso(i);
 	}

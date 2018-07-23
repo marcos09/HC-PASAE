@@ -88,9 +88,8 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 																						// errores de validacion
 		if (validations.isEmpty()) {
 			this.getRepository().save(ip);
+			this.getHistoriaService().create(ip);
 		}
-		HistoriaClinicaDTO historiaDTO = new HistoriaClinicaDTO(dto);
-		this.getHistoriaService().create(historiaDTO);
 	}
 
 	@Override
@@ -102,6 +101,8 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 		ip.editMotivoConsulta(dto.getMotivoConsulta());
 		ip.editDiagnosticoSintomatico(dto.getDiagnosticoSintomatico());
 		ip.editEnfermedadActual(dto.getEnfermedadActual());
+		ip.setEstudiosComplementarios(this.getEstudioTransformer().toSet(dto.getEstudiosComplementarios()));
+		ip.setPrescripciones(this.getPrescripcionTransformer().toSet(dto.getPrescripciones()));
 		this.getRepository().save(ip);
 
 	}

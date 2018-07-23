@@ -3,7 +3,9 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -12,13 +14,13 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @PrimaryKeyJoinColumn(name = "id")
 public class HistoriaClinica extends GenericPersistentClass {
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
 	private IngresoPaciente ingreso;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL,  orphanRemoval = true)
 	private Egreso egreso;
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Seguimiento> seguimientos;
 
 	public HistoriaClinica() {
@@ -28,6 +30,13 @@ public class HistoriaClinica extends GenericPersistentClass {
 
 	public HistoriaClinica(IngresoPaciente i) {
 		super();
+		this.setSeguimientos(new HashSet<Seguimiento>());
+		this.setIngreso(i);
+	}
+	
+	public HistoriaClinica(Long id, IngresoPaciente i) {
+		super();
+		this.setId(id);
 		this.setSeguimientos(new HashSet<Seguimiento>());
 		this.setIngreso(i);
 	}

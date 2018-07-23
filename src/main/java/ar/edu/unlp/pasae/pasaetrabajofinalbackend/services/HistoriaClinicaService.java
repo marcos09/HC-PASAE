@@ -3,10 +3,11 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services;
 import java.util.List;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
 
 public interface HistoriaClinicaService {
 
-	void create(HistoriaClinicaDTO persistentDTO);
+	void create(IngresoPaciente ip);
 
 	void update(HistoriaClinicaDTO persistentDTO);
 

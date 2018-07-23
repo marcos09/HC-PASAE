@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService;
 
 @RestController
@@ -34,8 +35,8 @@ public class HistoriaClinicaController {
 	//Listado de historias clinicas
 	@GetMapping(path = "/list")
 	public List<HistoriaClinicaDTO> list() {
-		List<HistoriaClinicaDTO> ingresos = this.getHistoriaService().list();
-		return ingresos;
+		List<HistoriaClinicaDTO> historias = this.getHistoriaService().list();
+		return historias;
 	}
 
 	// Recupero una historia clinica mediante el id
@@ -52,7 +53,7 @@ public class HistoriaClinicaController {
 
 	// Alta de historia clinica
 	@PutMapping(path = "/createHistoria", consumes = "application/json", produces = "application/json")
-	public void create(@RequestBody @Valid HistoriaClinicaDTO historiaClinica) {
+	public void create(@RequestBody @Valid IngresoPaciente historiaClinica) {
 		this.getHistoriaService().create(historiaClinica);
 	}
 
