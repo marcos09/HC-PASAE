@@ -7,7 +7,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
 
 public interface HistoriaClinicaService {
 
-	void create(IngresoPaciente ip);
+	void addIngreso(IngresoPaciente ip);
 
 	void update(HistoriaClinicaDTO persistentDTO);
 

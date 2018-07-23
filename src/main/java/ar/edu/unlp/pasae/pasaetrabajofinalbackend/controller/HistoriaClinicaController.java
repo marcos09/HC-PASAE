@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService;
 
 @RestController
@@ -52,9 +51,12 @@ public class HistoriaClinicaController {
 	}
 
 	// Alta de historia clinica
-	@PutMapping(path = "/createHistoria", consumes = "application/json", produces = "application/json")
-	public void create(@RequestBody @Valid IngresoPaciente historiaClinica) {
-		this.getHistoriaService().create(historiaClinica);
+	@PutMapping(path = "/actualizarHistoria", consumes = "application/json", produces = "application/json")
+	public void update(@RequestBody @Valid HistoriaClinicaDTO historiaDTO) {
+		this.getHistoriaService().update(historiaDTO);
 	}
+	
+	
+	
 
 }
