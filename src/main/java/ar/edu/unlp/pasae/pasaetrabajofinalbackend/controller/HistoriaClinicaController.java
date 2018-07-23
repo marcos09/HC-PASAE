@@ -34,8 +34,8 @@ public class HistoriaClinicaController {
 	//Listado de historias clinicas
 	@GetMapping(path = "/list")
 	public List<HistoriaClinicaDTO> list() {
-		List<HistoriaClinicaDTO> ingresos = this.getHistoriaService().list();
-		return ingresos;
+		List<HistoriaClinicaDTO> historias = this.getHistoriaService().list();
+		return historias;
 	}
 
 	// Recupero una historia clinica mediante el id

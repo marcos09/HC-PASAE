@@ -3,7 +3,9 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -18,7 +20,7 @@ public class HistoriaClinica extends GenericPersistentClass {
 	@OneToOne
 	private Egreso egreso;
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Seguimiento> seguimientos;
 
 	public HistoriaClinica() {

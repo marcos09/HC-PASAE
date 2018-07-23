@@ -6,6 +6,7 @@ public class PrescripcionDTO extends GenericDTOImpl {
 
 	public PrescripcionDTO() {
 		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	public PrescripcionDTO(String datos, Date fecha) {

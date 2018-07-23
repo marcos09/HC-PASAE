@@ -2,7 +2,9 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotEmpty;
@@ -20,9 +22,9 @@ public class IngresoPaciente extends GenericPersistentClass{
 	@NotEmpty(message = "El diagnostico presuntivo no puede ser nulo o vacío")
 	private String diagnosticoPresuntivo;
 	
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<EstudioComplementario> estudiosComplementarios;
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Prescripcion> prescripciones;
 	
 	public IngresoPaciente(Long id, String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
