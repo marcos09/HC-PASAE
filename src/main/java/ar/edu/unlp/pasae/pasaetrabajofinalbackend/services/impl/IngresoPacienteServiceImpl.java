@@ -87,8 +87,8 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 		Set<ConstraintViolation<IngresoPaciente>> validations = validator.validate(ip);// si esta vacio no hubieron
 																						// errores de validacion
 		if (validations.isEmpty()) {
-			HistoriaClinicaDTO historiaDTO = new HistoriaClinicaDTO(dto);
-			this.getHistoriaService().create(historiaDTO);
+			this.getRepository().save(ip);
+			this.getHistoriaService().create(ip);
 		}
 	}
 

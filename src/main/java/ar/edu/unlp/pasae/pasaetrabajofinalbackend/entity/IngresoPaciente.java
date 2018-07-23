@@ -27,6 +27,7 @@ public class IngresoPaciente extends GenericPersistentClass{
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Prescripcion> prescripciones;
 	
+	
 	public IngresoPaciente(Long id, String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
 			String diagnosticoPresuntivo) {
 		super();

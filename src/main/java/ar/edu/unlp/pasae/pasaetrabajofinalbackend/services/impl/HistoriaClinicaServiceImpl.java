@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.HistoriaClinica;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.HistoriaClinicaRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
@@ -29,8 +30,8 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 	private Validator validator;
 
 	@Override
-	public void create(HistoriaClinicaDTO persistentDTO) {
-		HistoriaClinica historia = new HistoriaClinica(this.getTransformer().toEntity(persistentDTO).getIngreso());
+	public void create(IngresoPaciente persistentDTO) {
+		HistoriaClinica historia = new HistoriaClinica((persistentDTO));
 		Set<ConstraintViolation<HistoriaClinica>> validations = validator.validate(historia);// si esta vacio no
 																								// hubieron errores de
 																								// validacion
