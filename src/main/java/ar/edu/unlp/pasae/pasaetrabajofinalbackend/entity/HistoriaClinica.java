@@ -14,7 +14,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @PrimaryKeyJoinColumn(name = "id")
 public class HistoriaClinica extends GenericPersistentClass {
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = true)
+	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
 	private IngresoPaciente ingreso;
 
 	@OneToOne(cascade = CascadeType.ALL,  orphanRemoval = true)
@@ -30,6 +30,13 @@ public class HistoriaClinica extends GenericPersistentClass {
 
 	public HistoriaClinica(IngresoPaciente i) {
 		super();
+		this.setSeguimientos(new HashSet<Seguimiento>());
+		this.setIngreso(i);
+	}
+	
+	public HistoriaClinica(Long id, IngresoPaciente i) {
+		super();
+		this.setId(id);
 		this.setSeguimientos(new HashSet<Seguimiento>());
 		this.setIngreso(i);
 	}

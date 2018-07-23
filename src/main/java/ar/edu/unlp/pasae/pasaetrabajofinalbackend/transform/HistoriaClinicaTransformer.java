@@ -45,7 +45,7 @@ public class HistoriaClinicaTransformer implements Transformer<HistoriaClinica, 
 	@Override
 	public HistoriaClinicaDTO toDTO(HistoriaClinica e) {
 		// TODO Auto-generated method stub
-		HistoriaClinicaDTO historiaDTO = new HistoriaClinicaDTO(this.getIngresoTransformer().toDTO(e.getIngreso()));
+		HistoriaClinicaDTO historiaDTO = new HistoriaClinicaDTO(e.getId(),this.getIngresoTransformer().toDTO(e.getIngreso()));
 
 		if (e.getEgreso() != null) {
 			EgresoDTO eDTO = this.getEgresoTransformer().toDTO(e.getEgreso());
@@ -58,7 +58,7 @@ public class HistoriaClinicaTransformer implements Transformer<HistoriaClinica, 
 	@Override
 	public HistoriaClinica toEntity(HistoriaClinicaDTO dto) {
 		// TODO Auto-generated method stub
-		HistoriaClinica historia = new HistoriaClinica(this.getIngresoTransformer().toEntity(dto.getIngreso()));
+		HistoriaClinica historia = new HistoriaClinica(dto.getId(),this.getIngresoTransformer().toEntity(dto.getIngreso()));
 
 		if (dto.getEgreso() != null) {
 			Egreso e = this.getEgresoTransformer().toEntity(dto.getEgreso());
