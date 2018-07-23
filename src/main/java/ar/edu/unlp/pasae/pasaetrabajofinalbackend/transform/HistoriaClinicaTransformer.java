@@ -43,8 +43,8 @@ public class HistoriaClinicaTransformer implements Transformer<HistoriaClinica, 
 	public HistoriaClinicaDTO toDTO(HistoriaClinica e) {
 		// TODO Auto-generated method stub
 		HistoriaClinicaDTO historiaDTO = new HistoriaClinicaDTO(this.getIngresoTransformer().toDTO(e.getIngreso()));
-		historiaDTO.setEgreso(this.getEgresoTransformer().toDTO(e.getEgreso()));
-		historiaDTO.setSeguimientos(this.getSeguimientoTransformer().toSetDTO(e.getSeguimientos()));
+//		historiaDTO.setEgreso(this.getEgresoTransformer().toDTO(e.getEgreso()));
+//		historiaDTO.setSeguimientos(this.getSeguimientoTransformer().toSetDTO(e.getSeguimientos()));
 		return historiaDTO;
 	}
 

@@ -14,10 +14,10 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @PrimaryKeyJoinColumn(name = "id")
 public class HistoriaClinica extends GenericPersistentClass {
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private IngresoPaciente ingreso;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private Egreso egreso;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
