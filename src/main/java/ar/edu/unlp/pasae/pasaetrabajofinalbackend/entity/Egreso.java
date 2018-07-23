@@ -5,13 +5,18 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-@PrimaryKeyJoinColumn(name="id")
+@PrimaryKeyJoinColumn(name = "id")
 public class Egreso extends GenericPersistentClass {
 
 	public Egreso() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
-	
+
+	public Egreso(String diagnosticoFinal) {
+		super();
+		this.setDiagnosticoFinal(diagnosticoFinal);
+	}
+
 	@NotEmpty
 	private String diagnosticoFinal;
 

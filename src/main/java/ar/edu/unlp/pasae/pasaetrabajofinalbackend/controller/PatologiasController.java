@@ -18,44 +18,37 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PatologiasService;
 @RequestMapping("/patologias")
 
 public class PatologiasController {
-	
+
 	@Autowired
 	private PatologiasService patologiasService;
 
-	//Listo todas las patologias
+	// Listo todas las patologias
 	@GetMapping(path = "/list")
-	public List<PatologiaDTO> list(){
+	public List<PatologiaDTO> list() {
 		List<PatologiaDTO> patologias = this.getPatologiasService().list();
 		return patologias;
 	}
-	
-	//Recupero una patologia con el id
-	 @GetMapping(path = "/{id}", produces = "application/json")
-	   public PatologiaDTO show(@PathVariable(value = "id") Long id) {
-	    return this.getPatologiasService().retrive(id);
-	   }
-	 
-	 //Elimino una patologia con el id
-	 @DeleteMapping(path = "/{id}")
-	   public void delete(@PathVariable(value = "id") Long id) {
-	     this.getPatologiasService().delete(id);
-	   }
-	 
-	 //Alta de una patologia
-	 @PutMapping(path = "/crearPatologia", consumes = "application/json", produces = "application/json")
-	   public  void create(@RequestBody PatologiaDTO patologia) {
-	        this.getPatologiasService().create(patologia);
-	   }
+
+	// Recupero una patologia con el id
+	@GetMapping(path = "/{id}", produces = "application/json")
+	public PatologiaDTO show(@PathVariable(value = "id") Long id) {
+		return this.getPatologiasService().retrive(id);
+	}
+
+	// Elimino una patologia con el id
+	@DeleteMapping(path = "/{id}")
+	public void delete(@PathVariable(value = "id") Long id) {
+		this.getPatologiasService().delete(id);
+	}
+
+	// Alta de una patologia
+	@PutMapping(path = "/crearPatologia", consumes = "application/json", produces = "application/json")
+	public void create(@RequestBody PatologiaDTO patologia) {
+		this.getPatologiasService().create(patologia);
+	}
 
 	public PatologiasService getPatologiasService() {
 		return patologiasService;
 	}
 
-	public void setPatologiasService(PatologiasService patologiasService) {
-		this.patologiasService = patologiasService;
-	}
-
-
 }
-
-

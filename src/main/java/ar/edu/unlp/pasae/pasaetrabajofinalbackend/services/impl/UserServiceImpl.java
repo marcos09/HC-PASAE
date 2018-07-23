@@ -51,14 +51,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void create(UserDTO persistentDTO) {
 		// TODO Auto-generated method stub
+
 		//User u = new User();
 		/*
 		Set<ConstraintViolation<User>> validations = validator.validate(u);//si esta vacio no hubieron errores de validacion
 		if (validations.isEmpty()) {
 			this.getRepository().save(u);
 		}
-		*/
-		this.getRepository().save(transformer.toEntity(persistentDTO));
+		*/		
+		this.getRepository().save(this.getTransformer().toEntity(persistentDTO));
+		
 		
 	}
 

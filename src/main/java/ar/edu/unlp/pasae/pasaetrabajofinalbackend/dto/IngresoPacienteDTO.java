@@ -5,11 +5,8 @@ import java.util.Set;
 
 import javax.validation.constraints.NotEmpty;
 
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Prescripcion;
+public class IngresoPacienteDTO extends GenericDTOImpl {
 
-public class IngresoPacienteDTO extends GenericDTOImpl{
-	
 	private Long id;
 	@NotEmpty(message = "El motivo de consulta no puede ser nulo o vacío")
 	private String motivoConsulta;
@@ -19,16 +16,16 @@ public class IngresoPacienteDTO extends GenericDTOImpl{
 	private String diagnosticoSintomatico;
 	@NotEmpty(message = "El diagnostico presuntivo no puede ser nulo o vacío")
 	private String diagnosticoPresuntivo;
-	
-	private Set<EstudioComplementario> estudiosComplementarios;
-	private Set<Prescripcion> prescripciones;
-	
+
+	private Set<EstudioComplementarioDTO> estudiosComplementarios;
+	private Set<PrescripcionDTO> prescripciones;
+
 	public IngresoPacienteDTO() {
 		super();
 	}
 
 	public IngresoPacienteDTO(Long id, String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
-			String diagnosticoPresuntivo, Set<EstudioComplementario> estudios, Set<Prescripcion> prescripciones) {
+			String diagnosticoPresuntivo, Set<EstudioComplementarioDTO> estudios, Set<PrescripcionDTO> prescripciones) {
 		super();
 		this.setId(id);
 		this.setMotivoConsulta(motivoConsulta);
@@ -38,7 +35,7 @@ public class IngresoPacienteDTO extends GenericDTOImpl{
 		this.setEstudiosComplementarios(estudios);
 		this.setPrescripciones(prescripciones);
 	}
-	
+
 	public IngresoPacienteDTO(Long id, String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
 			String diagnosticoPresuntivo) {
 		super();
@@ -47,11 +44,10 @@ public class IngresoPacienteDTO extends GenericDTOImpl{
 		this.setEnfermedadActual(enfermedadActual);
 		this.setDiagnosticoSintomatico(diagnosticoSintomatico);
 		this.setDiagnosticoPresuntivo(diagnosticoPresuntivo);
-		this.setEstudiosComplementarios(new HashSet<EstudioComplementario>());
-		this.setPrescripciones(new HashSet<Prescripcion>());
-		
+		this.setEstudiosComplementarios(new HashSet<EstudioComplementarioDTO>());
+		this.setPrescripciones(new HashSet<PrescripcionDTO>());
+
 	}
-	
 
 	public Long getId() {
 		return id;
@@ -92,32 +88,37 @@ public class IngresoPacienteDTO extends GenericDTOImpl{
 	public void setDiagnosticoPresuntivo(String diagnosticoPresuntivo) {
 		this.diagnosticoPresuntivo = diagnosticoPresuntivo;
 	}
-	public Set<EstudioComplementario> getEstudiosComplementarios() {
+
+	public Set<EstudioComplementarioDTO> getEstudiosComplementarios() {
 		return estudiosComplementarios;
 	}
-	public void setEstudiosComplementarios(Set<EstudioComplementario> estudiosComplementarios) {
+
+	public void setEstudiosComplementarios(Set<EstudioComplementarioDTO> estudiosComplementarios) {
 		this.estudiosComplementarios = estudiosComplementarios;
 	}
 
-	public Set<Prescripcion> getPrescripciones() {
+	public Set<PrescripcionDTO> getPrescripciones() {
 		return prescripciones;
 	}
 
-	public void setPrescripciones(Set<Prescripcion> prescripciones) {
+	public void setPrescripciones(Set<PrescripcionDTO> prescripciones) {
 		this.prescripciones = prescripciones;
 	}
-	public void addEstudio(EstudioComplementario estudio) {
+
+	public void addEstudio(EstudioComplementarioDTO estudio) {
 		this.getEstudiosComplementarios().add(estudio);
 	}
-	public void addPrescripcion(Prescripcion prescripcion) {
+
+	public void addPrescripcion(PrescripcionDTO prescripcion) {
 		this.getPrescripciones().add(prescripcion);
 	}
-	public void removeEstudio(EstudioComplementario estudio) {
+
+	public void removeEstudio(EstudioComplementarioDTO estudio) {
 		this.getEstudiosComplementarios().remove(estudio);
 	}
-	public void removePrescripcion(Prescripcion prescripcion) {
+
+	public void removePrescripcion(PrescripcionDTO prescripcion) {
 		this.getPrescripciones().remove(prescripcion);
 	}
-	
 
 }
