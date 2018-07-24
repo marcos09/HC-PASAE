@@ -10,7 +10,6 @@ import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.IngresoPacienteRepository;
@@ -88,7 +87,7 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 																						// errores de validacion
 		if (validations.isEmpty()) {
 			this.getRepository().save(ip);
-			this.getHistoriaService().create(ip);
+			this.getHistoriaService().addIngreso(ip);
 		}
 	}
 

@@ -17,13 +17,13 @@ public class EgresoTransformer implements Transformer<Egreso, EgresoDTO> {
 	@Override
 	public EgresoDTO toDTO(Egreso e) {
 		// TODO Auto-generated method stub
-		return new EgresoDTO(e.getDiagnosticoFinal());
+		return new EgresoDTO(e.getId(),e.getDiagnosticoFinal(),e.getFecha());
 	}
 
 	@Override
 	public Egreso toEntity(EgresoDTO dto) {
 		// TODO Auto-generated method stub
-		return new Egreso(dto.getDiagnosticoFinal());
+		return new Egreso(dto.getId(), dto.getDiagnosticoFinal(), dto.getFecha());
 	}
 
 	@Override

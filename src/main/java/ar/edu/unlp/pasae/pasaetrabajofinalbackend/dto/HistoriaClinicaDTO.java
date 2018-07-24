@@ -8,9 +8,9 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Seguimiento;
 
 public class HistoriaClinicaDTO extends GenericDTOImpl {
 
-	private IngresoPacienteDTO ingresoDTO;
-	private EgresoDTO egresoDTO;
-	private Set<SeguimientoDTO> seguimientosDTO;
+	private IngresoPacienteDTO ingreso;
+	private EgresoDTO egreso;
+	private Set<SeguimientoDTO> seguimientos;
 
 	public HistoriaClinicaDTO() {
 		super();
@@ -31,27 +31,27 @@ public class HistoriaClinicaDTO extends GenericDTOImpl {
 	}
 
 	public EgresoDTO getEgreso() {
-		return egresoDTO;
+		return egreso;
 	}
 
 	public void setEgreso(EgresoDTO egreso) {
-		this.egresoDTO = egreso;
+		this.egreso = egreso;
 	}
 
 	public IngresoPacienteDTO getIngreso() {
-		return ingresoDTO;
+		return ingreso;
 	}
 
 	public void setIngreso(IngresoPacienteDTO ingreso) {
-		this.ingresoDTO = ingreso;
+		this.ingreso = ingreso;
 	}
 
 	public Set<SeguimientoDTO> getSeguimientos() {
-		return seguimientosDTO;
+		return seguimientos;
 	}
 
 	public void setSeguimientos(Set<SeguimientoDTO> seguimientos) {
-		this.seguimientosDTO = seguimientos;
+		this.seguimientos = seguimientos;
 	}
 
 	public void addSeguimiento(SeguimientoDTO seguimiento) {

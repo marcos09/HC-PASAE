@@ -1,7 +1,6 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -30,8 +29,8 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 	private Validator validator;
 
 	@Override
-	public void create(IngresoPaciente persistentDTO) {
-		HistoriaClinica historia = new HistoriaClinica((persistentDTO));
+	public void addIngreso(IngresoPaciente ingreso) {
+		HistoriaClinica historia = new HistoriaClinica((ingreso));
 		Set<ConstraintViolation<HistoriaClinica>> validations = validator.validate(historia);// si esta vacio no
 																								// hubieron errores de
 																								// validacion
@@ -40,16 +39,19 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 		}
 	}
 
+	//Actualizo la historia clinica
 	@Override
 	public void update(HistoriaClinicaDTO persistentDTO) {
-		Optional<HistoriaClinica> op = this.getRepository().findById(persistentDTO.getId());
-		HistoriaClinica hc = op.get();
-		hc.setEgreso(this.getTransformer().toEntity(persistentDTO).getEgreso());
-		hc.setIngreso(this.getTransformer().toEntity(persistentDTO).getIngreso());
-		this.getRepository().save(hc);
+		HistoriaClinica historiaBase = this.getRepository().findById(persistentDTO.getId()).get();
+		if (historiaBase.getEgreso() == null) {
+			HistoriaClinica historia = this.getTransformer().toEntity(persistentDTO);
+			this.getRepository().save(historia);
+		}
+		
 
 	}
 
+	//Elimino la historia con el id
 	@Override
 	public void delete(Long id) {
 		// TODO Auto-generated method stub
@@ -57,12 +59,14 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 
 	}
 
+	//Recuperom historia clinica mediante id
 	@Override
 	public HistoriaClinicaDTO retrive(Long id) {
 		// TODO Auto-generated method stub
 		return this.getTransformer().toDTO(this.getRepository().findById(id).get());
 	}
 
+	//Listo todas las historias clinicas
 	@Override
 	public List<HistoriaClinicaDTO> list() {
 		// TODO Auto-generated method stub
