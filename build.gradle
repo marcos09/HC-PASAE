@@ -35,7 +35,10 @@ dependencies {
 	compile('org.hibernate.validator:hibernate-validator')
 	compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
 	compile('javax.inject:javax.inject:1')
+	compile ('com.google.guava:guava:21+')
+	compile ('org.apache.commons:commons-lang3:3.5')
 	runtime('com.h2database:h2')
+	
 	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

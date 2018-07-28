@@ -8,6 +8,7 @@ import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.HistoriaClinica;
@@ -17,6 +18,8 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaServic
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
 
 @Service
+@Transactional
+
 public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 
 	@Autowired

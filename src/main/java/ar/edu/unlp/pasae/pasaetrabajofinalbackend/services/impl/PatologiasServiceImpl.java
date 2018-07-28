@@ -9,6 +9,7 @@ import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PatologiaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Patologia;
@@ -17,6 +18,8 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PatologiasService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
 
 @Service
+@Transactional
+
 public class PatologiasServiceImpl implements PatologiasService{
 
 	

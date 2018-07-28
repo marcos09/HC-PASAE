@@ -2,13 +2,12 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
-import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.UserDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.User;
@@ -17,6 +16,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.UserService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
 	@Autowired

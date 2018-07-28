@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionDTO;
@@ -14,21 +15,21 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Prescripcion;
 @Component
 public class PrescripcionTransformer implements Transformer<Prescripcion, PrescripcionDTO> {
 
+	@Autowired
+	private MedicamentoTransformer transform;
+	
 	@Override
 	public PrescripcionDTO toDTO(Prescripcion e) {
-		// TODO Auto-generated method stub
-		return new PrescripcionDTO(e.getDatos(), e.getFecha());
+		return new PrescripcionDTO(e.getId(), e.getDatos(), e.getFecha(), this.getTransform().toDTO(e.getMedicamento()));
 	}
 
 	@Override
 	public Prescripcion toEntity(PrescripcionDTO dto) {
-		// TODO Auto-generated method stub
-		return new Prescripcion(dto.getDatos(), dto.getFecha());
+		return new Prescripcion(dto.getId(), dto.getDatos(), this.getTransform().toEntity(dto.getMedicamento()));
 	}
 
 	@Override
 	public List<PrescripcionDTO> toListDTO(List<Prescripcion> list) {
-		// TODO Auto-generated method stub
 		List<PrescripcionDTO> lista = new ArrayList<PrescripcionDTO>();
 		for (Prescripcion p : list) {
 			lista.add(this.toDTO(p));
@@ -74,4 +75,13 @@ public class PrescripcionTransformer implements Transformer<Prescripcion, Prescr
 		return lista;
 	}
 
+	public MedicamentoTransformer getTransform() {
+		return transform;
+	}
+
+	public void setTransform(MedicamentoTransformer transform) {
+		this.transform = transform;
+	}
+
+	
 }

@@ -8,10 +8,12 @@ import org.springframework.stereotype.Component;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Medicamento;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Patologia;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Prescripcion;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.EstudioComplementarioRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.IngresoPacienteRepository;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.MedicamentoRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.PatologiasRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.PrescripcionRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.UserRepository;
@@ -34,10 +36,27 @@ public class AppStartupRunner implements ApplicationRunner {
 	@Autowired
 	private PrescripcionRepository prescripcionRepository;
 
+	@Autowired
+	private MedicamentoRepository medicamentosRepository;
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		
+		
+		Medicamento med1 = new Medicamento("nombre", "indicacion", "contraindicacion");
+		Medicamento med2 = new Medicamento("nombre2", "indicacion2", "contraindicacion2");
+		Medicamento med3 = new Medicamento("nombre3", "indicacion2", "contraindicacion3");
+		
+		this.getMedicamentosRepository().save(med1);
+		this.getMedicamentosRepository().save(med2);
+		this.getMedicamentosRepository().save(med3);
+		
+		
+		Prescripcion presc = new Prescripcion();
+		presc.setDatos("1 comprimido cada 8 hs");
+		presc.setMedicamento(med1);
+		
+
 		EstudioComplementario estudio1 = new EstudioComplementario();
 		EstudioComplementario estudio2 = new EstudioComplementario();
 		EstudioComplementario estudio3 = new EstudioComplementario();
@@ -50,10 +69,9 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.getEstudioRepository().save(estudio3);
 		this.getEstudioRepository().save(estudio4);
 		
-		Prescripcion prescripcion1 = new Prescripcion();
 		HashSet<Prescripcion> prescripcionesP1 = new HashSet<Prescripcion>();
-		prescripcionesP1.add(prescripcion1);
-		this.getPrescripcionRepository().save(prescripcion1);
+		prescripcionesP1.add(presc);
+		this.getPrescripcionRepository().save(presc);
 	
 		Prescripcion prescripcion2 = new Prescripcion();
 		this.getPrescripcionRepository().save(prescripcion2);
@@ -86,6 +104,9 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.getPatologiasRepository().save(patologia2);
 		this.getPatologiasRepository().save(patologia3);
 		this.getPatologiasRepository().save(patologia4);
+		
+		
+		
 	}
 
 	public IngresoPacienteRepository getIngresoRepository() {
@@ -127,4 +148,14 @@ public class AppStartupRunner implements ApplicationRunner {
 	public void setPrescripcionRepository(PrescripcionRepository prescripcionRepository) {
 		this.prescripcionRepository = prescripcionRepository;
 	}
+
+	public MedicamentoRepository getMedicamentosRepository() {
+		return medicamentosRepository;
+	}
+
+	public void setMedicamentosRepository(MedicamentoRepository medicamentosRepository) {
+		this.medicamentosRepository = medicamentosRepository;
+	}
+	
+	
 }

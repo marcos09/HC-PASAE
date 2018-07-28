@@ -12,6 +12,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -44,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  implements Web
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/h2-console/**", "/user/*").permitAll().and()
+		http.authorizeRequests().antMatchers("/h2-console/**", "/user/*", "/patologias/*").permitAll().and()
 			.authorizeRequests()
 				.antMatchers("/", "/home", "/h2-console").permitAll()
 				.anyRequest().fullyAuthenticated()

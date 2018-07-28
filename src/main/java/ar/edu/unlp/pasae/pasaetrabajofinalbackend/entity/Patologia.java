@@ -17,6 +17,7 @@ import org.hibernate.annotations.NotFoundAction;
 @Entity
 @PrimaryKeyJoinColumn(name="id")
 public class Patologia extends GenericPersistentClass {
+	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Patologia father;

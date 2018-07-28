@@ -5,19 +5,28 @@ import java.util.Date;
 public class PrescripcionDTO extends GenericDTOImpl {
 
 	public PrescripcionDTO() {
-		// TODO Auto-generated constructor stub
 		super();
 	}
 
-	public PrescripcionDTO(String datos, Date fecha) {
-		// TODO Auto-generated constructor stub
+	public PrescripcionDTO(String datos, Date fecha, MedicamentoDTO medicamento) {
 		super();
 		this.setDatos(datos);
 		this.setFecha(fecha);
+		this.setMedicamento(medicamento);
 	}
+	
+	public PrescripcionDTO(Long id, String datos, Date fecha, MedicamentoDTO medicamento) {
+		super();
+		this.setDatos(datos);
+		this.setFecha(fecha);
+		this.setMedicamento(medicamento);
+	}
+
+	
 
 	private Date fecha;
 	private String datos;
+	private MedicamentoDTO medicamento;
 
 	public Date getFecha() {
 		return fecha;
@@ -35,4 +44,11 @@ public class PrescripcionDTO extends GenericDTOImpl {
 		this.datos = datos;
 	}
 
+	public MedicamentoDTO getMedicamento() {
+		return medicamento;
+	}
+
+	public void setMedicamento(MedicamentoDTO medicamento) {
+		this.medicamento = medicamento;
+	}
 }

@@ -18,6 +18,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.UserDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.UserService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/user")
 public class UserController {
 
@@ -25,7 +26,6 @@ public class UserController {
 	private UserService userService;
 
 	// Listo todos los ingresos
-	@CrossOrigin
 	@GetMapping(path = "/list")
 	public List<UserDTO> list() {
 		List<UserDTO> ingresos = this.getUserService().list();
@@ -39,14 +39,12 @@ public class UserController {
 	}
 
 	// Elimino un usuario con el id
-	@CrossOrigin
 	@DeleteMapping(path = "/{id}")
 	public void delete(@PathVariable(value = "id") Long id) {
 		this.getUserService().delete(id);
 	}
 
 	// Alta de un usuario
-	@CrossOrigin
 	@PutMapping(path = "/crearUsuario", consumes = "application/json", produces = "application/json")
 	public void create(@RequestBody @Valid UserDTO user) {
 		this.getUserService().create(user);

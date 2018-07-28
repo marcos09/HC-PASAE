@@ -3,6 +3,7 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
@@ -11,16 +12,29 @@ public class Prescripcion extends GenericPersistentClass {
 
 	private Date fecha;
 	private String datos;
-
+	
+	@OneToOne
+	private Medicamento medicamento;
+	
 	public Prescripcion() {
 		super();
+		
+		
 	}
 
-	public Prescripcion(String datos, Date fecha) {
-		// TODO Auto-generated constructor stub
+	public Prescripcion(String datos, Medicamento medicamento) {
 		super();
 		this.setDatos(datos);
-		this.setFecha(fecha);
+		this.setFecha(new Date());
+		this.setMedicamento(medicamento);
+	}
+
+	public Prescripcion(Long id, String datos, Medicamento medicamento) {
+		super();
+		this.setId(id);
+		this.setDatos(datos);
+		this.setFecha(new Date());
+		this.setMedicamento(medicamento);
 	}
 
 	public Date getFecha() {
@@ -38,5 +52,15 @@ public class Prescripcion extends GenericPersistentClass {
 	public void setDatos(String datos) {
 		this.datos = datos;
 	}
+
+	public Medicamento getMedicamento() {
+		return medicamento;
+	}
+
+	public void setMedicamento(Medicamento medicamento) {
+		this.medicamento = medicamento;
+	}
+	
+	
 
 }

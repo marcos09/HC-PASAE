@@ -22,6 +22,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.IngresoPacienteService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/ingreso")
 public class IngresoPacienteController {
 

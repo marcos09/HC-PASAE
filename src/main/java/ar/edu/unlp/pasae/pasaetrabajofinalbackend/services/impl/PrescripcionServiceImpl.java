@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Prescripcion;
@@ -13,6 +14,8 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PrescripcionService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
 
 @Service
+@Transactional
+
 public class PrescripcionServiceImpl implements PrescripcionService {
 
 	@Autowired
@@ -23,7 +26,6 @@ public class PrescripcionServiceImpl implements PrescripcionService {
 
 	@Override
 	public void create(PrescripcionDTO persistentDTO) {
-		// TODO Auto-generated method stub
 		this.getRepository().save(this.getTransformer().toEntity(persistentDTO));
 	}
 
