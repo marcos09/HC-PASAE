@@ -31,7 +31,6 @@ public class IngresoPacienteTransformer implements Transformer<IngresoPaciente, 
 
 	@Override
 	public IngresoPacienteDTO toDTO(IngresoPaciente ip) {
-		// TODO Auto-generated method stub
 		IngresoPacienteDTO ingresoDTO = new IngresoPacienteDTO(ip.getId(), ip.getMotivoConsulta(),
 				ip.getEnfermedadActual(), ip.getDiagnosticoSintomatico(), ip.getDiagnosticoPresuntivo(),
 				this.getEstudioTransformer().toSetDTO(ip.getEstudiosComplementarios()),

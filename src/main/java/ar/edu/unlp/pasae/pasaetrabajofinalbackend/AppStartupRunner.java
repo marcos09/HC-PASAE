@@ -9,11 +9,13 @@ import org.springframework.stereotype.Component;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Medicamento;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Paciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Patologia;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Prescripcion;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.EstudioComplementarioRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.IngresoPacienteRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.MedicamentoRepository;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.PacienteRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.PatologiasRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.PrescripcionRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.UserRepository;
@@ -38,7 +40,9 @@ public class AppStartupRunner implements ApplicationRunner {
 
 	@Autowired
 	private MedicamentoRepository medicamentosRepository;
-	
+	@Autowired
+	private PacienteRepository pacientesRepository;
+
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		
@@ -105,7 +109,13 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.getPatologiasRepository().save(patologia3);
 		this.getPatologiasRepository().save(patologia4);
 		
+		Paciente paciente1 = new Paciente(11111111, false, null, null, "Juan Martín", "Gomez", "Calle falsa 123", 123123123);
+		Paciente paciente2 = new Paciente(22222222, true, "OSDE", 743894823L, "Juan Martín", "Gomez", "Calle falsa 123", 123123123);
+		Paciente paciente3 = new Paciente(33333333, true, "IOMA", 233333333402L, "Juan Martín", "Gomez", "Calle falsa 123", 123123123);
 		
+		this.getPacientesRepository().save(paciente1);
+		this.getPacientesRepository().save(paciente2);
+		this.getPacientesRepository().save(paciente3);
 		
 	}
 
@@ -156,6 +166,16 @@ public class AppStartupRunner implements ApplicationRunner {
 	public void setMedicamentosRepository(MedicamentoRepository medicamentosRepository) {
 		this.medicamentosRepository = medicamentosRepository;
 	}
+
+	public PacienteRepository getPacientesRepository() {
+		return pacientesRepository;
+	}
+
+	public void setPacientesRepository(PacienteRepository pacientesRepository) {
+		this.pacientesRepository = pacientesRepository;
+	}
+	
+	
 	
 	
 }

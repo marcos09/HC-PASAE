@@ -66,7 +66,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void update(UserDTO dto) {
-		// TODO Auto-generated method stub
 		Optional<User> op = this.getRepository().findById(dto.getId());
 		User u = op.get();
 		u.setAuthorities(dto.getAuthorities());
@@ -78,21 +77,18 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
 		this.getRepository().deleteById(id);
 		
 	}
 
 	@Override
 	public UserDTO retrive(Long id) {
-		// TODO Auto-generated method stub
 		User u = this.getRepository().findById(id).get();
 		return this.getTransformer().toDTO(u);
 	}
 
 	@Override
 	public List<UserDTO> list() {
-		// TODO Auto-generated method stub
 		 List<User> userList = this.getRepository().findAll();
 		 return this.getTransformer().toListDTO(userList);
 	}

@@ -80,7 +80,6 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 
 	@Override
 	public void create(IngresoPacienteDTO dto) {
-		// TODO Auto-generated method stub
 		IngresoPaciente ip = new IngresoPaciente(dto.getId(), dto.getMotivoConsulta(), dto.getEnfermedadActual(),
 				dto.getDiagnosticoSintomatico(), dto.getDiagnosticoPresuntivo(),
 				this.getEstudioTransformer().toSet(dto.getEstudiosComplementarios()),
@@ -95,7 +94,6 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 
 	@Override
 	public void update(IngresoPacienteDTO dto) {
-		// TODO Auto-generated method stub
 		Optional<IngresoPaciente> op = this.getRepository().findById(dto.getId());
 		IngresoPaciente ip = op.get();
 		ip.editDiagnosticoPresuntivo(dto.getDiagnosticoPresuntivo());
@@ -124,7 +122,6 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 	public HistoriaClinicaService getHistoriaService() {
 		return historia;
 	}
-
 	// Prueba para ver si funciona el aspecto que convierte las excepciones no
 	// manejadas
 	// @Override

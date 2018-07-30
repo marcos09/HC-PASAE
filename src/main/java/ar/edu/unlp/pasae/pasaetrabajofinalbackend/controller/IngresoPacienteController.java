@@ -69,7 +69,6 @@ public class IngresoPacienteController {
 	}
 
 	// Alta de ingreso
-	@CrossOrigin
 	@PutMapping(path = "/createIngreso", consumes = "application/json", produces = "application/json")
 	public void create(@RequestBody @Valid IngresoPacienteDTO ingresoPaciente) {
 		this.getIngresoService().create(ingresoPaciente);

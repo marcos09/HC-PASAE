@@ -20,6 +20,9 @@ public class HistoriaClinica extends GenericPersistentClass {
 	@OneToOne(cascade = CascadeType.ALL,  orphanRemoval = true)
 	private Egreso egreso;
 
+	@OneToOne(cascade = CascadeType.ALL,  orphanRemoval = true)
+	private Paciente paciente;
+	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Seguimiento> seguimientos;
 
@@ -33,6 +36,7 @@ public class HistoriaClinica extends GenericPersistentClass {
 		this.setSeguimientos(new HashSet<Seguimiento>());
 		this.setIngreso(i);
 	}
+	
 	
 	public HistoriaClinica(Long id, IngresoPaciente i) {
 		super();
@@ -73,4 +77,12 @@ public class HistoriaClinica extends GenericPersistentClass {
 		this.getSeguimientos().remove(seguimiento);
 	}
 
+	public Paciente getPaciente() {
+		return paciente;
+	}
+
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
+	}
+	
 }
