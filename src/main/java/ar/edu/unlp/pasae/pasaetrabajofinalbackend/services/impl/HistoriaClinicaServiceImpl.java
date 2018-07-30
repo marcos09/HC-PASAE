@@ -1,9 +1,11 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
 import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.HistoriaClinica;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Seguimiento;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.HistoriaClinicaRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
@@ -28,6 +32,9 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 	@Autowired
 	private Transformer<HistoriaClinica, HistoriaClinicaDTO> transformer;
 
+	@Autowired
+	private Transformer<Seguimiento, SeguimientoDTO> seguimientoTransformer;
+	
 	@Autowired
 	private Validator validator;
 
@@ -57,7 +64,6 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 	//Elimino la historia con el id
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
 		this.getRepository().deleteById(id);
 
 	}
@@ -65,14 +71,12 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 	//Recuperom historia clinica mediante id
 	@Override
 	public HistoriaClinicaDTO retrive(Long id) {
-		// TODO Auto-generated method stub
 		return this.getTransformer().toDTO(this.getRepository().findById(id).get());
 	}
 
 	//Listo todas las historias clinicas
 	@Override
 	public List<HistoriaClinicaDTO> list() {
-		// TODO Auto-generated method stub
 		return this.getTransformer().toListDTO(this.getRepository().findAll());
 	}
 
@@ -92,4 +96,19 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 		this.transformer = transformer;
 	}
 
+	@Override
+	public void agregarSeguimiento(Long id, @Valid SeguimientoDTO seguimiento) {
+		Optional<HistoriaClinica> optional = this.getRepository().findById(id);
+		if(optional.isPresent()) {
+			HistoriaClinica historia = optional.get();
+			historia.addSeguimiento(this.getSeguimientoTransformer().toEntity(seguimiento));
+			this.getRepository().save(historia);
+		}
+		//Levantar excepción historia no encontrada
+		
+	}
+
+	private Transformer<Seguimiento, SeguimientoDTO> getSeguimientoTransformer() {
+		return seguimientoTransformer;
+	}
 }

@@ -15,4 +15,6 @@ public interface PacienteService {
 
 	List<PacienteDTO> list();
 
+	List<PacienteDTO> findByApellidoContaining(String apellido);
+
 }

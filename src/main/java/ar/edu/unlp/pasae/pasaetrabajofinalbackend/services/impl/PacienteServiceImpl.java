@@ -1,6 +1,8 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +45,17 @@ public class PacienteServiceImpl implements PacienteService {
 
 	}
 
+	@Override
+	public List<PacienteDTO> findByApellidoContaining(String apellido) {
+		Optional<Collection<Paciente>> optional = this.getRepository().findByApellidoContaining(apellido);
+		if(optional.isPresent()) {
+			List<Paciente> result = (List<Paciente>) optional.get();
+			return this.getTransformer().toListDTO(result);
+		}
+		return null;
+				
+	}
+	
 	@Override
 	public List<PacienteDTO> list() {
 		List<Paciente> listPacientes = this.getRepository().findAll();

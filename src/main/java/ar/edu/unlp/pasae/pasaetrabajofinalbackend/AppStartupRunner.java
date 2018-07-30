@@ -111,11 +111,21 @@ public class AppStartupRunner implements ApplicationRunner {
 		
 		Paciente paciente1 = new Paciente(11111111, false, null, null, "Juan Martín", "Gomez", "Calle falsa 123", 123123123);
 		Paciente paciente2 = new Paciente(22222222, true, "OSDE", 743894823L, "Juan Martín", "Gomez", "Calle falsa 123", 123123123);
-		Paciente paciente3 = new Paciente(33333333, true, "IOMA", 233333333402L, "Juan Martín", "Gomez", "Calle falsa 123", 123123123);
+		Paciente paciente3 = new Paciente(33333333, true, "IOMA", 233333333402L, "Juan Martín", "Gomila", "Calle falsa 123", 123123123);
+		Paciente paciente4 = new Paciente(12344556, true, "IOMA", 233333333402L, "Juan Martín", "Camila", "Calle falsa 123", 123123123);
+		Paciente paciente5 = new Paciente(33344455, true, "IOMA", 233333333402L, "Juan Martín", "Perez ", "Calle falsa 123", 123123123);
+		Paciente paciente6 = new Paciente(12345678, true, "IOMA", 233333333402L, "Juan Martín", "Perez 2", "Calle falsa 123", 123123123);
+		Paciente paciente7 = new Paciente(98765432, true, "IOMA", 233333333402L, "Juan Martín", "Diaz Perez", "Calle falsa 123", 123123123);
+		Paciente paciente8 = new Paciente(98712345, true, "IOMA", 233333333402L, "Juan Martín", "Pereyra", "Calle falsa 123", 123123123);
 		
 		this.getPacientesRepository().save(paciente1);
 		this.getPacientesRepository().save(paciente2);
 		this.getPacientesRepository().save(paciente3);
+		this.getPacientesRepository().save(paciente4);
+		this.getPacientesRepository().save(paciente5);
+		this.getPacientesRepository().save(paciente6);
+		this.getPacientesRepository().save(paciente7);
+		this.getPacientesRepository().save(paciente8);
 		
 	}
 

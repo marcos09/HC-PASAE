@@ -35,6 +35,13 @@ public class PacienteController {
 		return pacientes;
 	}
 	
+	@GetMapping(path = "/buscarApellido/{apellido}", produces = "application/json")
+	public List<PacienteDTO> findByDni(@PathVariable(value = "apellido") String apellido) {
+		List<PacienteDTO> pacientes = this.getPacienteService().findByApellidoContaining(apellido);
+		return pacientes;
+	}
+
+	
 	@GetMapping(path = "/{id}", produces = "application/json")
 	public PacienteDTO show(@PathVariable(value = "id") Long id) {
 		return this.getPacienteService().retrive(id);
@@ -45,7 +52,6 @@ public class PacienteController {
 		this.getPacienteService().delete(id);
 	}
 
-
 	public PacienteService getPacienteService() {
 		return pacienteService;
 	}
@@ -54,10 +60,4 @@ public class PacienteController {
 		this.pacienteService = pacienteService;
 	}
 	
-	
-
-
-	
-
-
 }
