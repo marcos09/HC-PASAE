@@ -78,6 +78,7 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.getPrescripcionRepository().save(presc);
 	
 		Prescripcion prescripcion2 = new Prescripcion();
+		prescripcion2.setMedicamento(med2);
 		this.getPrescripcionRepository().save(prescripcion2);
 		
 		IngresoPaciente i2 = new IngresoPaciente(2L, "motivo2", "enfermedad 2", "diagostico sintomático2", "diagnostico presuntivo 2");
