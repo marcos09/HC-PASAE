@@ -12,13 +12,15 @@ import org.springframework.core.io.Resource;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
+
+
 
 @Configuration
 @EnableOAuth2Sso
@@ -45,7 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  implements Web
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/h2-console/**").permitAll().and()
+		http.addFilterAfter(new CustomOauth2AuthenticationFilter(), BasicAuthenticationFilter.class)
+		.authorizeRequests().antMatchers("/h2-console/**").permitAll().and()
 			.authorizeRequests()
 				.antMatchers("/", "/home", "/h2-console").permitAll()
 				.anyRequest().fullyAuthenticated()
@@ -57,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  implements Web
 	        .logout()
 	            .permitAll()
 	            .and()
-			.csrf().disable()
+			.csrf().disable().cors().and()
 			.headers().frameOptions().disable();
 	}
 	
