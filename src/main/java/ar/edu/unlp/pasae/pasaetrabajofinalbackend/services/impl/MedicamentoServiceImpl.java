@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.MedicamentoDTO;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Medicamento;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.MedicamentoRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.MedicamentoService;

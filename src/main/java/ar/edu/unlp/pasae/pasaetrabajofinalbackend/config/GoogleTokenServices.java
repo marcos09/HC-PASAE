@@ -1,5 +1,10 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.config;
 
+import static java.util.Collections.singleton;
+
+import java.math.BigInteger;
+import java.util.Map;
+
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,11 +24,6 @@ import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConv
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
-
-import java.math.BigInteger;
-import java.util.Map;
-
-import static java.util.Collections.singleton;
 
 public class GoogleTokenServices implements ResourceServerTokenServices, InitializingBean {
     private String userInfoUrl;
@@ -67,7 +67,8 @@ public class GoogleTokenServices implements ResourceServerTokenServices, Initial
         return new UsernamePasswordAuthenticationToken(new GooglePrincipal(new BigInteger(idStr)), null, singleton(new SimpleGrantedAuthority("ROLE_USER")));
     }
 
-    private Map<String, ?> getUserInfo(String accessToken) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	private Map<String, ?> getUserInfo(String accessToken) {
         HttpHeaders headers = getHttpHeaders(accessToken);
         Map map = restTemplate.exchange(userInfoUrl, HttpMethod.GET, new HttpEntity<>(headers), Map.class).getBody();
         return (Map<String, Object>) map;

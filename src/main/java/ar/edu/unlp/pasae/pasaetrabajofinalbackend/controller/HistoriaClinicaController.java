@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.HistoriaClinica;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService;
 
 @RestController

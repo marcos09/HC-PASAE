@@ -4,21 +4,23 @@ import java.util.Date;
 
 public class EstudioComplementarioDTO extends GenericDTOImpl {
 
-	private Date fechaRealizacion;
+	private Date fechaIndicacion;
 	private Date fechaResultado;
 	private String informeResultado;
-
-	public EstudioComplementarioDTO(Long id, Date fechaRealizacion, Date fechaResultado, String informeResultado) {
+	private String estudioSolicitado;
+	public EstudioComplementarioDTO(Long id, String estudioSolicitado,  Date fechaIndicacion, Date fechaResultado, String informeResultado) {
 		super();
 		this.setId(id);
-		this.setFechaRealizacion(fechaRealizacion);
+		this.setEstudioSolicitado(estudioSolicitado);
+		this.setFechaIndicacion(fechaIndicacion);
 		this.setFechaResultado(fechaResultado);
 		this.setInformeResultado(informeResultado);
 	}
 
-	public EstudioComplementarioDTO(Date fechaRealizacion, Date fechaResultado, String informeResultado) {
+	public EstudioComplementarioDTO(Date fechaIndicacion, String estudioSolicitado, Date fechaResultado, String informeResultado) {
 		super();
-		this.setFechaRealizacion(fechaRealizacion);
+		this.setEstudioSolicitado(estudioSolicitado);
+		this.setFechaIndicacion(fechaIndicacion);
 		this.setFechaResultado(fechaResultado);
 		this.setInformeResultado(informeResultado);
 	}
@@ -27,12 +29,12 @@ public class EstudioComplementarioDTO extends GenericDTOImpl {
 		super();
 	}
 
-	public Date getFechaRealizacion() {
-		return fechaRealizacion;
+	public Date getFechaIndicacion() {
+		return fechaIndicacion;
 	}
 
-	public void setFechaRealizacion(Date fechaRealizacion) {
-		this.fechaRealizacion = fechaRealizacion;
+	public void setFechaIndicacion(Date fechaRealizacion) {
+		this.fechaIndicacion = fechaRealizacion;
 	}
 
 	public Date getFechaResultado() {
@@ -50,4 +52,14 @@ public class EstudioComplementarioDTO extends GenericDTOImpl {
 	public void setInformeResultado(String informeResultado) {
 		this.informeResultado = informeResultado;
 	}
+
+	public String getEstudioSolicitado() {
+		return estudioSolicitado;
+	}
+
+	public void setEstudioSolicitado(String estudioSolicitado) {
+		this.estudioSolicitado = estudioSolicitado;
+	}
+	
+	
 }

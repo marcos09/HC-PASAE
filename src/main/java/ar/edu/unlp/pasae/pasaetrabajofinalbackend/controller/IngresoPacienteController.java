@@ -5,8 +5,6 @@ import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.aspect.ExceptionHandlerAspect;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.IngresoPacienteService;
 
@@ -26,7 +23,13 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.IngresoPacienteServic
 @RequestMapping("/ingreso")
 public class IngresoPacienteController {
 
-	private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlerAspect.class);
+	/*
+	 * import org.slf4j.Logger;
+	 * import org.slf4j.LoggerFactory;
+	 * import ar.edu.unlp.pasae.pasaetrabajofinalbackend.aspect.ExceptionHandlerAspect;
+	 * 	private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlerAspect.class);
+	 * 
+	 */
 
 	@Autowired
 	private IngresoPacienteService ingresoService;

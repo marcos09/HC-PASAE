@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.UserDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PacienteService;
 
 @RestController

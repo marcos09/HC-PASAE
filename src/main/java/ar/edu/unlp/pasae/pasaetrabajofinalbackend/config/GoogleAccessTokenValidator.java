@@ -1,6 +1,8 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.config;
 
-import com.google.common.collect.ImmutableMap;
+import java.io.IOException;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.http.HttpEntity;
@@ -13,8 +15,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
-import java.util.Map;
+import com.google.common.collect.ImmutableMap;
 
 public class GoogleAccessTokenValidator implements AccessTokenValidator, InitializingBean {
     private String clientId;
@@ -54,10 +55,12 @@ public class GoogleAccessTokenValidator implements AccessTokenValidator, Initial
         return true;
     }
 
-    private Map<String, ?> getGoogleResponse(String accessToken) {
+    @SuppressWarnings("unchecked")
+	private Map<String, ?> getGoogleResponse(String accessToken) {
         HttpEntity<Object> requestEntity = new HttpEntity<>(new HttpHeaders());
         Map<String, String> variables = ImmutableMap.of("accessToken", accessToken);
-        Map map = restTemplate.exchange(checkTokenUrl, HttpMethod.GET, requestEntity, Map.class, variables).getBody();
+        @SuppressWarnings("rawtypes")
+		Map map = restTemplate.exchange(checkTokenUrl, HttpMethod.GET, requestEntity, Map.class, variables).getBody();
         return (Map<String, Object>) map;
     }
 

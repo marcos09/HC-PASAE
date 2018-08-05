@@ -14,7 +14,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @PrimaryKeyJoinColumn(name = "id")
 public class HistoriaClinica extends GenericPersistentClass {
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
+	//Se cambió el CascadeType de {CascadeType.MERGE, CascadeType.REMOVE} a ALL
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private IngresoPaciente ingreso;
 
 	@OneToOne(cascade = CascadeType.ALL,  orphanRemoval = true)

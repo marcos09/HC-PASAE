@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Paciente;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.User;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.PacienteRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PacienteService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;

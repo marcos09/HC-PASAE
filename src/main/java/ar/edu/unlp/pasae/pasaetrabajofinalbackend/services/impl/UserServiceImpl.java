@@ -60,8 +60,6 @@ public class UserServiceImpl implements UserService {
 		}
 		*/		
 		this.getRepository().save(this.getTransformer().toEntity(persistentDTO));
-		
-		
 	}
 
 	@Override
@@ -92,4 +90,14 @@ public class UserServiceImpl implements UserService {
 		 List<User> userList = this.getRepository().findAll();
 		 return this.getTransformer().toListDTO(userList);
 	}
+
+	public Validator getValidator() {
+		return validator;
+	}
+
+	public void setValidator(Validator validator) {
+		this.validator = validator;
+	}
+	
+	
 }

@@ -9,42 +9,62 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @PrimaryKeyJoinColumn(name = "id")
 public class EstudioComplementario extends GenericPersistentClass {
 
-	private Date fechaRealizacion;
+	private Date fechaIndicacion;
 	private Date fechaResultado;
 	private String informeResultado;
+	private String estudioSolicitado;
 
-	public EstudioComplementario(Long id, Date fechaRealizacion, Date fechaResultado, String informeResultado) {
+	public EstudioComplementario(Long id, String estudioSolicitado, Date fecIndicacion, Date fechaResultado, String informeResultado) {
 		super();
 		this.setId(id);
-		this.setFechaRealizacion(fechaRealizacion);
+		this.setEstudioSolicitado(estudioSolicitado);
+		this.setFechaIndicacion(new Date());
+		this.setFechaIndicacion(fecIndicacion);
 		this.setFechaResultado(fechaResultado);
 		this.setInformeResultado(informeResultado);
 	}
 
-	public EstudioComplementario(Date fechaRealizacion, Date fechaResultado, String informeResultado) {
+	public EstudioComplementario(Date fecIndicacion, String estudioSolicitado,  Date fechaResultado, String informeResultado) {
 		super();
-		this.setFechaRealizacion(fechaRealizacion);
+		this.setEstudioSolicitado(estudioSolicitado);
+		this.setFechaIndicacion(fecIndicacion);
 		this.setFechaResultado(fechaResultado);
 		this.setInformeResultado(informeResultado);
+	}
+	
+	public EstudioComplementario( String estudioSolicitado,  Date fechaResultado, String informeResultado) {
+		super();
+		this.setEstudioSolicitado(estudioSolicitado);
+		this.setFechaIndicacion(new Date());
+		this.setFechaResultado(fechaResultado);
+		this.setInformeResultado(informeResultado);
+	}
+
+	public EstudioComplementario(String estudioSolicitado) {
+		super();
+		this.setFechaIndicacion(new Date());
+		this.setEstudioSolicitado(estudioSolicitado);
+		
 	}
 
 	public EstudioComplementario() {
 		super();
 	}
 
-	public Date getFechaRealizacion() {
-		return fechaRealizacion;
+	
+	public Date getFechaIndicacion() {
+		return fechaIndicacion;
 	}
 
-	public void setFechaRealizacion(Date fechaRealizacion) {
-		this.fechaRealizacion = fechaRealizacion;
+	private void setFechaIndicacion(Date fechaIndicacion) {
+		this.fechaIndicacion = fechaIndicacion;
 	}
 
 	public Date getFechaResultado() {
 		return fechaResultado;
 	}
 
-	public void setFechaResultado(Date fechaResultado) {
+	private void setFechaResultado(Date fechaResultado) {
 		this.fechaResultado = fechaResultado;
 	}
 
@@ -54,5 +74,16 @@ public class EstudioComplementario extends GenericPersistentClass {
 
 	public void setInformeResultado(String informeResultado) {
 		this.informeResultado = informeResultado;
+		this.setFechaResultado(new Date());
 	}
+
+	public String getEstudioSolicitado() {
+		return estudioSolicitado;
+	}
+
+	public void setEstudioSolicitado(String estudioSolicitado) {
+		this.estudioSolicitado = estudioSolicitado;
+	}
+	
+	
 }

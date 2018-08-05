@@ -26,7 +26,6 @@ public class EstudioComplementarioServiceImpl implements EstudioComplementarioSe
 
 	@Override
 	public void create(EstudioComplementarioDTO persistentDTO) {
-		// TODO Auto-generated method stub
 		this.getEstudioRepository().save(this.getTransformer().toEntity(persistentDTO));
 
 	}
@@ -35,27 +34,22 @@ public class EstudioComplementarioServiceImpl implements EstudioComplementarioSe
 	public void update(EstudioComplementarioDTO dto) {
 		Optional<EstudioComplementario> op = this.getEstudioRepository().findById(dto.getId());
 		EstudioComplementario ec = op.get();
-		ec.setFechaRealizacion(dto.getFechaRealizacion());
-		ec.setFechaResultado(dto.getFechaResultado());
 		ec.setInformeResultado(dto.getInformeResultado());
 		this.getEstudioRepository().save(ec);
 	}
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
 		this.getEstudioRepository().deleteById(id);
 	}
 
 	@Override
 	public EstudioComplementarioDTO retrive(Long id) {
-		// TODO Auto-generated method stub
 		return this.getTransformer().toDTO(this.getEstudioRepository().findById(id).get());
 	}
 
 	@Override
 	public List<EstudioComplementarioDTO> list() {
-		// TODO Auto-generated method stub
 		return this.getTransformer().toListDTO(this.getEstudioRepository().findAll());
 	}
 

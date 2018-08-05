@@ -16,26 +16,26 @@ public class Egreso extends GenericPersistentClass {
 
 	public Egreso(String diagnosticoFinal) {
 		super();
+		this.setFecha(new Date());
 		this.setDiagnosticoFinal(diagnosticoFinal);
 	}
 	
-	public Egreso(Long id, String diagnosticoFinal, Date fecha) {
+	public Egreso(Long id, String diagnosticoFinal) {
 		super();
 		this.setId(id);
 		this.setDiagnosticoFinal(diagnosticoFinal);
-		this.setFecha(fecha);
+		this.setFecha(new Date());
 	}
 
 	@NotEmpty
 	private String diagnosticoFinal;
-	
 	private Date fecha;
 
 	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	private void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 

@@ -35,7 +35,7 @@ public class PrescripcionServiceImpl implements PrescripcionService {
 		Optional<Prescripcion> op = this.getRepository().findById(dto.getId());
 		Prescripcion p = op.get();
 		p.setDatos(dto.getDatos());
-		p.setFecha(dto.getFecha());
+		p.setFechaIndicacion(dto.getFechaIndicacion());
 		this.getRepository().save(p);
 	}
 

@@ -20,8 +20,9 @@ public class PrescripcionTransformer implements Transformer<Prescripcion, Prescr
 	
 	@Override
 	public PrescripcionDTO toDTO(Prescripcion e) {
-		return new PrescripcionDTO(e.getId(), e.getDatos(), e.getFecha(), this.getTransform().toDTO(e.getMedicamento()));
+		return new PrescripcionDTO(e.getId(), e.getDatos(), e.getFechaIndicacion(), this.getTransform().toDTO(e.getMedicamento()), e.getFechaAdministracion());
 	}
+	
 
 	@Override
 	public Prescripcion toEntity(PrescripcionDTO dto) {
@@ -39,7 +40,6 @@ public class PrescripcionTransformer implements Transformer<Prescripcion, Prescr
 
 	@Override
 	public Collection<PrescripcionDTO> toCollectionDTO(List<Prescripcion> list) {
-		// TODO Auto-generated method stub
 		Collection<PrescripcionDTO> lista = new ArrayList<PrescripcionDTO>();
 		for (Prescripcion p : list) {
 			lista.add(this.toDTO(p));
@@ -49,7 +49,6 @@ public class PrescripcionTransformer implements Transformer<Prescripcion, Prescr
 
 	@Override
 	public Set<Prescripcion> toListEntity(Set<PrescripcionDTO> list) {
-		// TODO Auto-generated method stub
 		Set<Prescripcion> lista = new HashSet<Prescripcion>();
 		for (PrescripcionDTO p : list) {
 			lista.add(this.toEntity(p));
@@ -58,7 +57,6 @@ public class PrescripcionTransformer implements Transformer<Prescripcion, Prescr
 	}
 
 	public Set<PrescripcionDTO> toSetDTO(Set<Prescripcion> prescripciones) {
-		// TODO Auto-generated method stub
 		Set<PrescripcionDTO> lista = new HashSet<PrescripcionDTO>();
 		for (Prescripcion p : prescripciones) {
 			lista.add(this.toDTO(p));
@@ -67,7 +65,6 @@ public class PrescripcionTransformer implements Transformer<Prescripcion, Prescr
 	}
 	
 	public Set<Prescripcion> toSet(Set<PrescripcionDTO> prescripcionesDTO) {
-		// TODO Auto-generated method stub
 		Set<Prescripcion> lista = new HashSet<Prescripcion>();
 		for (PrescripcionDTO p : prescripcionesDTO) {
 			lista.add(this.toEntity(p));

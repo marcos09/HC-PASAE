@@ -8,7 +8,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 
 public abstract class GenericPersistentClass implements GenericPersistentEntity {
-	@Id   @GeneratedValue(strategy= GenerationType.IDENTITY)
+	@Id @GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
 
 	public Long getId() {

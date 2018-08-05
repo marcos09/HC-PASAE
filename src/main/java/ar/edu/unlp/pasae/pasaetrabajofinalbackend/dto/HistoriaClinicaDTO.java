@@ -3,9 +3,6 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto;
 import java.util.HashSet;
 import java.util.Set;
 
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Seguimiento;
-
 public class HistoriaClinicaDTO extends GenericDTOImpl {
 
 	private IngresoPacienteDTO ingreso;

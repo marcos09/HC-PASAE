@@ -8,32 +8,37 @@ public class PrescripcionDTO extends GenericDTOImpl {
 		super();
 	}
 
-	public PrescripcionDTO(String datos, Date fecha, MedicamentoDTO medicamento) {
-		super();
-		this.setDatos(datos);
-		this.setFecha(fecha);
-		this.setMedicamento(medicamento);
-	}
 	
-	public PrescripcionDTO(Long id, String datos, Date fecha, MedicamentoDTO medicamento) {
+	public PrescripcionDTO(String datos, Date fecha, MedicamentoDTO medicamento, Date fechaAdm) {
 		super();
 		this.setDatos(datos);
-		this.setFecha(fecha);
+		this.setFechaIndicacion(fecha);
 		this.setMedicamento(medicamento);
+		this.setFechaAdministracion(fechaAdm);
 	}
 
 	
 
-	private Date fecha;
+	public PrescripcionDTO(Long id, String datos, Date fecha, MedicamentoDTO medicamento, Date fechaAdm) {
+		super();
+		this.setDatos(datos);
+		this.setFechaIndicacion(fecha);
+		this.setMedicamento(medicamento);
+		this.setFechaAdministracion(fechaAdm);
+
+	}
+
+	private Date fechaIndicacion;
 	private String datos;
 	private MedicamentoDTO medicamento;
-
-	public Date getFecha() {
-		return fecha;
+	private Date fechaAdministracion;
+	
+	public Date getFechaIndicacion() {
+		return fechaIndicacion;
 	}
 
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
+	public void setFechaIndicacion(Date fecha) {
+		this.fechaIndicacion = fecha;
 	}
 
 	public String getDatos() {
@@ -51,4 +56,14 @@ public class PrescripcionDTO extends GenericDTOImpl {
 	public void setMedicamento(MedicamentoDTO medicamento) {
 		this.medicamento = medicamento;
 	}
+
+	public Date getFechaAdministracion() {
+		return fechaAdministracion;
+	}
+
+	public void setFechaAdministracion(Date fechaAdministracion) {
+		this.fechaAdministracion = fechaAdministracion;
+	}
+	
+	
 }

@@ -27,7 +27,7 @@ public class IngresoPaciente extends GenericPersistentClass{
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Prescripcion> prescripciones;
 	
-	
+	//Creación de un ingreso sin estudios complementarios sin estudios ni indicaciones.
 	public IngresoPaciente(Long id, String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
 			String diagnosticoPresuntivo) {
 		super();
@@ -41,6 +41,7 @@ public class IngresoPaciente extends GenericPersistentClass{
 
 	}
 	
+	// Ingreso con estudios e indicaciones.
 	public IngresoPaciente(Long id, String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
 			String diagnosticoPresuntivo, Set<EstudioComplementario> estudios,Set<Prescripcion> prescripciones ) {
 		super();
@@ -54,6 +55,32 @@ public class IngresoPaciente extends GenericPersistentClass{
 
 	}
 
+	//Creación de un ingreso sin estudios complementarios sin estudios ni indicaciones.
+	public IngresoPaciente(String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
+			String diagnosticoPresuntivo) {
+		super();
+		this.setMotivoConsulta(motivoConsulta);
+		this.setEnfermedadActual(enfermedadActual);
+		this.setDiagnosticoSintomatico(diagnosticoSintomatico);
+		this.setDiagnosticoPresuntivo(diagnosticoPresuntivo);
+		this.setEstudiosComplementarios(new HashSet<EstudioComplementario>());
+		this.setPrescripciones(new HashSet<Prescripcion>());
+
+	}
+	
+	// Ingreso con estudios e indicaciones.
+	public IngresoPaciente(String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
+			String diagnosticoPresuntivo, Set<EstudioComplementario> estudios,Set<Prescripcion> prescripciones ) {
+		super();
+		this.setMotivoConsulta(motivoConsulta);
+		this.setEnfermedadActual(enfermedadActual);
+		this.setDiagnosticoSintomatico(diagnosticoSintomatico);
+		this.setDiagnosticoPresuntivo(diagnosticoPresuntivo);
+		this.setEstudiosComplementarios(estudios);
+		this.setPrescripciones(prescripciones);
+
+	}
+	
 	public IngresoPaciente() {
 		super();
 		this.setEstudiosComplementarios(new HashSet<EstudioComplementario>());
