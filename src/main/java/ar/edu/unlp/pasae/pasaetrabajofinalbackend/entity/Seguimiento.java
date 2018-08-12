@@ -1,5 +1,6 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,7 +27,7 @@ public class Seguimiento extends GenericPersistentClass implements Comparable<Se
 		super();
 		this.setEstudiosComplementarios(new HashSet<EstudioComplementario>());
 		this.setPrescripciones(new HashSet<Prescripcion>());
-		this.setFecha(new Date());
+		this.setFecha(Calendar.getInstance().getTime());
 	}
 	
 	public Seguimiento(Long id, String resultado, Set<EstudioComplementario> estudios, Set<Prescripcion> prescripciones) {
@@ -44,7 +45,7 @@ public class Seguimiento extends GenericPersistentClass implements Comparable<Se
 		this.setResultado(resultado);
 		this.setEstudiosComplementarios(new HashSet<EstudioComplementario>());
 		this.setPrescripciones(new HashSet<Prescripcion>());
-		this.setFecha(new Date());
+		this.setFecha(Calendar.getInstance().getTime());
 	}
 	
 	public Seguimiento(String resultado, Set<EstudioComplementario> estudios, Set<Prescripcion> prescripciones) {
@@ -52,7 +53,7 @@ public class Seguimiento extends GenericPersistentClass implements Comparable<Se
 		this.setResultado(resultado);
 		this.setEstudiosComplementarios(estudios);
 		this.setPrescripciones(prescripciones);
-		this.setFecha(new Date());
+		this.setFecha(Calendar.getInstance().getTime());
 	}
 
 	public Seguimiento(String resultado) {
@@ -60,7 +61,7 @@ public class Seguimiento extends GenericPersistentClass implements Comparable<Se
 		this.setResultado(resultado);
 		this.setEstudiosComplementarios(new HashSet<EstudioComplementario>());
 		this.setPrescripciones(new HashSet<Prescripcion>());
-		this.setFecha(new Date());
+		this.setFecha(Calendar.getInstance().getTime());
 	}
 
 	public Date getFecha() {

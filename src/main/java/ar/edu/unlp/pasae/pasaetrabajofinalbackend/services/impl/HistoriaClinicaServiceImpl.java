@@ -1,5 +1,7 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -13,12 +15,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.HistoriaClinica;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Prescripcion;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Seguimiento;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.HistoriaClinicaRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.EstudioComplementarioTransformer;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.PrescripcionTransformer;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
 
 @Service
@@ -26,6 +33,12 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
 
 public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 
+	@Autowired
+	private EstudioComplementarioTransformer estudioTransformer;
+
+	@Autowired
+	private PrescripcionTransformer prescripcionTransformes;
+	
 	@Autowired
 	private HistoriaClinicaRepository repository;
 
@@ -110,5 +123,62 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 
 	private Transformer<Seguimiento, SeguimientoDTO> getSeguimientoTransformer() {
 		return seguimientoTransformer;
+	}
+	
+	
+
+	public EstudioComplementarioTransformer getEstudioTransformer() {
+		return estudioTransformer;
+	}
+
+	public void setEstudioTransformer(EstudioComplementarioTransformer estudioTransformer) {
+		this.estudioTransformer = estudioTransformer;
+	}
+
+	public PrescripcionTransformer getPrescripcionTransformes() {
+		return prescripcionTransformes;
+	}
+
+	public void setPrescripcionTransformes(PrescripcionTransformer prescripcionTransformes) {
+		this.prescripcionTransformes = prescripcionTransformes;
+	}
+
+	public Validator getValidator() {
+		return validator;
+	}
+
+	public void setValidator(Validator validator) {
+		this.validator = validator;
+	}
+
+	public void setSeguimientoTransformer(Transformer<Seguimiento, SeguimientoDTO> seguimientoTransformer) {
+		this.seguimientoTransformer = seguimientoTransformer;
+	}
+
+	@Override
+	public HistoriaOrdenadaDTO getHistoriaOrdenada(Long idHistoria) {
+		Optional<HistoriaClinica> optional = this.getRepository().findById(idHistoria);
+		if(optional.isPresent()) {
+			HistoriaClinica historia = optional.get();
+			ArrayList<EstudioComplementario> estudios = (ArrayList<EstudioComplementario>) historia.getEstudiosFinalizados();
+			
+			Collections.sort(estudios);
+			ArrayList<Prescripcion> prescripciones = (ArrayList<Prescripcion>) historia.getPrescripciones();
+			Collections.sort(prescripciones);
+			HistoriaOrdenadaDTO historiaOrdenada = new HistoriaOrdenadaDTO();
+			historiaOrdenada.setAplicaciones(this.getPrescripcionTransformes().toListDTO(prescripciones));
+			historiaOrdenada.setEstudios(this.getEstudioTransformer().toListDTO(estudios));
+			/*
+			historia.getSeguimientos().toArray()
+			historiaOrdenada.setSeguimientos((Set<SeguimientoDTO>)this.getSeguimientoTransformer().toListDTO(null);
+			
+					historia.getSeguimientos().
+					.toCollectionDTO((List<Seguimiento>) historia.getSeguimientos()));
+			*/
+					
+					
+			return historiaOrdenada;
+		}
+		return null;
 	}
 }

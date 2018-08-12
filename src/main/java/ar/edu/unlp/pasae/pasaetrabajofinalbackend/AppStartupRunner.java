@@ -1,4 +1,5 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -181,6 +182,12 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.getMedicamentosRepository().save(med2);
 		//this.getIngresoRepository().save(ingreso);
 		this.getHistoriaRepository().save(hc);
+		Date date = new Date();
+		Date date1 = new Date();
+		Date date2 = new Date();
+		System.out.println(date.toString());
+		System.out.println(date1.toString());
+		System.out.println(date2.toString());
 		
 	}
 

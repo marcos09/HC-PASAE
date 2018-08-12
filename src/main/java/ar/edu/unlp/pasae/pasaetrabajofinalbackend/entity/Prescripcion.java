@@ -8,7 +8,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
-public class Prescripcion extends GenericPersistentClass {
+public class Prescripcion extends GenericPersistentClass implements Comparable<Prescripcion> {
 
 	private Date fechaIndicacion;
 	private String datos;
@@ -71,4 +71,10 @@ public class Prescripcion extends GenericPersistentClass {
 	private void setFechaAdministracion(Date fechaAdministracion) {
 		this.fechaAdministracion = fechaAdministracion;
 	}
+	
+	@Override
+	public int compareTo(Prescripcion presc) {
+		return this.getFechaAdministracion().compareTo(presc.getFechaAdministracion());
+	}
+
 }

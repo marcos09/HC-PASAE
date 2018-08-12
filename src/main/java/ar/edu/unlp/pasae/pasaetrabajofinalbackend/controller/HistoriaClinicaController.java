@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService;
 
@@ -41,10 +42,16 @@ public class HistoriaClinicaController {
 	}
 
 	// Recupero una historia clinica mediante el id
-	@GetMapping(path = "/{id}", produces = "application/json")
-	public HistoriaClinicaDTO show(@PathVariable(value = "id") Long id) {
-		return this.getHistoriaService().retrive(id);
+	@GetMapping(path = "/ordenada/{id}", produces = "application/json")
+	public HistoriaOrdenadaDTO showSorted(@PathVariable(value = "id") Long id) {
+		return this.getHistoriaService().getHistoriaOrdenada(id);
 	}
+	
+	// Recupero una historia clinica mediante el id
+		@GetMapping(path = "/{id}", produces = "application/json")
+		public HistoriaClinicaDTO show(@PathVariable(value = "id") Long id) {
+			return this.getHistoriaService().retrive(id);
+		}
 
 	// Elimino historia clinica con el id
 	@DeleteMapping(path = "/{id}")

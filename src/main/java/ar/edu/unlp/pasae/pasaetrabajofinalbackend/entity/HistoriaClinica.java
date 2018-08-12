@@ -1,6 +1,9 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -85,5 +88,33 @@ public class HistoriaClinica extends GenericPersistentClass {
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
 	}
+
+	public Collection<EstudioComplementario> getEstudiosFinalizados() {
+		List<EstudioComplementario> estudios = new ArrayList<EstudioComplementario>();
+		for(Seguimiento s: this.getSeguimientos()) {
+			for(EstudioComplementario e: s.getEstudiosComplementarios()) {
+				if(e.getFechaResultado() != null) {
+					estudios.add(e);
+				}
+			}
+			
+		}
+		return estudios;
+		
+	}
+	
+	public Collection<Prescripcion> getPrescripciones() {
+		List<Prescripcion> prescripciones = new ArrayList<Prescripcion>();
+		for(Seguimiento s: this.getSeguimientos()) {
+			for(Prescripcion p: s.getPrescripciones()) {
+				if(p.getFechaAdministracion() != null) {
+					prescripciones.add(p);
+				}
+			}
+		}
+		return prescripciones;
+		
+	}
+
 	
 }
