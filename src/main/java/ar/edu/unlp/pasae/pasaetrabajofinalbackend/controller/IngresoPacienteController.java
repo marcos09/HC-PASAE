@@ -81,15 +81,15 @@ public class IngresoPacienteController {
 		return ingresoService;
 	}
 
-	// Prueba para ver si funciona el aspecto que convierte las excepciones no
-	// manejadas
-	// @GetMapping(path = "/exception")
-	// public void exception() {
-	// try {
-	// getIngresoService().thowException();
-	// } catch (final BaseException e) {
-	// logger.error("Excepción {}", e.getLocalizedMessage());
-	// }
-	// }
+//	 Prueba para ver si funciona el aspecto que convierte las excepciones no
+//	 manejadas
+//	 @GetMapping(path = "/exception")
+//	 public void exception() {
+//	 try {
+//	 getIngresoService().thowException();
+//	 } catch (final BaseException e) {
+//	 logger.error("Excepción {}", e.getLocalizedMessage());
+//	 }
+//	 }
 
 }

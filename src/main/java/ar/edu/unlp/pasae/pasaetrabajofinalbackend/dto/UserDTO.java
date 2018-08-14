@@ -8,7 +8,7 @@ public class UserDTO extends GenericDTOImpl {
 	private Long id;
 	@NotEmpty(message = "El nombre de usuario no puede ser nulo o vacío")
 	private String username;
-	@NotEmpty(message = "La password no puede ser nula o vacía")
+	@NotEmpty(message = "El mail no puede ser nulo o vacío")
 	private String email;
 	@NotNull
 	public String authorities;
