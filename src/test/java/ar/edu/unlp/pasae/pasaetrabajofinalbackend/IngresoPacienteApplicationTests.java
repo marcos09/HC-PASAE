@@ -1,5 +1,7 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend;
 
+import java.util.Date;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,8 +36,8 @@ public class IngresoPacienteApplicationTests {
 		this.getEstudioService().create(estudio1);
 		PrescripcionDTO prescripcion1 = new PrescripcionDTO();
 		this.getPrescripcionService().create(prescripcion1);
-		
-		IngresoPacienteDTO ingreso = new IngresoPacienteDTO(1L, "motivoConsulta", "enfermedadActual", "diagnosticoSintomatico", "diagnosticoPresuntivo");
+		Date fecha = new Date();
+		IngresoPacienteDTO ingreso = new IngresoPacienteDTO(1L, "motivoConsulta", "enfermedadActual", "diagnosticoSintomatico", "diagnosticoPresuntivo", "antecedentesEnfermedad","antecedentesPersonales", "examenFisico", fecha );
 		ingreso.addEstudio(estudio1);
 		ingreso.addPrescripcion(prescripcion1);
 		

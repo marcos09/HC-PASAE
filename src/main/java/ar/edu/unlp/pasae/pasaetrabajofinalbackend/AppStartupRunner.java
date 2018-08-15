@@ -80,7 +80,7 @@ public class AppStartupRunner implements ApplicationRunner {
 		IngresoPaciente i3 = new IngresoPaciente("motivo3", "enfermedad 3", "diagostico sintomático3", "diagnostico presuntivo 3");
 		i3.addPrescripcion(prescripcion2);
 */		
-		this.getIngresoRepository().save(new IngresoPaciente("motivo1", "enfermedad 1", "diagostico sintomático1", "diagnostico presuntivo 1"));
+		this.getIngresoRepository().save(new IngresoPaciente("motivo1", "enfermedad 1", "diagostico sintomático1", "diagnostico presuntivo 1", "antecedentesEnfermedad", "antecedentesPersonales", "examenFisico"));
 		//this.getIngresoRepository().save(i2);
 		//this.getIngresoRepository().save(i3);
 		
@@ -125,7 +125,8 @@ public class AppStartupRunner implements ApplicationRunner {
 
 	//Método explicado en la última parte del documento introducción
 	private void createHistoria() {
-		IngresoPaciente ingreso = new IngresoPaciente("Motociclista accidentado en la vía pública","Traumatismo severo de craneo, lesiones en manos, rodillas, pérdida del conocimiento.","diagnosticoSintomatico", "Diagnostico presuntivo");
+
+		IngresoPaciente ingreso = new IngresoPaciente("Motociclista accidentado en la vía pública","Traumatismo severo de craneo, lesiones en manos, rodillas, pérdida del conocimiento.","diagnosticoSintomatico", "Diagnostico presuntivo", "antecedentesEnfermedad", "antecedentesPersonales", "examenFisico");
 		Paciente p = new Paciente(12345678, false, null, null, "Paciente historia nombre", "Apellido paciente historia", "Domicilio", 1321421);
 		HistoriaClinica hc = new HistoriaClinica(ingreso);
 		hc.setPaciente(p);

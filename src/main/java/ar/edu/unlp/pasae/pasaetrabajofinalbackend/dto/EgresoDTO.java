@@ -2,6 +2,8 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotEmpty;
+
 public class EgresoDTO extends GenericDTOImpl {
 
 	public EgresoDTO() {
@@ -20,8 +22,10 @@ public class EgresoDTO extends GenericDTOImpl {
 		this.setDiagnosticoFinal(diagnosticoFinal);
 		this.setFecha(fecha);
 	}
-	private String diagnosticoFinal;
 	
+	@NotEmpty(message = "El diagnostico final no puede ser nulo o vacio")
+	private String diagnosticoFinal;
+	@NotEmpty(message = "La fecha de egreso no puede ser nula o vacia")
 	private Date fecha;
 
 	public Date getFecha() {

@@ -77,13 +77,16 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 		return this.getTransformer().toListDTO(listIngresos);
 
 	}
+	
+	
 
 	@Override
 	public void create(IngresoPacienteDTO dto) {
 		IngresoPaciente ip = new IngresoPaciente(dto.getId(), dto.getMotivoConsulta(), dto.getEnfermedadActual(),
 				dto.getDiagnosticoSintomatico(), dto.getDiagnosticoPresuntivo(),
 				this.getEstudioTransformer().toSet(dto.getEstudiosComplementarios()),
-				this.getPrescripcionTransformer().toSet(dto.getPrescripciones()));
+				this.getPrescripcionTransformer().toSet(dto.getPrescripciones()),
+				dto.getAntecedentesEnfermedad(), dto.getAntecedentesPersonales(), dto.getExamenFisico());
 		Set<ConstraintViolation<IngresoPaciente>> validations = validator.validate(ip);// si esta vacio no hubieron
 																						// errores de validacion
 		if (validations.isEmpty()) {

@@ -1,5 +1,6 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,11 +8,19 @@ import javax.validation.constraints.NotEmpty;
 
 public class IngresoPacienteDTO extends GenericDTOImpl {
 
-	private Long id;
+	
+	@NotEmpty(message = "La fecha de ingreso no puede ser nula o vacia")
+	private Date fechaIngreso;
 	@NotEmpty(message = "El motivo de consulta no puede ser nulo o vacío")
 	private String motivoConsulta;
 	@NotEmpty(message = "La enfermedad actual no puede ser nula o vacía")
 	private String enfermedadActual;
+	@NotEmpty(message = "Los antecedentes de la enfermedad actual no pueden ser nulos o vacíos")
+	private String antecedentesEnfermedad;
+	@NotEmpty(message = "Los antecedentes personales no pueden ser nulos o vacíos")
+	private String antecedentesPersonales;
+	@NotEmpty(message = "El examen fisico no puede ser nulo o vacio")
+	private String examenFisico;
 	@NotEmpty(message = "El diagnostico sintomatico no puede ser nulo o vacío")
 	private String diagnosticoSintomatico;
 	@NotEmpty(message = "El diagnostico presuntivo no puede ser nulo o vacío")
@@ -25,7 +34,7 @@ public class IngresoPacienteDTO extends GenericDTOImpl {
 	}
 
 	public IngresoPacienteDTO(Long id, String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
-			String diagnosticoPresuntivo, Set<EstudioComplementarioDTO> estudios, Set<PrescripcionDTO> prescripciones) {
+			String diagnosticoPresuntivo, Set<EstudioComplementarioDTO> estudios, Set<PrescripcionDTO> prescripciones, String antecedentesEnfermedad, String antecedentesPersonales, String examenFisico, Date fecha) {
 		super();
 		this.setId(id);
 		this.setMotivoConsulta(motivoConsulta);
@@ -34,10 +43,14 @@ public class IngresoPacienteDTO extends GenericDTOImpl {
 		this.setDiagnosticoPresuntivo(diagnosticoPresuntivo);
 		this.setEstudiosComplementarios(estudios);
 		this.setPrescripciones(prescripciones);
+		this.setFechaIngreso(fecha);
+		this.setAntecedentesEnfermedad(antecedentesEnfermedad);
+		this.setAntecedentesPersonales(antecedentesPersonales);
+		this.setExamenFisico(examenFisico);
 	}
 
 	public IngresoPacienteDTO(Long id, String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
-			String diagnosticoPresuntivo) {
+			String diagnosticoPresuntivo, String antecedentesEnfermedad, String antecedentesPersonales, String examenFisico, Date fecha) {
 		super();
 		this.setId(id);
 		this.setMotivoConsulta(motivoConsulta);
@@ -46,16 +59,13 @@ public class IngresoPacienteDTO extends GenericDTOImpl {
 		this.setDiagnosticoPresuntivo(diagnosticoPresuntivo);
 		this.setEstudiosComplementarios(new HashSet<EstudioComplementarioDTO>());
 		this.setPrescripciones(new HashSet<PrescripcionDTO>());
+		this.setFechaIngreso(fecha);
+		this.setAntecedentesEnfermedad(antecedentesEnfermedad);
+		this.setAntecedentesPersonales(antecedentesPersonales);
+		this.setExamenFisico(examenFisico);
 
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getMotivoConsulta() {
 		return motivoConsulta;
@@ -103,6 +113,37 @@ public class IngresoPacienteDTO extends GenericDTOImpl {
 
 	public void setPrescripciones(Set<PrescripcionDTO> prescripciones) {
 		this.prescripciones = prescripciones;
+	}
+	public Date getFechaIngreso() {
+		return fechaIngreso;
+	}
+
+	public String getAntecedentesEnfermedad() {
+		return antecedentesEnfermedad;
+	}
+
+	public String getAntecedentesPersonales() {
+		return antecedentesPersonales;
+	}
+
+	public String getExamenFisico() {
+		return examenFisico;
+	}
+
+	public void setFechaIngreso(Date fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
+	}
+
+	public void setAntecedentesEnfermedad(String antecedentesEnfermedad) {
+		this.antecedentesEnfermedad = antecedentesEnfermedad;
+	}
+
+	public void setAntecedentesPersonales(String antecedentesPersonales) {
+		this.antecedentesPersonales = antecedentesPersonales;
+	}
+
+	public void setExamenFisico(String examenFisico) {
+		this.examenFisico = examenFisico;
 	}
 
 	public void addEstudio(EstudioComplementarioDTO estudio) {

@@ -1,5 +1,6 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -9,6 +10,7 @@ public class UserDTO extends GenericDTOImpl {
 	@NotEmpty(message = "El nombre de usuario no puede ser nulo o vacío")
 	private String username;
 	@NotEmpty(message = "El mail no puede ser nulo o vacío")
+	@Email
 	private String email;
 	@NotNull
 	public String authorities;

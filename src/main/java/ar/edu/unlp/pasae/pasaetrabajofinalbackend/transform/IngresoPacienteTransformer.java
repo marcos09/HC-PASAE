@@ -34,7 +34,8 @@ public class IngresoPacienteTransformer implements Transformer<IngresoPaciente, 
 		IngresoPacienteDTO ingresoDTO = new IngresoPacienteDTO(ip.getId(), ip.getMotivoConsulta(),
 				ip.getEnfermedadActual(), ip.getDiagnosticoSintomatico(), ip.getDiagnosticoPresuntivo(),
 				this.getEstudioTransformer().toSetDTO(ip.getEstudiosComplementarios()),
-				this.getPrescripcionTransformer().toSetDTO(ip.getPrescripciones()));
+				this.getPrescripcionTransformer().toSetDTO(ip.getPrescripciones()), ip.getAntecedentesEnfermedad(),
+				ip.getAntecedentesPersonales(), ip.getExamenFisico(), ip.getFechaIngreso());
 		return ingresoDTO;
 	}
 
@@ -44,7 +45,8 @@ public class IngresoPacienteTransformer implements Transformer<IngresoPaciente, 
 		return new IngresoPaciente(dto.getId(), dto.getMotivoConsulta(), dto.getEnfermedadActual(),
 				dto.getDiagnosticoSintomatico(), dto.getDiagnosticoPresuntivo(),
 				this.getEstudioTransformer().toSet(dto.getEstudiosComplementarios()),
-				this.getPrescripcionTransformer().toSet(dto.getPrescripciones()));
+				this.getPrescripcionTransformer().toSet(dto.getPrescripciones()), dto.getAntecedentesEnfermedad(),
+				dto.getAntecedentesPersonales(), dto.getExamenFisico());
 	}
 
 	@Override

@@ -27,8 +27,9 @@ public class Egreso extends GenericPersistentClass {
 		this.setFecha(new Date());
 	}
 
-	@NotEmpty
+	@NotEmpty(message = "El diagnostico final no puede ser nulo o vacio")
 	private String diagnosticoFinal;
+
 	private Date fecha;
 
 	public Date getFecha() {
