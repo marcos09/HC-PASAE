@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
@@ -17,9 +18,11 @@ public class Seguimiento extends GenericPersistentClass implements Comparable<Se
 	private Date fecha;
 	private String resultado;
 
+	@NotNull(message = "La coleccion de prescripciones no puede ser nula")
 	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Prescripcion> prescripciones;
 
+	@NotNull(message = "La coleccion de estudios complementarios no puede ser nula")
 	@OneToMany(cascade = CascadeType.ALL)
 	private Set<EstudioComplementario> estudiosComplementarios;
 
@@ -29,8 +32,9 @@ public class Seguimiento extends GenericPersistentClass implements Comparable<Se
 		this.setPrescripciones(new HashSet<Prescripcion>());
 		this.setFecha(Calendar.getInstance().getTime());
 	}
-	
-	public Seguimiento(Long id, String resultado, Set<EstudioComplementario> estudios, Set<Prescripcion> prescripciones) {
+
+	public Seguimiento(Long id, String resultado, Set<EstudioComplementario> estudios,
+			Set<Prescripcion> prescripciones) {
 		super();
 		this.setId(id);
 		this.setResultado(resultado);
@@ -38,7 +42,7 @@ public class Seguimiento extends GenericPersistentClass implements Comparable<Se
 		this.setPrescripciones(prescripciones);
 		this.setFecha(new Date());
 	}
-	
+
 	public Seguimiento(Long id, String resultado) {
 		super();
 		this.setId(id);
@@ -47,7 +51,7 @@ public class Seguimiento extends GenericPersistentClass implements Comparable<Se
 		this.setPrescripciones(new HashSet<Prescripcion>());
 		this.setFecha(Calendar.getInstance().getTime());
 	}
-	
+
 	public Seguimiento(String resultado, Set<EstudioComplementario> estudios, Set<Prescripcion> prescripciones) {
 		super();
 		this.setResultado(resultado);

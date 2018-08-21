@@ -12,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
@@ -19,6 +20,7 @@ public class HistoriaClinica extends GenericPersistentClass {
 
 	//Se cambió el CascadeType de {CascadeType.MERGE, CascadeType.REMOVE} a ALL
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@NotNull(message = "El ingreso no puede ser nulo o vacio")
 	private IngresoPaciente ingreso;
 
 	@OneToOne(cascade = CascadeType.ALL,  orphanRemoval = true)
@@ -27,6 +29,7 @@ public class HistoriaClinica extends GenericPersistentClass {
 	@OneToOne(cascade = CascadeType.ALL,  orphanRemoval = true)
 	private Paciente paciente;
 	
+	@NotNull(message = "La coleccion de seguimientos no puede ser nula")
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Seguimiento> seguimientos;
 

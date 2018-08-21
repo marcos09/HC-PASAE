@@ -31,30 +31,21 @@ public class SeguimientoTransformer implements Transformer<Seguimiento, Seguimie
 
 	@Override
 	public SeguimientoDTO toDTO(Seguimiento e) {
-		// TODO Auto-generated method stub
-		SeguimientoDTO seguimientoDTO = new SeguimientoDTO();
-		seguimientoDTO.setFecha(e.getFecha());
-		seguimientoDTO.setResultado(e.getResultado());
-		seguimientoDTO
-				.setEstudiosComplementariosDTO(this.getEstudioTransformer().toSetDTO(e.getEstudiosComplementarios()));
-		seguimientoDTO.setPrescripcionesDTO(this.getPrescripcionTransformer().toSetDTO(e.getPrescripciones()));
-		return seguimientoDTO;
+		return new SeguimientoDTO(e.getId(), e.getResultado(),
+				this.getEstudioTransformer().toSetDTO(e.getEstudiosComplementarios()),
+				this.getPrescripcionTransformer().toSetDTO(e.getPrescripciones()));
 	}
 
 	@Override
 	public Seguimiento toEntity(SeguimientoDTO dto) {
-		// TODO Auto-generated method stub
-		Seguimiento seguimiento = new Seguimiento();
-		seguimiento.setFecha(dto.getFecha());
-		seguimiento.setResultado(dto.getResultado());
-		seguimiento.setPrescripciones(this.getPrescripcionTransformer().toSet(dto.getPrescripcionesDTO()));
-		seguimiento.setEstudiosComplementarios(this.getEstudioTransformer().toSet(dto.getEstudiosComplementariosDTO()));
-		return seguimiento;
+		return new Seguimiento(dto.getId(), dto.getResultado(),
+				this.getEstudioTransformer().toSet(dto.getEstudiosComplementariosDTO()),
+				this.getPrescripcionTransformer().toSet(dto.getPrescripcionesDTO()));
+
 	}
 
 	@Override
 	public List<SeguimientoDTO> toListDTO(List<Seguimiento> list) {
-		// TODO Auto-generated method stub
 		List<SeguimientoDTO> lista = new ArrayList<SeguimientoDTO>();
 		for (Seguimiento e : list) {
 			lista.add(this.toDTO(e));
@@ -64,7 +55,6 @@ public class SeguimientoTransformer implements Transformer<Seguimiento, Seguimie
 
 	@Override
 	public Collection<SeguimientoDTO> toCollectionDTO(List<Seguimiento> list) {
-		// TODO Auto-generated method stub
 		Collection<SeguimientoDTO> lista = new ArrayList<SeguimientoDTO>();
 		for (Seguimiento e : list) {
 			lista.add(this.toDTO(e));
@@ -74,7 +64,6 @@ public class SeguimientoTransformer implements Transformer<Seguimiento, Seguimie
 
 	@Override
 	public Set<Seguimiento> toListEntity(Set<SeguimientoDTO> list) {
-		// TODO Auto-generated method stub
 		Set<Seguimiento> lista = new HashSet<Seguimiento>();
 		for (SeguimientoDTO e : list) {
 			lista.add(this.toEntity(e));
@@ -83,7 +72,6 @@ public class SeguimientoTransformer implements Transformer<Seguimiento, Seguimie
 	}
 
 	public Set<SeguimientoDTO> toSetDTO(Set<Seguimiento> seguimientos) {
-		// TODO Auto-generated method stub
 		Set<SeguimientoDTO> lista = new HashSet<SeguimientoDTO>();
 		for (Seguimiento e : seguimientos) {
 			lista.add(this.toDTO(e));
@@ -92,7 +80,6 @@ public class SeguimientoTransformer implements Transformer<Seguimiento, Seguimie
 	}
 
 	public Set<Seguimiento> toSet(Set<SeguimientoDTO> seguimientosDTO) {
-		// TODO Auto-generated method stub
 		Set<Seguimiento> lista = new HashSet<Seguimiento>();
 		for (SeguimientoDTO e : seguimientosDTO) {
 			lista.add(this.toEntity(e));

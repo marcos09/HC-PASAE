@@ -26,4 +26,6 @@ public interface HistoriaClinicaService {
 
 	HistoriaOrdenadaDTO getHistoriaOrdenada(Long idHistoria);
 
+	List<HistoriaClinicaDTO> historiasActivas();
+
 }

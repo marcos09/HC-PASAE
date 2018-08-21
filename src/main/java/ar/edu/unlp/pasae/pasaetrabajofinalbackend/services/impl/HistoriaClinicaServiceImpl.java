@@ -181,4 +181,9 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 		}
 		return null;
 	}
+
+	@Override
+	public List<HistoriaClinicaDTO> historiasActivas() {
+		return this.getTransformer().toListDTO(this.getRepository().findByEgresoIsNull());
+	}
 }

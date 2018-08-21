@@ -13,7 +13,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Medicamento;
 
 @Component
 
-public class MedicamentoTransformer implements Transformer<Medicamento, MedicamentoDTO>{
+public class MedicamentoTransformer implements Transformer<Medicamento, MedicamentoDTO> {
 
 	@Override
 	public MedicamentoDTO toDTO(Medicamento e) {
@@ -24,7 +24,6 @@ public class MedicamentoTransformer implements Transformer<Medicamento, Medicame
 	public Medicamento toEntity(MedicamentoDTO dto) {
 		return new Medicamento(dto.getId(), dto.getNombre(), dto.getIndicaciones(), dto.getContraindicaciones());
 	}
-
 
 	@Override
 	public Collection<MedicamentoDTO> toCollectionDTO(List<Medicamento> list) {
@@ -40,7 +39,7 @@ public class MedicamentoTransformer implements Transformer<Medicamento, Medicame
 		return lista;
 
 	}
-	
+
 	@Override
 	public List<MedicamentoDTO> toListDTO(List<Medicamento> list) {
 		List<MedicamentoDTO> lista = new ArrayList<MedicamentoDTO>();
@@ -49,6 +48,5 @@ public class MedicamentoTransformer implements Transformer<Medicamento, Medicame
 		}
 		return lista;
 	}
-
 
 }

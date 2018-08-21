@@ -65,10 +65,19 @@ public class HistoriaClinicaController {
 		this.getHistoriaService().update(historiaDTO);
 	}
 	
+	//Agregar seguimiento a una historia
 	@PutMapping(path = "/agregarSeguimiento/{id}", consumes = "application/json", produces = "application/json")
 	public void agregarSeguimiento(@PathVariable(value = "id") Long id, @RequestBody @Valid SeguimientoDTO seguimiento) {
 		this.getHistoriaService().agregarSeguimiento(id, seguimiento);
 		
 	}
+	
+	//Listado de historias clinicas de pacientes internados actualmente (No egresados)
+		@GetMapping(path = "/activas")
+		public List<HistoriaClinicaDTO> historiasActivas() {
+			List<HistoriaClinicaDTO> historias = this.getHistoriaService().historiasActivas();
+			return historias;
+		}
+	
 	
 }

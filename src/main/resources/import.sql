@@ -1,1 +1,1 @@
-insert into user(id,username,email, authorities) values(4,'gmastro','mastronardi.gonzalo@gmail.com', 'ROLE_STUDENT');
+insert into user(id,username,email, authorities) values(4,'gmastro','mastronardi.gonzalo@gmail.com', 'ROLE_MEDICO');

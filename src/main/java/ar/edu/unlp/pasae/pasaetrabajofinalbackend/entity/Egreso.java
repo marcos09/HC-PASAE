@@ -10,6 +10,11 @@ import javax.validation.constraints.NotEmpty;
 @PrimaryKeyJoinColumn(name = "id")
 public class Egreso extends GenericPersistentClass {
 
+	@NotEmpty(message = "El diagnostico final no puede ser nulo o vacio")
+	private String diagnosticoFinal;
+
+	private Date fecha;
+
 	public Egreso() {
 		super();
 	}
@@ -19,18 +24,13 @@ public class Egreso extends GenericPersistentClass {
 		this.setFecha(new Date());
 		this.setDiagnosticoFinal(diagnosticoFinal);
 	}
-	
+
 	public Egreso(Long id, String diagnosticoFinal) {
 		super();
 		this.setId(id);
 		this.setDiagnosticoFinal(diagnosticoFinal);
 		this.setFecha(new Date());
 	}
-
-	@NotEmpty(message = "El diagnostico final no puede ser nulo o vacio")
-	private String diagnosticoFinal;
-
-	private Date fecha;
 
 	public Date getFecha() {
 		return fecha;

@@ -17,16 +17,17 @@ public class PrescripcionTransformer implements Transformer<Prescripcion, Prescr
 
 	@Autowired
 	private MedicamentoTransformer transform;
-	
+
 	@Override
 	public PrescripcionDTO toDTO(Prescripcion e) {
-		return new PrescripcionDTO(e.getId(), e.getDatos(), e.getFechaIndicacion(), this.getTransform().toDTO(e.getMedicamento()), e.getFechaAdministracion());
+		return new PrescripcionDTO(e.getId(), e.getDatos(), e.getFechaIndicacion(),
+				this.getTransform().toDTO(e.getMedicamento()), e.getFechaAdministracion());
 	}
-	
 
 	@Override
 	public Prescripcion toEntity(PrescripcionDTO dto) {
-		return new Prescripcion(dto.getId(), dto.getDatos(), this.getTransform().toEntity(dto.getMedicamento()));
+		return new Prescripcion(dto.getId(), dto.getDatos(), dto.getFechaIndicacion(),
+				this.getTransform().toEntity(dto.getMedicamento()), dto.getFechaAdministracion());
 	}
 
 	@Override
@@ -63,7 +64,7 @@ public class PrescripcionTransformer implements Transformer<Prescripcion, Prescr
 		}
 		return lista;
 	}
-	
+
 	public Set<Prescripcion> toSet(Set<PrescripcionDTO> prescripcionesDTO) {
 		Set<Prescripcion> lista = new HashSet<Prescripcion>();
 		for (PrescripcionDTO p : prescripcionesDTO) {
@@ -80,5 +81,4 @@ public class PrescripcionTransformer implements Transformer<Prescripcion, Prescr
 		this.transform = transform;
 	}
 
-	
 }

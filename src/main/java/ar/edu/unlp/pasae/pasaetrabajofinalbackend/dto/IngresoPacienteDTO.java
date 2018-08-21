@@ -8,8 +8,6 @@ import javax.validation.constraints.NotEmpty;
 
 public class IngresoPacienteDTO extends GenericDTOImpl {
 
-	
-	@NotEmpty(message = "La fecha de ingreso no puede ser nula o vacia")
 	private Date fechaIngreso;
 	@NotEmpty(message = "El motivo de consulta no puede ser nulo o vacío")
 	private String motivoConsulta;
@@ -22,9 +20,9 @@ public class IngresoPacienteDTO extends GenericDTOImpl {
 	@NotEmpty(message = "El examen fisico no puede ser nulo o vacio")
 	private String examenFisico;
 	@NotEmpty(message = "El diagnostico sintomatico no puede ser nulo o vacío")
-	private String diagnosticoSintomatico;
+	private PatologiaDTO diagnosticoSintomatico;
 	@NotEmpty(message = "El diagnostico presuntivo no puede ser nulo o vacío")
-	private String diagnosticoPresuntivo;
+	private PatologiaDTO diagnosticoPresuntivo;
 
 	private Set<EstudioComplementarioDTO> estudiosComplementarios;
 	private Set<PrescripcionDTO> prescripciones;
@@ -33,8 +31,10 @@ public class IngresoPacienteDTO extends GenericDTOImpl {
 		super();
 	}
 
-	public IngresoPacienteDTO(Long id, String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
-			String diagnosticoPresuntivo, Set<EstudioComplementarioDTO> estudios, Set<PrescripcionDTO> prescripciones, String antecedentesEnfermedad, String antecedentesPersonales, String examenFisico, Date fecha) {
+	public IngresoPacienteDTO(Long id, String motivoConsulta, String enfermedadActual,
+			PatologiaDTO diagnosticoSintomatico, PatologiaDTO diagnosticoPresuntivo,
+			Set<EstudioComplementarioDTO> estudios, Set<PrescripcionDTO> prescripciones, String antecedentesEnfermedad,
+			String antecedentesPersonales, String examenFisico, Date fecha) {
 		super();
 		this.setId(id);
 		this.setMotivoConsulta(motivoConsulta);
@@ -49,8 +49,9 @@ public class IngresoPacienteDTO extends GenericDTOImpl {
 		this.setExamenFisico(examenFisico);
 	}
 
-	public IngresoPacienteDTO(Long id, String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
-			String diagnosticoPresuntivo, String antecedentesEnfermedad, String antecedentesPersonales, String examenFisico, Date fecha) {
+	public IngresoPacienteDTO(Long id, String motivoConsulta, String enfermedadActual,
+			PatologiaDTO diagnosticoSintomatico, PatologiaDTO diagnosticoPresuntivo, String antecedentesEnfermedad,
+			String antecedentesPersonales, String examenFisico, Date fecha) {
 		super();
 		this.setId(id);
 		this.setMotivoConsulta(motivoConsulta);
@@ -65,7 +66,6 @@ public class IngresoPacienteDTO extends GenericDTOImpl {
 		this.setExamenFisico(examenFisico);
 
 	}
-
 
 	public String getMotivoConsulta() {
 		return motivoConsulta;
@@ -83,19 +83,19 @@ public class IngresoPacienteDTO extends GenericDTOImpl {
 		this.enfermedadActual = enfermedadActual;
 	}
 
-	public String getDiagnosticoSintomatico() {
+	public PatologiaDTO getDiagnosticoSintomatico() {
 		return diagnosticoSintomatico;
 	}
 
-	public void setDiagnosticoSintomatico(String diagnosticoSintomatico) {
+	public void setDiagnosticoSintomatico(PatologiaDTO diagnosticoSintomatico) {
 		this.diagnosticoSintomatico = diagnosticoSintomatico;
 	}
 
-	public String getDiagnosticoPresuntivo() {
+	public PatologiaDTO getDiagnosticoPresuntivo() {
 		return diagnosticoPresuntivo;
 	}
 
-	public void setDiagnosticoPresuntivo(String diagnosticoPresuntivo) {
+	public void setDiagnosticoPresuntivo(PatologiaDTO diagnosticoPresuntivo) {
 		this.diagnosticoPresuntivo = diagnosticoPresuntivo;
 	}
 
@@ -114,6 +114,7 @@ public class IngresoPacienteDTO extends GenericDTOImpl {
 	public void setPrescripciones(Set<PrescripcionDTO> prescripciones) {
 		this.prescripciones = prescripciones;
 	}
+
 	public Date getFechaIngreso() {
 		return fechaIngreso;
 	}

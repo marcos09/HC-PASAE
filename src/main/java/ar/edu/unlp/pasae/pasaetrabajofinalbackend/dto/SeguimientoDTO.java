@@ -4,17 +4,40 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.constraints.NotNull;
+
 public class SeguimientoDTO extends GenericDTOImpl {
 
 	private Date fecha;
 	private String resultado;
+	@NotNull(message = "La coleccion de prescripciones no puede ser nula")
 	private Set<PrescripcionDTO> prescripcionesDTO;
+	@NotNull(message = "La coleccion de estudios complementarios no puede ser nula")
 	private Set<EstudioComplementarioDTO> estudiosComplementariosDTO;
 
 	public SeguimientoDTO() {
 		super();
 		this.setEstudiosComplementariosDTO(new HashSet<EstudioComplementarioDTO>());
 		this.setPrescripcionesDTO(new HashSet<PrescripcionDTO>());
+		this.setFecha(new Date());
+	}
+
+	public SeguimientoDTO(Long id, String resultado, Set<EstudioComplementarioDTO> estudios,
+			Set<PrescripcionDTO> prescripciones) {
+		super();
+		this.setId(id);
+		this.setResultado(resultado);
+		this.setEstudiosComplementariosDTO(estudios);
+		this.setPrescripcionesDTO(prescripciones);
+		this.setFecha(new Date());
+	}
+
+	public SeguimientoDTO(String resultado, Set<EstudioComplementarioDTO> estudios,
+			Set<PrescripcionDTO> prescripciones) {
+		super();
+		this.setResultado(resultado);
+		this.setEstudiosComplementariosDTO(estudios);
+		this.setPrescripcionesDTO(prescripciones);
 		this.setFecha(new Date());
 	}
 
