@@ -2,6 +2,10 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.aspect.ExceptionHandlerAspect;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PacienteService;
 
 @RestController
@@ -20,12 +26,18 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PacienteService;
 @RequestMapping("/pacientes")
 public class PacienteController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlerAspect.class);
+
 	@Autowired
 	private PacienteService pacienteService;
-	
+
 	@PutMapping(path = "/createPaciente", consumes = "application/json", produces = "application/json")
-	public void create(@RequestBody PacienteDTO pacienteDTO) {
-		this.getPacienteService().create(pacienteDTO);
+	public void create(@RequestBody @Valid PacienteDTO pacienteDTO) throws BaseException {
+		try {
+			this.getPacienteService().create(pacienteDTO);
+		} catch (final BaseException e) {
+			logger.error("Excepción {}", e.getLocalizedMessage());
+		}
 	}
 
 	@GetMapping(path = "/list")
@@ -33,19 +45,18 @@ public class PacienteController {
 		List<PacienteDTO> pacientes = this.getPacienteService().list();
 		return pacientes;
 	}
-	
+
 	@GetMapping(path = "/buscarApellido/{apellido}", produces = "application/json")
 	public List<PacienteDTO> findByDni(@PathVariable(value = "apellido") String apellido) {
 		List<PacienteDTO> pacientes = this.getPacienteService().findByApellidoContaining(apellido);
 		return pacientes;
 	}
 
-	
 	@GetMapping(path = "/{id}", produces = "application/json")
 	public PacienteDTO show(@PathVariable(value = "id") Long id) {
 		return this.getPacienteService().retrive(id);
 	}
-	
+
 	@DeleteMapping(path = "/{id}")
 	public void delete(@PathVariable(value = "id") Long id) {
 		this.getPacienteService().delete(id);
@@ -58,5 +69,5 @@ public class PacienteController {
 	public void setPacienteService(PacienteService pacienteService) {
 		this.pacienteService = pacienteService;
 	}
-	
+
 }

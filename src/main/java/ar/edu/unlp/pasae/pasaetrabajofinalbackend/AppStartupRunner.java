@@ -9,6 +9,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.controller.PacienteController;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Egreso;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.HistoriaClinica;
@@ -52,6 +54,7 @@ public class AppStartupRunner implements ApplicationRunner {
 	private MedicamentoRepository medicamentosRepository;
 	@Autowired
 	private PacienteRepository pacientesRepository;
+	
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
@@ -91,17 +94,18 @@ public class AppStartupRunner implements ApplicationRunner {
 		// this.getUserRepository().save(new User(5L,
 		// "marcosmat","iriarte.marcos@gmail.com", "ROLE_STUDENT"));
 
+		
 		Patologia patologia3 = new Patologia(3L, null, new HashSet<Patologia>(), "Patologia 3",
 				"Patologias hijas:  4 y 5");
 		Patologia patologia4 = new Patologia(4L, patologia3, new HashSet<Patologia>(), "Patologia 4",
 				"Patologias hijas: 6");
 		Patologia patologia5 = new Patologia(5L, patologia3, new HashSet<Patologia>(), "Patologia 5", "Sin hijos");
-		Patologia patologia6 = new Patologia(6L, patologia4, new HashSet<Patologia>(), "Patologia 6",
-				"Sin hijos");
+		Patologia patologia6 = new Patologia(6L, patologia4, new HashSet<Patologia>(), "Patologia 6", "Sin hijos");
 		patologia3.addChild(patologia4);
 		patologia3.addChild(patologia5);
 		patologia4.addChild(patologia6);
 
+		
 		this.getPatologiasRepository().save(patologia3);
 		this.getPatologiasRepository().save(patologia4);
 		this.getPatologiasRepository().save(patologia5);
@@ -110,6 +114,8 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.getIngresoRepository().save(new IngresoPaciente("motivo1", "enfermedad 1", patologia3, patologia4,
 				"antecedentesEnfermedad", "antecedentesPersonales", "examenFisico"));
 
+	
+		
 		/*
 		 * Paciente paciente1 = new Paciente(11111111, false, null, null, "Juan Martín",
 		 * "Gomez", "Calle falsa 123", 123123123); Paciente paciente2 = new
@@ -140,7 +146,7 @@ public class AppStartupRunner implements ApplicationRunner {
 	// Método explicado en la última parte del documento introducción
 	private void createHistoria() {
 
-		Patologia patologia1 = new Patologia(1L, null, new HashSet<Patologia>(), "Patologia padre", "Patologias hijas: 2");
+		Patologia patologia1 = new Patologia(1L, "Patologia padre", "Patologias hijas: 2");
 		Patologia patologia2 = new Patologia(2L, patologia1, new HashSet<Patologia>(), "Patologia 2",
 				"Sin hijos");
 		patologia1.addChild(patologia2);
@@ -153,8 +159,10 @@ public class AppStartupRunner implements ApplicationRunner {
 
 		Paciente p = new Paciente(12345678, false, null, null, "Paciente historia nombre", "Apellido paciente historia",
 				"Domicilio", "1321421");
+		
 		HistoriaClinica hc = new HistoriaClinica(ingreso);
 		hc.setPaciente(p);
+		
 
 		Seguimiento seg1 = new Seguimiento("Seguimiento 1 sin estudios ni indicaciones",
 				new HashSet<EstudioComplementario>(), new HashSet<Prescripcion>());

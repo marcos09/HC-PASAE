@@ -3,12 +3,17 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Paciente;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.PacienteRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PacienteService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
@@ -22,10 +27,24 @@ public class PacienteServiceImpl implements PacienteService {
 	@Autowired
 	private Transformer<Paciente, PacienteDTO> transformer;
 
+	@Autowired
+	private Validator validator;
 
 	@Override
-	public void create(PacienteDTO persistentDTO) {
-		this.getRepository().save(this.getTransformer().toEntity(persistentDTO));
+	public void create(PacienteDTO persistentDTO) throws BaseException {
+		int dni = persistentDTO.getDni();
+	
+		if (this.getRepository().findByDni(dni) != null) {
+			if ( dni == (this.getRepository().findByDni(dni).getDni()) ) {
+				throw new RuntimeException("El paciente con el dni que intenta agregar ya existe");
+			}
+		}
+		
+		Set<ConstraintViolation<PacienteDTO>> validations = validator.validate(persistentDTO);
+		if (validations.isEmpty()) {
+			this.getRepository().save(this.getTransformer().toEntity(persistentDTO));
+		}
+		
 	}
 
 	@Override

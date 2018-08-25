@@ -9,4 +9,6 @@ public interface PacienteRepository extends GenericRepository<Paciente> {
 
 
 	Optional<Collection<Paciente>> findByApellidoContaining(String apellido);
+
+	Paciente findByDni(int dni);
 }

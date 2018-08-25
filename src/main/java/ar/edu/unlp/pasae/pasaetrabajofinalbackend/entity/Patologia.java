@@ -31,7 +31,7 @@ public class Patologia extends GenericPersistentClass {
 
 	@NotEmpty(message = "El nombre no puede ser nulo o vacío")
 	private String nombre;
-	
+
 	private String otroDato;
 
 	public Patologia(String nombre, String otroDato) {
@@ -124,7 +124,7 @@ public class Patologia extends GenericPersistentClass {
 	}
 
 	public void addChild(Patologia patologia) {
-		this.getChilds().add(patologia);
+		this.childs.add(patologia);
 	}
 
 	public void removeChild(Patologia patologia) {
