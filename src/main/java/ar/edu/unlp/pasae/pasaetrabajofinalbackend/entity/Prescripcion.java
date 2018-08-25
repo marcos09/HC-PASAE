@@ -5,22 +5,26 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
 public class Prescripcion extends GenericPersistentClass implements Comparable<Prescripcion> {
 
 	private Date fechaIndicacion;
+	@NotEmpty(message = "Los datos no pueden ser nulos o vacíos")
 	private String datos;
-	private Date fechaAdministracion;
-	
+	@NotNull(message = "El medicamento no puede ser nulo o vacío")
 	@OneToOne
 	private Medicamento medicamento;
-	
+
+	private Date fechaAdministracion;
+
 	public Prescripcion() {
 		super();
 	}
-	
+
 	public Prescripcion(Long id, String datos, Medicamento medicamento) {
 		super();
 		this.setId(id);
@@ -34,6 +38,16 @@ public class Prescripcion extends GenericPersistentClass implements Comparable<P
 		this.setDatos(datos);
 		this.setFechaIndicacion(new Date());
 		this.setMedicamento(medicamento);
+	}
+	
+	public Prescripcion(Long id, String datos, Date fecha, Medicamento medicamento, Date fechaAdm) {
+		super();
+		this.setId(id);
+		this.setDatos(datos);
+		this.setFechaIndicacion(fecha);
+		this.setMedicamento(medicamento);
+		this.setFechaAdministracion(fechaAdm);
+
 	}
 
 	public Date getFechaIndicacion() {
@@ -59,7 +73,7 @@ public class Prescripcion extends GenericPersistentClass implements Comparable<P
 	public void setMedicamento(Medicamento medicamento) {
 		this.medicamento = medicamento;
 	}
-	
+
 	public void ejecutarPrescripcion() {
 		this.setFechaAdministracion(new Date());
 	}
@@ -71,7 +85,7 @@ public class Prescripcion extends GenericPersistentClass implements Comparable<P
 	private void setFechaAdministracion(Date fechaAdministracion) {
 		this.fechaAdministracion = fechaAdministracion;
 	}
-	
+
 	@Override
 	public int compareTo(Prescripcion presc) {
 		return this.getFechaAdministracion().compareTo(presc.getFechaAdministracion());

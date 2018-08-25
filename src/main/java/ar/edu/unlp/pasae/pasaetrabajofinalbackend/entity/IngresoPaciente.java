@@ -8,14 +8,15 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
 public class IngresoPaciente extends GenericPersistentClass {
 
-	
 	private Date fechaIngreso;
 	@NotEmpty(message = "El motivo de consulta no puede ser nulo o vacío")
 	private String motivoConsulta;
@@ -27,10 +28,12 @@ public class IngresoPaciente extends GenericPersistentClass {
 	private String antecedentesPersonales;
 	@NotEmpty(message = "El examen fisico no puede ser nulo o vacio")
 	private String examenFisico;
-	@NotEmpty(message = "El diagnostico sintomatico no puede ser nulo o vacío")
-	private String diagnosticoSintomatico;
-	@NotEmpty(message = "El diagnostico presuntivo no puede ser nulo o vacío")
-	private String diagnosticoPresuntivo;
+	@NotNull(message = "El diagnostico sintomatico no puede ser nulo o vacío")
+	@OneToOne
+	private Patologia diagnosticoSintomatico;
+	@NotNull(message = "El diagnostico presuntivo no puede ser nulo o vacío")
+	@OneToOne
+	private Patologia diagnosticoPresuntivo;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<EstudioComplementario> estudiosComplementarios;
@@ -39,8 +42,8 @@ public class IngresoPaciente extends GenericPersistentClass {
 
 	// Creación de un ingreso sin estudios complementarios sin estudios ni
 	// indicaciones.
-	public IngresoPaciente(Long id, String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
-			String diagnosticoPresuntivo, String antecedentesEnfermedad, String antecedentesPersonales,
+	public IngresoPaciente(Long id, String motivoConsulta, String enfermedadActual, Patologia diagnosticoSintomatico,
+			Patologia diagnosticoPresuntivo, String antecedentesEnfermedad, String antecedentesPersonales,
 			String examenFisico) {
 		super();
 		this.setId(id);
@@ -58,8 +61,8 @@ public class IngresoPaciente extends GenericPersistentClass {
 	}
 
 	// Ingreso con estudios e indicaciones.
-	public IngresoPaciente(Long id, String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
-			String diagnosticoPresuntivo, Set<EstudioComplementario> estudios, Set<Prescripcion> prescripciones,
+	public IngresoPaciente(Long id, String motivoConsulta, String enfermedadActual, Patologia diagnosticoSintomatico,
+			Patologia diagnosticoPresuntivo, Set<EstudioComplementario> estudios, Set<Prescripcion> prescripciones,
 			String antecedentesEnfermedad, String antecedentesPersonales, String examenFisico) {
 		super();
 		this.setId(id);
@@ -78,8 +81,8 @@ public class IngresoPaciente extends GenericPersistentClass {
 
 	// Creación de un ingreso sin estudios complementarios sin estudios ni
 	// indicaciones.
-	public IngresoPaciente(String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
-			String diagnosticoPresuntivo, String antecedentesEnfermedad, String antecedentesPersonales,
+	public IngresoPaciente(String motivoConsulta, String enfermedadActual, Patologia diagnosticoSintomatico,
+			Patologia diagnosticoPresuntivo, String antecedentesEnfermedad, String antecedentesPersonales,
 			String examenFisico) {
 		super();
 		this.setMotivoConsulta(motivoConsulta);
@@ -96,8 +99,8 @@ public class IngresoPaciente extends GenericPersistentClass {
 	}
 
 	// Ingreso con estudios e indicaciones.
-	public IngresoPaciente(String motivoConsulta, String enfermedadActual, String diagnosticoSintomatico,
-			String diagnosticoPresuntivo, Set<EstudioComplementario> estudios, Set<Prescripcion> prescripciones,
+	public IngresoPaciente(String motivoConsulta, String enfermedadActual, Patologia diagnosticoSintomatico,
+			Patologia diagnosticoPresuntivo, Set<EstudioComplementario> estudios, Set<Prescripcion> prescripciones,
 			String antecedentesEnfermedad, String antecedentesPersonales, String examenFisico) {
 		super();
 		this.setMotivoConsulta(motivoConsulta);
@@ -135,27 +138,27 @@ public class IngresoPaciente extends GenericPersistentClass {
 		this.enfermedadActual = enfermedadActual;
 	}
 
-	public String getDiagnosticoSintomatico() {
+	public Patologia getDiagnosticoSintomatico() {
 		return diagnosticoSintomatico;
 	}
 
-	private void setDiagnosticoSintomatico(String diagnosticoSintomatico) {
+	private void setDiagnosticoSintomatico(Patologia diagnosticoSintomatico) {
 		this.diagnosticoSintomatico = diagnosticoSintomatico;
 	}
 
-	public String getDiagnosticoPresuntivo() {
+	public Patologia getDiagnosticoPresuntivo() {
 		return diagnosticoPresuntivo;
 	}
 
-	private void setDiagnosticoPresuntivo(String diagnosticoPresuntivo) {
+	private void setDiagnosticoPresuntivo(Patologia diagnosticoPresuntivo) {
 		this.diagnosticoPresuntivo = diagnosticoPresuntivo;
 	}
 
-	public void editDiagnosticoPresuntivo(String diagnosticoPresuntivo) {
+	public void editDiagnosticoPresuntivo(Patologia diagnosticoPresuntivo) {
 		this.diagnosticoPresuntivo = diagnosticoPresuntivo;
 	}
 
-	public void editDiagnosticoSintomatico(String diagnosticoSintomatico) {
+	public void editDiagnosticoSintomatico(Patologia diagnosticoSintomatico) {
 		this.diagnosticoSintomatico = diagnosticoSintomatico;
 	}
 

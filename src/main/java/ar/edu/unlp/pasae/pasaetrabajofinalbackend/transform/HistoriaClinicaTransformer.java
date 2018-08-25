@@ -17,10 +17,6 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.HistoriaClinica;
 @Component
 public class HistoriaClinicaTransformer implements Transformer<HistoriaClinica, HistoriaClinicaDTO> {
 
-	public HistoriaClinicaTransformer() {
-		// TODO Auto-generated constructor stub
-	}
-
 	@Autowired
 	private IngresoPacienteTransformer ipTransformer;
 
@@ -44,21 +40,22 @@ public class HistoriaClinicaTransformer implements Transformer<HistoriaClinica, 
 
 	@Override
 	public HistoriaClinicaDTO toDTO(HistoriaClinica e) {
-		// TODO Auto-generated method stub
-		HistoriaClinicaDTO historiaDTO = new HistoriaClinicaDTO(e.getId(),this.getIngresoTransformer().toDTO(e.getIngreso()));
+		HistoriaClinicaDTO historiaDTO = new HistoriaClinicaDTO(e.getId(),
+				this.getIngresoTransformer().toDTO(e.getIngreso()));
 
 		if (e.getEgreso() != null) {
 			EgresoDTO eDTO = this.getEgresoTransformer().toDTO(e.getEgreso());
 			historiaDTO.setEgreso(eDTO);
 		}
+
 		historiaDTO.setSeguimientos(this.getSeguimientoTransformer().toSetDTO(e.getSeguimientos()));
 		return historiaDTO;
 	}
 
 	@Override
 	public HistoriaClinica toEntity(HistoriaClinicaDTO dto) {
-		// TODO Auto-generated method stub
-		HistoriaClinica historia = new HistoriaClinica(dto.getId(),this.getIngresoTransformer().toEntity(dto.getIngreso()));
+		HistoriaClinica historia = new HistoriaClinica(dto.getId(),
+				this.getIngresoTransformer().toEntity(dto.getIngreso()));
 
 		if (dto.getEgreso() != null) {
 			Egreso e = this.getEgresoTransformer().toEntity(dto.getEgreso());
@@ -70,7 +67,6 @@ public class HistoriaClinicaTransformer implements Transformer<HistoriaClinica, 
 
 	@Override
 	public List<HistoriaClinicaDTO> toListDTO(List<HistoriaClinica> list) {
-		// TODO Auto-generated method stub
 		List<HistoriaClinicaDTO> lista = new ArrayList<HistoriaClinicaDTO>();
 		for (HistoriaClinica hc : list) {
 			lista.add(this.toDTO(hc));
@@ -80,7 +76,6 @@ public class HistoriaClinicaTransformer implements Transformer<HistoriaClinica, 
 
 	@Override
 	public Collection<HistoriaClinicaDTO> toCollectionDTO(List<HistoriaClinica> list) {
-		// TODO Auto-generated method stub
 		Collection<HistoriaClinicaDTO> lista = new ArrayList<HistoriaClinicaDTO>();
 		for (HistoriaClinica hc : list) {
 			lista.add(this.toDTO(hc));
@@ -90,7 +85,6 @@ public class HistoriaClinicaTransformer implements Transformer<HistoriaClinica, 
 
 	@Override
 	public Set<HistoriaClinica> toListEntity(Set<HistoriaClinicaDTO> list) {
-		// TODO Auto-generated method stub
 		Set<HistoriaClinica> lista = new HashSet<HistoriaClinica>();
 		for (HistoriaClinicaDTO hc : list) {
 			lista.add(this.toEntity(hc));

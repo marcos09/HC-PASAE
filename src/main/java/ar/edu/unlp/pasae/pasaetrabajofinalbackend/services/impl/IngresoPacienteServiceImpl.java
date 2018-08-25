@@ -8,6 +8,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.IngresoPacienteRepo
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.IngresoPacienteService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.EstudioComplementarioTransformer;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.PatologiaTransformer;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.PrescripcionTransformer;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
 
@@ -38,6 +40,13 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 
 	@Autowired
 	private EstudioComplementarioTransformer estudioTransformer;
+
+	@Autowired
+	private PatologiaTransformer patologiaTransformer;
+
+	public PatologiaTransformer getPatologiaTransformer() {
+		return patologiaTransformer;
+	}
 
 	@Autowired
 	private PrescripcionTransformer prescripcionTransformer;
@@ -71,22 +80,22 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 		super();
 	}
 
+	@PreAuthorize("hasAuthority('ROLE_MEDICO')")
 	@Override
 	public List<IngresoPacienteDTO> list() {
 		List<IngresoPaciente> listIngresos = this.getRepository().findAll();
 		return this.getTransformer().toListDTO(listIngresos);
 
 	}
-	
-	
 
 	@Override
 	public void create(IngresoPacienteDTO dto) {
 		IngresoPaciente ip = new IngresoPaciente(dto.getId(), dto.getMotivoConsulta(), dto.getEnfermedadActual(),
-				dto.getDiagnosticoSintomatico(), dto.getDiagnosticoPresuntivo(),
+				this.getPatologiaTransformer().toEntity(dto.getDiagnosticoSintomatico()),
+				this.getPatologiaTransformer().toEntity(dto.getDiagnosticoPresuntivo()),
 				this.getEstudioTransformer().toSet(dto.getEstudiosComplementarios()),
-				this.getPrescripcionTransformer().toSet(dto.getPrescripciones()),
-				dto.getAntecedentesEnfermedad(), dto.getAntecedentesPersonales(), dto.getExamenFisico());
+				this.getPrescripcionTransformer().toSet(dto.getPrescripciones()), dto.getAntecedentesEnfermedad(),
+				dto.getAntecedentesPersonales(), dto.getExamenFisico());
 		Set<ConstraintViolation<IngresoPaciente>> validations = validator.validate(ip);// si esta vacio no hubieron
 																						// errores de validacion
 		if (validations.isEmpty()) {
@@ -99,9 +108,9 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 	public void update(IngresoPacienteDTO dto) {
 		Optional<IngresoPaciente> op = this.getRepository().findById(dto.getId());
 		IngresoPaciente ip = op.get();
-		ip.editDiagnosticoPresuntivo(dto.getDiagnosticoPresuntivo());
+		ip.editDiagnosticoPresuntivo(this.getPatologiaTransformer().toEntity(dto.getDiagnosticoPresuntivo()));
 		ip.editMotivoConsulta(dto.getMotivoConsulta());
-		ip.editDiagnosticoSintomatico(dto.getDiagnosticoSintomatico());
+		ip.editDiagnosticoSintomatico(this.getPatologiaTransformer().toEntity(dto.getDiagnosticoSintomatico()));
 		ip.editEnfermedadActual(dto.getEnfermedadActual());
 		ip.setEstudiosComplementarios(this.getEstudioTransformer().toSet(dto.getEstudiosComplementarios()));
 		ip.setPrescripciones(this.getPrescripcionTransformer().toSet(dto.getPrescripciones()));

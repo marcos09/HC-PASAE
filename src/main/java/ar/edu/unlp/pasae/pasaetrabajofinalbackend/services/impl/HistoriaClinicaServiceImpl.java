@@ -205,4 +205,8 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 		}
 		return null;
 	}
+	
+	public List<HistoriaClinicaDTO> historiasActivas() {
+		return this.getTransformer().toListDTO(this.getRepository().findByEgresoIsNull());
+	}
 }

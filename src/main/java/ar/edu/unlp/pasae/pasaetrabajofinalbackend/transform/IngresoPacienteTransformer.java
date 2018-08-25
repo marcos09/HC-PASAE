@@ -21,6 +21,13 @@ public class IngresoPacienteTransformer implements Transformer<IngresoPaciente, 
 	@Autowired
 	private PrescripcionTransformer prescripcionTransformer;
 
+	@Autowired
+	private PatologiaTransformer patologiaTransformer;
+
+	public PatologiaTransformer getPatologiaTransformer() {
+		return patologiaTransformer;
+	}
+
 	public EstudioComplementarioTransformer getEstudioTransformer() {
 		return estudioTransformer;
 	}
@@ -32,7 +39,8 @@ public class IngresoPacienteTransformer implements Transformer<IngresoPaciente, 
 	@Override
 	public IngresoPacienteDTO toDTO(IngresoPaciente ip) {
 		IngresoPacienteDTO ingresoDTO = new IngresoPacienteDTO(ip.getId(), ip.getMotivoConsulta(),
-				ip.getEnfermedadActual(), ip.getDiagnosticoSintomatico(), ip.getDiagnosticoPresuntivo(),
+				ip.getEnfermedadActual(), this.getPatologiaTransformer().toDTO(ip.getDiagnosticoSintomatico()),
+				this.getPatologiaTransformer().toDTO(ip.getDiagnosticoPresuntivo()),
 				this.getEstudioTransformer().toSetDTO(ip.getEstudiosComplementarios()),
 				this.getPrescripcionTransformer().toSetDTO(ip.getPrescripciones()), ip.getAntecedentesEnfermedad(),
 				ip.getAntecedentesPersonales(), ip.getExamenFisico(), ip.getFechaIngreso());
@@ -43,7 +51,8 @@ public class IngresoPacienteTransformer implements Transformer<IngresoPaciente, 
 	public IngresoPaciente toEntity(IngresoPacienteDTO dto) {
 		// TODO Auto-generated method stub
 		return new IngresoPaciente(dto.getId(), dto.getMotivoConsulta(), dto.getEnfermedadActual(),
-				dto.getDiagnosticoSintomatico(), dto.getDiagnosticoPresuntivo(),
+				this.getPatologiaTransformer().toEntity(dto.getDiagnosticoSintomatico()),
+				this.getPatologiaTransformer().toEntity(dto.getDiagnosticoPresuntivo()),
 				this.getEstudioTransformer().toSet(dto.getEstudiosComplementarios()),
 				this.getPrescripcionTransformer().toSet(dto.getPrescripciones()), dto.getAntecedentesEnfermedad(),
 				dto.getAntecedentesPersonales(), dto.getExamenFisico());

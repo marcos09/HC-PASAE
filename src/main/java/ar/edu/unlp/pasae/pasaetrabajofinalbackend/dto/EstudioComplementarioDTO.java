@@ -2,13 +2,18 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotEmpty;
+
 public class EstudioComplementarioDTO extends GenericDTOImpl {
 
 	private Date fechaIndicacion;
 	private Date fechaResultado;
 	private String informeResultado;
+	@NotEmpty(message = "El estudio solicitado no puede ser nulo o vacio")
 	private String estudioSolicitado;
-	public EstudioComplementarioDTO(Long id, String estudioSolicitado,  Date fechaIndicacion, Date fechaResultado, String informeResultado) {
+
+	public EstudioComplementarioDTO(Long id,  Date fechaIndicacion, String estudioSolicitado, Date fechaResultado,
+			String informeResultado) {
 		super();
 		this.setId(id);
 		this.setEstudioSolicitado(estudioSolicitado);
@@ -17,7 +22,8 @@ public class EstudioComplementarioDTO extends GenericDTOImpl {
 		this.setInformeResultado(informeResultado);
 	}
 
-	public EstudioComplementarioDTO(Date fechaIndicacion, String estudioSolicitado, Date fechaResultado, String informeResultado) {
+	public EstudioComplementarioDTO(Date fechaIndicacion, String estudioSolicitado, Date fechaResultado,
+			String informeResultado) {
 		super();
 		this.setEstudioSolicitado(estudioSolicitado);
 		this.setFechaIndicacion(fechaIndicacion);
@@ -28,6 +34,8 @@ public class EstudioComplementarioDTO extends GenericDTOImpl {
 	public EstudioComplementarioDTO() {
 		super();
 	}
+
+
 
 	public Date getFechaIndicacion() {
 		return fechaIndicacion;
@@ -60,6 +68,5 @@ public class EstudioComplementarioDTO extends GenericDTOImpl {
 	public void setEstudioSolicitado(String estudioSolicitado) {
 		this.estudioSolicitado = estudioSolicitado;
 	}
-	
-	
+
 }

@@ -16,12 +16,14 @@ public class EstudioComplementarioTransformer implements Transformer<EstudioComp
 
 	@Override
 	public EstudioComplementarioDTO toDTO(EstudioComplementario e) {
-		return new EstudioComplementarioDTO(e.getFechaIndicacion(), e.getEstudioSolicitado(), e.getFechaResultado(), e.getInformeResultado());
+		return new EstudioComplementarioDTO(e.getId(), e.getFechaIndicacion(), e.getEstudioSolicitado(),
+				e.getFechaResultado(), e.getInformeResultado());
 	}
 
 	@Override
 	public EstudioComplementario toEntity(EstudioComplementarioDTO dto) {
-		return new EstudioComplementario(dto.getFechaIndicacion(), dto.getEstudioSolicitado(), dto.getFechaResultado(), dto.getInformeResultado());
+		return new EstudioComplementario(dto.getId(), dto.getFechaIndicacion(), dto.getEstudioSolicitado(),
+				dto.getFechaResultado(), dto.getInformeResultado());
 	}
 
 	@Override
@@ -52,14 +54,13 @@ public class EstudioComplementarioTransformer implements Transformer<EstudioComp
 	}
 
 	public Set<EstudioComplementarioDTO> toSetDTO(Set<EstudioComplementario> estudiosComplementarios) {
-		// TODO Auto-generated method stub
 		Set<EstudioComplementarioDTO> lista = new HashSet<EstudioComplementarioDTO>();
 		for (EstudioComplementario e : estudiosComplementarios) {
 			lista.add(this.toDTO(e));
 		}
 		return lista;
 	}
-	
+
 	public Set<EstudioComplementario> toSet(Set<EstudioComplementarioDTO> estudiosComplementarios) {
 		Set<EstudioComplementario> lista = new HashSet<EstudioComplementario>();
 		for (EstudioComplementarioDTO e : estudiosComplementarios) {

@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
@@ -12,9 +13,11 @@ public class EstudioComplementario extends GenericPersistentClass implements Com
 	private Date fechaIndicacion;
 	private Date fechaResultado;
 	private String informeResultado;
+	@NotEmpty(message = "El estudio solicitado no puede ser nulo o vacio")
 	private String estudioSolicitado;
 
-	public EstudioComplementario(Long id, String estudioSolicitado, Date fecIndicacion, Date fechaResultado, String informeResultado) {
+	public EstudioComplementario(Long id,Date fecIndicacion, String estudioSolicitado,  Date fechaResultado,
+			String informeResultado) {
 		super();
 		this.setId(id);
 		this.setEstudioSolicitado(estudioSolicitado);
@@ -24,15 +27,16 @@ public class EstudioComplementario extends GenericPersistentClass implements Com
 		this.setInformeResultado(informeResultado);
 	}
 
-	public EstudioComplementario(Date fecIndicacion, String estudioSolicitado,  Date fechaResultado, String informeResultado) {
+	public EstudioComplementario(Date fecIndicacion, String estudioSolicitado, Date fechaResultado,
+			String informeResultado) {
 		super();
 		this.setEstudioSolicitado(estudioSolicitado);
 		this.setFechaIndicacion(fecIndicacion);
 		this.setFechaResultado(fechaResultado);
 		this.setInformeResultado(informeResultado);
 	}
-	
-	public EstudioComplementario( String estudioSolicitado,  Date fechaResultado, String informeResultado) {
+
+	public EstudioComplementario(String estudioSolicitado, Date fechaResultado, String informeResultado) {
 		super();
 		this.setEstudioSolicitado(estudioSolicitado);
 		this.setFechaIndicacion(new Date());
@@ -44,14 +48,13 @@ public class EstudioComplementario extends GenericPersistentClass implements Com
 		super();
 		this.setFechaIndicacion(new Date());
 		this.setEstudioSolicitado(estudioSolicitado);
-		
+
 	}
 
 	public EstudioComplementario() {
 		super();
 	}
 
-	
 	public Date getFechaIndicacion() {
 		return fechaIndicacion;
 	}
@@ -90,6 +93,4 @@ public class EstudioComplementario extends GenericPersistentClass implements Com
 		return this.getFechaResultado().compareTo(estudio.getFechaResultado());
 	}
 
-	
-	
 }

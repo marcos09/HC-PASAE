@@ -3,10 +3,15 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class HistoriaClinicaDTO extends GenericDTOImpl {
 
+	@NotNull(message = "El ingreso no puede ser nulo o vacio")
 	private IngresoPacienteDTO ingreso;
 	private EgresoDTO egreso;
+	@NotNull(message = "La coleccion de seguimientos no puede ser nula")
 	private Set<SeguimientoDTO> seguimientos;
 
 	public HistoriaClinicaDTO() {
@@ -19,7 +24,7 @@ public class HistoriaClinicaDTO extends GenericDTOImpl {
 		this.setSeguimientos(new HashSet<SeguimientoDTO>());
 		this.setIngreso(i);
 	}
-	
+
 	public HistoriaClinicaDTO(Long id, IngresoPacienteDTO i) {
 		super();
 		this.setId(id);

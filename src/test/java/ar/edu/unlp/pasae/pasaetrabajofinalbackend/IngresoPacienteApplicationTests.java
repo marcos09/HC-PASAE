@@ -11,9 +11,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EstudioComplementarioDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PatologiaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.EstudioComplementarioService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.IngresoPacienteService;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PatologiasService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PrescripcionService;
 
 @RunWith(SpringRunner.class)
@@ -29,6 +31,9 @@ public class IngresoPacienteApplicationTests {
 	@Autowired
 	private PrescripcionService prescripcionService;
 	
+	@Autowired
+	private PatologiasService patologiaService;
+	
 	@Test
 	public void create() {
 		
@@ -37,7 +42,9 @@ public class IngresoPacienteApplicationTests {
 		PrescripcionDTO prescripcion1 = new PrescripcionDTO();
 		this.getPrescripcionService().create(prescripcion1);
 		Date fecha = new Date();
-		IngresoPacienteDTO ingreso = new IngresoPacienteDTO(1L, "motivoConsulta", "enfermedadActual", "diagnosticoSintomatico", "diagnosticoPresuntivo", "antecedentesEnfermedad","antecedentesPersonales", "examenFisico", fecha );
+		PatologiaDTO patologia1 = new PatologiaDTO("Patologia x");
+		this.getPatologiaService().create(patologia1);
+		IngresoPacienteDTO ingreso = new IngresoPacienteDTO(1L, "motivoConsulta", "enfermedadActual", patologia1, patologia1, "antecedentesEnfermedad","antecedentesPersonales", "examenFisico", fecha );
 		ingreso.addEstudio(estudio1);
 		ingreso.addPrescripcion(prescripcion1);
 		
@@ -69,6 +76,14 @@ public class IngresoPacienteApplicationTests {
 
 	public void setPrescripcionService(PrescripcionService prescripcionService) {
 		this.prescripcionService = prescripcionService;
+	}
+
+	public PatologiasService getPatologiaService() {
+		return patologiaService;
+	}
+
+	public void setPatologiaService(PatologiasService patologiaService) {
+		this.patologiaService = patologiaService;
 	}
 	
 }

@@ -6,6 +6,11 @@ import javax.validation.constraints.NotEmpty;
 
 public class EgresoDTO extends GenericDTOImpl {
 
+	@NotEmpty(message = "El diagnostico final no puede ser nulo o vacio")
+	private String diagnosticoFinal;
+
+	private Date fecha;
+
 	public EgresoDTO() {
 		super();
 		this.setFecha(new Date());
@@ -22,11 +27,6 @@ public class EgresoDTO extends GenericDTOImpl {
 		this.setDiagnosticoFinal(diagnosticoFinal);
 		this.setFecha(fecha);
 	}
-	
-	@NotEmpty(message = "El diagnostico final no puede ser nulo o vacio")
-	private String diagnosticoFinal;
-	@NotEmpty(message = "La fecha de egreso no puede ser nula o vacia")
-	private Date fecha;
 
 	public Date getFecha() {
 		return fecha;

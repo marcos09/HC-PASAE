@@ -16,7 +16,7 @@ public class EgresoTransformer implements Transformer<Egreso, EgresoDTO> {
 
 	@Override
 	public EgresoDTO toDTO(Egreso e) {
-		return new EgresoDTO(e.getId(),e.getDiagnosticoFinal(),e.getFecha());
+		return new EgresoDTO(e.getId(), e.getDiagnosticoFinal(), e.getFecha());
 	}
 
 	@Override
