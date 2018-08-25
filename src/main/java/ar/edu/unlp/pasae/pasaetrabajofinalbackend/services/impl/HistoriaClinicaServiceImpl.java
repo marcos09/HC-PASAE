@@ -124,7 +124,7 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 	}
 
 	@Override
-	public void agregarSeguimiento(Long id, @Valid SeguimientoDTO seguimiento) {
+	public void agregarSeguimiento(Long id, SeguimientoDTO seguimiento) {
 		Optional<HistoriaClinica> optional = this.getRepository().findById(id);
 		if(optional.isPresent()) {
 			HistoriaClinica historia = optional.get();

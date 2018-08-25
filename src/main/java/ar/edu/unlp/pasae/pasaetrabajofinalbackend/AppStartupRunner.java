@@ -55,6 +55,8 @@ public class AppStartupRunner implements ApplicationRunner {
 	@Autowired
 	private PacienteRepository pacientesRepository;
 	
+	@Autowired
+	private PacienteController pacienteController;
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
@@ -114,6 +116,7 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.getIngresoRepository().save(new IngresoPaciente("motivo1", "enfermedad 1", patologia3, patologia4,
 				"antecedentesEnfermedad", "antecedentesPersonales", "examenFisico"));
 
+		
 	
 		
 		/*
@@ -216,7 +219,7 @@ public class AppStartupRunner implements ApplicationRunner {
 
 		Egreso egreso = new Egreso(
 				"Murio a causa de un derrame cerebral producto del fuerte golpe recibido en el cráneo");
-		hc.setEgreso(egreso);
+//		hc.setEgreso(egreso);
 
 		this.getMedicamentosRepository().save(med1);
 		this.getMedicamentosRepository().save(med2);

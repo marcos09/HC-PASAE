@@ -68,7 +68,8 @@ public class HistoriaClinicaController {
 	
 	//Agregar seguimiento a una historia
 	@PutMapping(path = "/agregarSeguimiento/{id}", consumes = "application/json", produces = "application/json")
-	public void agregarSeguimiento(@PathVariable(value = "id") Long id, @RequestBody @Valid SeguimientoDTO seguimiento) {
+	public void agregarSeguimiento(@PathVariable(value = "id") Long id, @RequestBody SeguimientoDTO seguimiento) {
+		
 		this.getHistoriaService().agregarSeguimiento(id, seguimiento);
 	}
 	
