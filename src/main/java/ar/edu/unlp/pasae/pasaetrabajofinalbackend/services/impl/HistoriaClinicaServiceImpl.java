@@ -16,10 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.HistoriaClinica;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Paciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Prescripcion;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Seguimiento;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.HistoriaClinicaRepository;
@@ -47,6 +49,9 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 
 	@Autowired
 	private Transformer<Seguimiento, SeguimientoDTO> seguimientoTransformer;
+	
+	@Autowired
+	private Transformer<Paciente, PacienteDTO> pacienteTransformer;
 	
 	@Autowired
 	private Validator validator;
@@ -109,6 +114,15 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 		this.transformer = transformer;
 	}
 
+	
+	public Transformer<Paciente, PacienteDTO> getPacienteTransformer() {
+		return pacienteTransformer;
+	}
+
+	public void setPacienteTransformer(Transformer<Paciente, PacienteDTO> pacienteTransformer) {
+		this.pacienteTransformer = pacienteTransformer;
+	}
+
 	@Override
 	public void agregarSeguimiento(Long id, @Valid SeguimientoDTO seguimiento) {
 		Optional<HistoriaClinica> optional = this.getRepository().findById(id);
@@ -125,8 +139,6 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 		return seguimientoTransformer;
 	}
 	
-	
-
 	public EstudioComplementarioTransformer getEstudioTransformer() {
 		return estudioTransformer;
 	}
@@ -178,6 +190,18 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 					
 					
 			return historiaOrdenada;
+		}
+		return null;
+	}
+
+	@Override
+	public PacienteDTO getPaciente(Long id) {
+		
+		Optional<HistoriaClinica> optional = this.getRepository().findById(id);
+		if(optional.isPresent()) {
+			HistoriaClinica historia = optional.get();
+			Paciente paciente = historia.getPaciente();
+			return this.getPacienteTransformer().toDTO(paciente);
 		}
 		return null;
 	}

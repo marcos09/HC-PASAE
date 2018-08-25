@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
 
@@ -23,7 +24,8 @@ public interface HistoriaClinicaService {
 
 	void agregarSeguimiento(Long id, @Valid SeguimientoDTO seguimiento);
 
-
 	HistoriaOrdenadaDTO getHistoriaOrdenada(Long idHistoria);
+
+	PacienteDTO getPaciente(Long id);
 
 }
