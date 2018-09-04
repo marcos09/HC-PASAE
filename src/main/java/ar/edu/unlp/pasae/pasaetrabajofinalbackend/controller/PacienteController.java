@@ -39,6 +39,15 @@ public class PacienteController {
 			logger.error("Excepción {}", e.getLocalizedMessage());
 		}
 	}
+	
+	@PutMapping(path = "/update", consumes = "application/json", produces = "application/json")
+	public void update(@RequestBody @Valid PacienteDTO pacienteDTO) throws BaseException {
+		try {
+			this.getPacienteService().update(pacienteDTO);
+		} catch (final BaseException e) {
+			logger.error("Excepción {}", e.getLocalizedMessage());
+		}
+	}
 
 	@GetMapping(path = "/list")
 	public List<PacienteDTO> list() {
@@ -53,8 +62,13 @@ public class PacienteController {
 	}
 
 	@GetMapping(path = "/{id}", produces = "application/json")
-	public PacienteDTO show(@PathVariable(value = "id") Long id) {
-		return this.getPacienteService().retrive(id);
+	public PacienteDTO show(@PathVariable(value = "id") Long id) throws BaseException {
+		try {
+			return this.getPacienteService().retrive(id);
+		} catch (final BaseException e) {
+			logger.error("Excepción {}", e.getLocalizedMessage());
+		}
+		return null;
 	}
 
 	@DeleteMapping(path = "/{id}")

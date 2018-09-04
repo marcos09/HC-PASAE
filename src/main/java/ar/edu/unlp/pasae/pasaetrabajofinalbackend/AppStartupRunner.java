@@ -97,17 +97,17 @@ public class AppStartupRunner implements ApplicationRunner {
 		// "marcosmat","iriarte.marcos@gmail.com", "ROLE_STUDENT"));
 
 		
-		Patologia patologia3 = new Patologia(3L, null, new HashSet<Patologia>(), "Patologia 3",
+		Patologia patologia3 = new Patologia( null, new HashSet<Patologia>(), "Patologia 3",
 				"Patologias hijas:  4 y 5");
-		Patologia patologia4 = new Patologia(4L, patologia3, new HashSet<Patologia>(), "Patologia 4",
+		Patologia patologia4 = new Patologia( patologia3, new HashSet<Patologia>(), "Patologia 4",
 				"Patologias hijas: 6");
-		Patologia patologia5 = new Patologia(5L, patologia3, new HashSet<Patologia>(), "Patologia 5", "Sin hijos");
-		Patologia patologia6 = new Patologia(6L, patologia4, new HashSet<Patologia>(), "Patologia 6", "Sin hijos");
+		Patologia patologia5 = new Patologia( patologia3, new HashSet<Patologia>(), "Patologia 5", "Sin hijos");
+		Patologia patologia6 = new Patologia( patologia4, new HashSet<Patologia>(), "Patologia 6", "Sin hijos");
 		patologia3.addChild(patologia4);
 		patologia3.addChild(patologia5);
 		patologia4.addChild(patologia6);
 
-		
+//		
 		this.getPatologiasRepository().save(patologia3);
 		this.getPatologiasRepository().save(patologia4);
 		this.getPatologiasRepository().save(patologia5);
@@ -149,10 +149,11 @@ public class AppStartupRunner implements ApplicationRunner {
 	// Método explicado en la última parte del documento introducción
 	private void createHistoria() {
 
-		Patologia patologia1 = new Patologia(1L, "Patologia padre", "Patologias hijas: 2");
-		Patologia patologia2 = new Patologia(2L, patologia1, new HashSet<Patologia>(), "Patologia 2",
+		Patologia patologia1 = new Patologia("Patologia padre", "Patologias hijas: 2");
+		Patologia patologia2 = new Patologia(patologia1, new HashSet<Patologia>(), "Patologia 2",
 				"Sin hijos");
 		patologia1.addChild(patologia2);
+		
 		this.getPatologiasRepository().save(patologia1);
 		this.getPatologiasRepository().save(patologia2);
 
@@ -221,8 +222,8 @@ public class AppStartupRunner implements ApplicationRunner {
 				"Murio a causa de un derrame cerebral producto del fuerte golpe recibido en el cráneo");
 //		hc.setEgreso(egreso);
 
-		this.getMedicamentosRepository().save(med1);
-		this.getMedicamentosRepository().save(med2);
+//		this.getMedicamentosRepository().save(med1);
+//		this.getMedicamentosRepository().save(med2);
 		// this.getIngresoRepository().save(ingreso);
 		this.getHistoriaRepository().save(hc);
 		Date date = new Date();

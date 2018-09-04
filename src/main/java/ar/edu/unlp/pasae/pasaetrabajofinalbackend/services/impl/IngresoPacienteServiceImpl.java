@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PatologiaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.IngresoPacienteRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService;
@@ -90,9 +91,11 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 
 	@Override
 	public void create(IngresoPacienteDTO dto) {
+		PatologiaDTO sintomatico = dto.getDiagnosticoSintomatico();
+		PatologiaDTO presuntivo = dto.getDiagnosticoPresuntivo();
 		IngresoPaciente ip = new IngresoPaciente(dto.getId(), dto.getMotivoConsulta(), dto.getEnfermedadActual(),
-				this.getPatologiaTransformer().toEntity(dto.getDiagnosticoSintomatico()),
-				this.getPatologiaTransformer().toEntity(dto.getDiagnosticoPresuntivo()),
+				this.getPatologiaTransformer().toEntity(sintomatico),
+				this.getPatologiaTransformer().toEntity(presuntivo),
 				this.getEstudioTransformer().toSet(dto.getEstudiosComplementarios()),
 				this.getPrescripcionTransformer().toSet(dto.getPrescripciones()), dto.getAntecedentesEnfermedad(),
 				dto.getAntecedentesPersonales(), dto.getExamenFisico());

@@ -44,7 +44,6 @@ public class HistoriaClinica extends GenericPersistentClass {
 		this.setIngreso(i);
 	}
 	
-	
 	public HistoriaClinica(Long id, IngresoPaciente i) {
 		super();
 		this.setId(id);
@@ -103,7 +102,6 @@ public class HistoriaClinica extends GenericPersistentClass {
 			
 		}
 		return estudios;
-		
 	}
 	
 	public Collection<Prescripcion> getPrescripciones() {
@@ -116,7 +114,6 @@ public class HistoriaClinica extends GenericPersistentClass {
 			}
 		}
 		return prescripciones;
-		
 	}
 
 	

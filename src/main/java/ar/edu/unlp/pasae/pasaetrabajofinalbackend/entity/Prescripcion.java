@@ -2,7 +2,9 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotEmpty;
@@ -16,7 +18,7 @@ public class Prescripcion extends GenericPersistentClass implements Comparable<P
 	@NotEmpty(message = "Los datos no pueden ser nulos o vacíos")
 	private String datos;
 	@NotNull(message = "El medicamento no puede ser nulo o vacío")
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
 	private Medicamento medicamento;
 
 	private Date fechaAdministracion;

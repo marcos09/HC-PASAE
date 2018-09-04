@@ -38,14 +38,14 @@ public class PatologiaTransformer implements Transformer<Patologia, PatologiaDTO
 	public Patologia toEntity(PatologiaDTO dto) {
 
 		if (dto.getFather() == null) {
-			if (dto.getChilds().size() > 0) {
+			if (dto.getChilds() == null) {
 				return new Patologia(dto.getId(), dto.getNombre(), dto.getOtroDato());
 			} else {
 				return new Patologia(dto.getId(), dto.getNombre(), dto.getOtroDato(),
 						this.toListEntity(dto.getChilds()));
 			}
 		} else {
-			if (dto.getChilds().size() > 0) {
+			if (dto.getChilds() == null) {
 				return new Patologia(dto.getId(), dto.getNombre(), dto.getOtroDato(), this.toEntity(dto.getFather()));
 			} else {
 				return new Patologia(dto.getId(), this.toEntity(dto.getFather()), this.toListEntity(dto.getChilds()),

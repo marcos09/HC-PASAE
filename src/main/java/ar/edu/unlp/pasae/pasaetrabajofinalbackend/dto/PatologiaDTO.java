@@ -3,6 +3,7 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.FetchType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 

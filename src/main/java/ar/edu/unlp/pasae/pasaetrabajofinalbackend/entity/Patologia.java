@@ -8,7 +8,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -19,6 +21,7 @@ import org.hibernate.annotations.NotFoundAction;
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
 public class Patologia extends GenericPersistentClass {
+
 
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(cascade = CascadeType.PERSIST)
@@ -70,6 +73,14 @@ public class Patologia extends GenericPersistentClass {
 		this.setNombre(nombre);
 		this.setOtroDato(otroDato);
 	}
+	
+	public Patologia( Patologia father, Set<Patologia> childs, String nombre, String otroDato) {
+		super();
+		this.setFather(father);
+		this.setChilds(childs);
+		this.setNombre(nombre);
+		this.setOtroDato(otroDato);
+	}
 
 
 	public Patologia(Long id, String nombre, String otroDato, Set<Patologia> childs) {
@@ -90,6 +101,7 @@ public class Patologia extends GenericPersistentClass {
 		this.setOtroDato(otroDato);
 		this.setFather(father);
 	}
+
 
 	public String getNombre() {
 		return nombre;

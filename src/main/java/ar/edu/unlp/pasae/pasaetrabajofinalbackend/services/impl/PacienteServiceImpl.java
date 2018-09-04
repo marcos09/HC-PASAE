@@ -20,10 +20,10 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
 
 @Service
 public class PacienteServiceImpl implements PacienteService {
-	
+
 	@Autowired
 	private PacienteRepository repository;
-	
+
 	@Autowired
 	private Transformer<Paciente, PacienteDTO> transformer;
 
@@ -33,23 +33,26 @@ public class PacienteServiceImpl implements PacienteService {
 	@Override
 	public void create(PacienteDTO persistentDTO) throws BaseException {
 		int dni = persistentDTO.getDni();
-	
+
 		if (this.getRepository().findByDni(dni) != null) {
-			if ( dni == (this.getRepository().findByDni(dni).getDni()) ) {
+			if (dni == (this.getRepository().findByDni(dni).getDni())) {
 				throw new RuntimeException("El paciente con el dni que intenta agregar ya existe");
 			}
 		}
-		
+
 		Set<ConstraintViolation<PacienteDTO>> validations = validator.validate(persistentDTO);
 		if (validations.isEmpty()) {
 			this.getRepository().save(this.getTransformer().toEntity(persistentDTO));
 		}
-		
+
 	}
 
 	@Override
 	public void update(PacienteDTO persistentDTO) {
-		
+		Set<ConstraintViolation<PacienteDTO>> validations = validator.validate(persistentDTO);
+		if (validations.isEmpty()) {
+			this.getRepository().save(this.getTransformer().toEntity(persistentDTO));
+		}
 	}
 
 	@Override
@@ -58,22 +61,26 @@ public class PacienteServiceImpl implements PacienteService {
 	}
 
 	@Override
-	public PacienteDTO retrive(Long id) {
-		return this.getTransformer().toDTO(this.getRepository().findById(id).get());
+	public PacienteDTO retrive(Long id) throws BaseException {
+		if (this.getRepository().findById(id) != null) {
+			return this.getTransformer().toDTO(this.getRepository().findById(id).get());
+		} else {
+			throw new RuntimeException("El paciente no existe");
+		}
 
 	}
 
 	@Override
 	public List<PacienteDTO> findByApellidoContaining(String apellido) {
 		Optional<Collection<Paciente>> optional = this.getRepository().findByApellidoContaining(apellido);
-		if(optional.isPresent()) {
+		if (optional.isPresent()) {
 			List<Paciente> result = (List<Paciente>) optional.get();
 			return this.getTransformer().toListDTO(result);
 		}
 		return null;
-				
+
 	}
-	
+
 	@Override
 	public List<PacienteDTO> list() {
 		List<Paciente> listPacientes = this.getRepository().findAll();
@@ -95,7 +102,5 @@ public class PacienteServiceImpl implements PacienteService {
 	public void setTransformer(Transformer<Paciente, PacienteDTO> transformer) {
 		this.transformer = transformer;
 	}
-	
-	
-	
+
 }

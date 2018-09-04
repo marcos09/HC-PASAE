@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class IngresoPacienteDTO extends GenericDTOImpl {
 
@@ -19,9 +20,9 @@ public class IngresoPacienteDTO extends GenericDTOImpl {
 	private String antecedentesPersonales;
 	@NotEmpty(message = "El examen fisico no puede ser nulo o vacio")
 	private String examenFisico;
-	@NotEmpty(message = "El diagnostico sintomatico no puede ser nulo o vacío")
+	@NotNull(message = "El diagnostico sintomatico no puede ser nulo o vacío")
 	private PatologiaDTO diagnosticoSintomatico;
-	@NotEmpty(message = "El diagnostico presuntivo no puede ser nulo o vacío")
+	@NotNull(message = "El diagnostico presuntivo no puede ser nulo o vacío")
 	private PatologiaDTO diagnosticoPresuntivo;
 
 	private Set<EstudioComplementarioDTO> estudiosComplementarios;
