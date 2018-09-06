@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EgresoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
@@ -72,6 +73,13 @@ public class HistoriaClinicaController {
 		
 		this.getHistoriaService().agregarSeguimiento(id, seguimiento);
 	}
+	
+	//Egresar paciente
+		@PutMapping(path = "/egresar/{id}", consumes = "application/json", produces = "application/json")
+		public void egresar(@PathVariable(value = "id") Long id, @RequestBody EgresoDTO egreso) {
+			
+			this.getHistoriaService().egresar(id, egreso);
+		}
 	
 	@GetMapping(path="/{id}/paciente", produces = "application/json")
 	public PacienteDTO getPaciente(@PathVariable(value = "id") Long id) {

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EgresoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
@@ -26,6 +27,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Prescripcion;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Seguimiento;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.HistoriaClinicaRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.EgresoTransformer;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.EstudioComplementarioTransformer;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.PrescripcionTransformer;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
@@ -39,8 +41,15 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 	private EstudioComplementarioTransformer estudioTransformer;
 
 	@Autowired
+	private EgresoTransformer egresoTransformer;
+
+	public EgresoTransformer getEgresoTransformer() {
+		return egresoTransformer;
+	}
+
+	@Autowired
 	private PrescripcionTransformer prescripcionTransformes;
-	
+
 	@Autowired
 	private HistoriaClinicaRepository repository;
 
@@ -49,10 +58,10 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 
 	@Autowired
 	private Transformer<Seguimiento, SeguimientoDTO> seguimientoTransformer;
-	
+
 	@Autowired
 	private Transformer<Paciente, PacienteDTO> pacienteTransformer;
-	
+
 	@Autowired
 	private Validator validator;
 
@@ -67,7 +76,7 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 		}
 	}
 
-	//Actualizo la historia clinica
+	// Actualizo la historia clinica
 	@Override
 	public void update(HistoriaClinicaDTO persistentDTO) {
 		HistoriaClinica historiaBase = this.getRepository().findById(persistentDTO.getId()).get();
@@ -75,24 +84,23 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 			HistoriaClinica historia = this.getTransformer().toEntity(persistentDTO);
 			this.getRepository().save(historia);
 		}
-		
 
 	}
 
-	//Elimino la historia con el id
+	// Elimino la historia con el id
 	@Override
 	public void delete(Long id) {
 		this.getRepository().deleteById(id);
 
 	}
 
-	//Recuperom historia clinica mediante id
+	// Recuperom historia clinica mediante id
 	@Override
 	public HistoriaClinicaDTO retrive(Long id) {
 		return this.getTransformer().toDTO(this.getRepository().findById(id).get());
 	}
 
-	//Listo todas las historias clinicas
+	// Listo todas las historias clinicas
 	@Override
 	public List<HistoriaClinicaDTO> list() {
 		return this.getTransformer().toListDTO(this.getRepository().findAll());
@@ -114,7 +122,6 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 		this.transformer = transformer;
 	}
 
-	
 	public Transformer<Paciente, PacienteDTO> getPacienteTransformer() {
 		return pacienteTransformer;
 	}
@@ -126,19 +133,22 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 	@Override
 	public void agregarSeguimiento(Long id, SeguimientoDTO seguimiento) {
 		Optional<HistoriaClinica> optional = this.getRepository().findById(id);
-		if(optional.isPresent()) {
+		if (optional.isPresent()) {
 			HistoriaClinica historia = optional.get();
-			historia.addSeguimiento(this.getSeguimientoTransformer().toEntity(seguimiento));
-			this.getRepository().save(historia);
+			if (historia.getEgreso() == null) {
+				historia.addSeguimiento(this.getSeguimientoTransformer().toEntity(seguimiento));
+				this.getRepository().save(historia);
+			}
+
 		}
-		//Levantar excepción historia no encontrada
-		
+		// Levantar excepción historia no encontrada
+
 	}
 
 	private Transformer<Seguimiento, SeguimientoDTO> getSeguimientoTransformer() {
 		return seguimientoTransformer;
 	}
-	
+
 	public EstudioComplementarioTransformer getEstudioTransformer() {
 		return estudioTransformer;
 	}
@@ -170,10 +180,11 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 	@Override
 	public HistoriaOrdenadaDTO getHistoriaOrdenada(Long idHistoria) {
 		Optional<HistoriaClinica> optional = this.getRepository().findById(idHistoria);
-		if(optional.isPresent()) {
+		if (optional.isPresent()) {
 			HistoriaClinica historia = optional.get();
-			ArrayList<EstudioComplementario> estudios = (ArrayList<EstudioComplementario>) historia.getEstudiosFinalizados();
-			
+			ArrayList<EstudioComplementario> estudios = (ArrayList<EstudioComplementario>) historia
+					.getEstudiosFinalizados();
+
 			Collections.sort(estudios);
 			ArrayList<Prescripcion> prescripciones = (ArrayList<Prescripcion>) historia.getPrescripciones();
 			Collections.sort(prescripciones);
@@ -181,14 +192,14 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 			historiaOrdenada.setAplicaciones(this.getPrescripcionTransformes().toListDTO(prescripciones));
 			historiaOrdenada.setEstudios(this.getEstudioTransformer().toListDTO(estudios));
 			/*
-			historia.getSeguimientos().toArray()
-			historiaOrdenada.setSeguimientos((Set<SeguimientoDTO>)this.getSeguimientoTransformer().toListDTO(null);
-			
-					historia.getSeguimientos().
-					.toCollectionDTO((List<Seguimiento>) historia.getSeguimientos()));
-			*/
-					
-					
+			 * historia.getSeguimientos().toArray()
+			 * historiaOrdenada.setSeguimientos((Set<SeguimientoDTO>)this.
+			 * getSeguimientoTransformer().toListDTO(null);
+			 * 
+			 * historia.getSeguimientos(). .toCollectionDTO((List<Seguimiento>)
+			 * historia.getSeguimientos()));
+			 */
+
 			return historiaOrdenada;
 		}
 		return null;
@@ -196,17 +207,30 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 
 	@Override
 	public PacienteDTO getPaciente(Long id) {
-		
+
 		Optional<HistoriaClinica> optional = this.getRepository().findById(id);
-		if(optional.isPresent()) {
+		if (optional.isPresent()) {
 			HistoriaClinica historia = optional.get();
 			Paciente paciente = historia.getPaciente();
 			return this.getPacienteTransformer().toDTO(paciente);
 		}
 		return null;
 	}
-	
+
 	public List<HistoriaClinicaDTO> historiasActivas() {
 		return this.getTransformer().toListDTO(this.getRepository().findByEgresoIsNull());
+	}
+
+	@Override
+	public void egresar(Long id, @Valid EgresoDTO egreso) {
+		Optional<HistoriaClinica> optional = this.getRepository().findById(id);
+		if (optional.isPresent()) {
+			HistoriaClinica historia = optional.get();
+			if (historia.getEgreso() == null) {
+				historia.setEgreso(this.getEgresoTransformer().toEntity(egreso));
+				this.getRepository().save(historia);
+			}
+		}
+		// Levantar excepción historia no encontrada
 	}
 }
