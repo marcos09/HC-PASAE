@@ -51,5 +51,9 @@ public class MedicamentoDTO extends GenericDTOImpl {
 		this.setIndicaciones(indicaciones);
 		this.setContraindicaciones(contraindicaciones);
 	}
+	
+	public MedicamentoDTO() {
+		super();
+	}
 
 }

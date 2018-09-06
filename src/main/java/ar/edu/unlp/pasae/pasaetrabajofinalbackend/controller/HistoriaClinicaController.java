@@ -83,6 +83,4 @@ public class HistoriaClinicaController {
 			List<HistoriaClinicaDTO> historias = this.getHistoriaService().historiasActivas();
 			return historias;
 		}
-	
-	
 }
