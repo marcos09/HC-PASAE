@@ -26,7 +26,7 @@ public class PrescripcionTransformer implements Transformer<Prescripcion, Prescr
 
 	@Override
 	public Prescripcion toEntity(PrescripcionDTO dto) {
-		return new Prescripcion(dto.getId(), dto.getDatos(), dto.getFechaIndicacion(),
+		return new Prescripcion(dto.getId(), dto.getDatos(),
 				this.getTransform().toEntity(dto.getMedicamento()), dto.getFechaAdministracion());
 	}
 

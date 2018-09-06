@@ -16,15 +16,11 @@ public class EstudioComplementario extends GenericPersistentClass implements Com
 	@NotEmpty(message = "El estudio solicitado no puede ser nulo o vacio")
 	private String estudioSolicitado;
 
-	public EstudioComplementario(Long id,Date fecIndicacion, String estudioSolicitado,  Date fechaResultado,
-			String informeResultado) {
+	public EstudioComplementario(Long id, String estudioSolicitado) {
 		super();
 		this.setId(id);
 		this.setEstudioSolicitado(estudioSolicitado);
 		this.setFechaIndicacion(new Date());
-		this.setFechaIndicacion(fecIndicacion);
-		this.setFechaResultado(fechaResultado);
-		this.setInformeResultado(informeResultado);
 	}
 
 	public EstudioComplementario(Date fecIndicacion, String estudioSolicitado, Date fechaResultado,
@@ -53,6 +49,7 @@ public class EstudioComplementario extends GenericPersistentClass implements Com
 
 	public EstudioComplementario() {
 		super();
+		this.setFechaIndicacion(new Date());
 	}
 
 	public Date getFechaIndicacion() {

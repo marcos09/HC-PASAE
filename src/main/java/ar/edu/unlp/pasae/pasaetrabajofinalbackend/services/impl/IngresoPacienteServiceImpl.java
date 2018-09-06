@@ -1,5 +1,7 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -14,8 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PatologiaDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Medicamento;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Prescripcion;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.IngresoPacienteRepository;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.MedicamentoRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.IngresoPacienteService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.EstudioComplementarioTransformer;
@@ -29,6 +35,9 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 
 	@Autowired
 	private IngresoPacienteRepository repository;
+
+	@Autowired
+	private MedicamentoRepository medicamentosRepository;
 
 	@Autowired
 	private HistoriaClinicaService historia;
@@ -93,12 +102,28 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 	public void create(IngresoPacienteDTO dto) {
 		PatologiaDTO sintomatico = dto.getDiagnosticoSintomatico();
 		PatologiaDTO presuntivo = dto.getDiagnosticoPresuntivo();
+
+		Set<Prescripcion> listPrescripciones = new HashSet<Prescripcion>();
+
+		for (PrescripcionDTO p : dto.getPrescripcionesDTO()) {
+			Optional<Medicamento> med = this.medicamentosRepository.findById(p.getMedicamento().getId());
+			if (med.isPresent()) {
+				Prescripcion presc = this.getPrescripcionTransformer().toEntity(p);
+				presc.setMedicamento(med.get());
+				listPrescripciones.add(presc);
+			}
+
+		}
+
 		IngresoPaciente ip = new IngresoPaciente(dto.getId(), dto.getMotivoConsulta(), dto.getEnfermedadActual(),
 				this.getPatologiaTransformer().toEntity(sintomatico),
 				this.getPatologiaTransformer().toEntity(presuntivo),
-				this.getEstudioTransformer().toSet(dto.getEstudiosComplementarios()),
-				this.getPrescripcionTransformer().toSet(dto.getPrescripciones()), dto.getAntecedentesEnfermedad(),
-				dto.getAntecedentesPersonales(), dto.getExamenFisico());
+				this.getEstudioTransformer().toSet(dto.getEstudiosComplementariosDTO()),
+				listPrescripciones,
+				dto.getAntecedentesEnfermedad(), 
+				dto.getAntecedentesPersonales(), 
+				dto.getExamenFisico());
+	
 		Set<ConstraintViolation<IngresoPaciente>> validations = validator.validate(ip);// si esta vacio no hubieron
 																						// errores de validacion
 		if (validations.isEmpty()) {
@@ -115,8 +140,8 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 		ip.editMotivoConsulta(dto.getMotivoConsulta());
 		ip.editDiagnosticoSintomatico(this.getPatologiaTransformer().toEntity(dto.getDiagnosticoSintomatico()));
 		ip.editEnfermedadActual(dto.getEnfermedadActual());
-		ip.setEstudiosComplementarios(this.getEstudioTransformer().toSet(dto.getEstudiosComplementarios()));
-		ip.setPrescripciones(this.getPrescripcionTransformer().toSet(dto.getPrescripciones()));
+		ip.setEstudiosComplementarios(this.getEstudioTransformer().toSet(dto.getEstudiosComplementariosDTO()));
+		ip.setPrescripciones(this.getPrescripcionTransformer().toSet(dto.getPrescripcionesDTO()));
 		this.getRepository().save(ip);
 
 	}

@@ -25,6 +25,7 @@ public class Prescripcion extends GenericPersistentClass implements Comparable<P
 
 	public Prescripcion() {
 		super();
+		this.setFechaIndicacion(new Date());
 	}
 
 	public Prescripcion(Long id, String datos, Medicamento medicamento) {
@@ -42,11 +43,11 @@ public class Prescripcion extends GenericPersistentClass implements Comparable<P
 		this.setMedicamento(medicamento);
 	}
 	
-	public Prescripcion(Long id, String datos, Date fecha, Medicamento medicamento, Date fechaAdm) {
+	public Prescripcion(Long id, String datos, Medicamento medicamento, Date fechaAdm) {
 		super();
 		this.setId(id);
 		this.setDatos(datos);
-		this.setFechaIndicacion(fecha);
+		this.setFechaIndicacion(new Date());
 		this.setMedicamento(medicamento);
 		this.setFechaAdministracion(fechaAdm);
 

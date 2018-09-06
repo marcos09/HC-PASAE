@@ -22,8 +22,7 @@ public class EstudioComplementarioTransformer implements Transformer<EstudioComp
 
 	@Override
 	public EstudioComplementario toEntity(EstudioComplementarioDTO dto) {
-		return new EstudioComplementario(dto.getId(), dto.getFechaIndicacion(), dto.getEstudioSolicitado(),
-				dto.getFechaResultado(), dto.getInformeResultado());
+		return new EstudioComplementario(dto.getId(), dto.getEstudioSolicitado());
 	}
 
 	@Override

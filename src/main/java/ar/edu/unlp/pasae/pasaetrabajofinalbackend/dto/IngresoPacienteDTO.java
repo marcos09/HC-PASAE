@@ -25,8 +25,8 @@ public class IngresoPacienteDTO extends GenericDTOImpl {
 	@NotNull(message = "El diagnostico presuntivo no puede ser nulo o vacío")
 	private PatologiaDTO diagnosticoPresuntivo;
 
-	private Set<EstudioComplementarioDTO> estudiosComplementarios;
-	private Set<PrescripcionDTO> prescripciones;
+	private Set<EstudioComplementarioDTO> estudiosComplementariosDTO;
+	private Set<PrescripcionDTO> prescripcionesDTO;
 
 	public IngresoPacienteDTO() {
 		super();
@@ -42,8 +42,8 @@ public class IngresoPacienteDTO extends GenericDTOImpl {
 		this.setEnfermedadActual(enfermedadActual);
 		this.setDiagnosticoSintomatico(diagnosticoSintomatico);
 		this.setDiagnosticoPresuntivo(diagnosticoPresuntivo);
-		this.setEstudiosComplementarios(estudios);
-		this.setPrescripciones(prescripciones);
+		this.setEstudiosComplementariosDTO(estudios);
+		this.setPrescripcionesDTO(prescripciones);
 		this.setFechaIngreso(fecha);
 		this.setAntecedentesEnfermedad(antecedentesEnfermedad);
 		this.setAntecedentesPersonales(antecedentesPersonales);
@@ -59,8 +59,8 @@ public class IngresoPacienteDTO extends GenericDTOImpl {
 		this.setEnfermedadActual(enfermedadActual);
 		this.setDiagnosticoSintomatico(diagnosticoSintomatico);
 		this.setDiagnosticoPresuntivo(diagnosticoPresuntivo);
-		this.setEstudiosComplementarios(new HashSet<EstudioComplementarioDTO>());
-		this.setPrescripciones(new HashSet<PrescripcionDTO>());
+		this.setEstudiosComplementariosDTO(new HashSet<EstudioComplementarioDTO>());
+		this.setPrescripcionesDTO(new HashSet<PrescripcionDTO>());
 		this.setFechaIngreso(fecha);
 		this.setAntecedentesEnfermedad(antecedentesEnfermedad);
 		this.setAntecedentesPersonales(antecedentesPersonales);
@@ -100,20 +100,20 @@ public class IngresoPacienteDTO extends GenericDTOImpl {
 		this.diagnosticoPresuntivo = diagnosticoPresuntivo;
 	}
 
-	public Set<EstudioComplementarioDTO> getEstudiosComplementarios() {
-		return estudiosComplementarios;
+	public Set<EstudioComplementarioDTO> getEstudiosComplementariosDTO() {
+		return estudiosComplementariosDTO;
 	}
 
-	public void setEstudiosComplementarios(Set<EstudioComplementarioDTO> estudiosComplementarios) {
-		this.estudiosComplementarios = estudiosComplementarios;
+	public void setEstudiosComplementariosDTO(Set<EstudioComplementarioDTO> estudiosComplementarios) {
+		this.estudiosComplementariosDTO = estudiosComplementarios;
 	}
 
-	public Set<PrescripcionDTO> getPrescripciones() {
-		return prescripciones;
+	public Set<PrescripcionDTO> getPrescripcionesDTO() {
+		return prescripcionesDTO;
 	}
 
-	public void setPrescripciones(Set<PrescripcionDTO> prescripciones) {
-		this.prescripciones = prescripciones;
+	public void setPrescripcionesDTO(Set<PrescripcionDTO> prescripciones) {
+		this.prescripcionesDTO = prescripciones;
 	}
 
 	public Date getFechaIngreso() {
@@ -149,19 +149,19 @@ public class IngresoPacienteDTO extends GenericDTOImpl {
 	}
 
 	public void addEstudio(EstudioComplementarioDTO estudio) {
-		this.getEstudiosComplementarios().add(estudio);
+		this.getEstudiosComplementariosDTO().add(estudio);
 	}
 
 	public void addPrescripcion(PrescripcionDTO prescripcion) {
-		this.getPrescripciones().add(prescripcion);
+		this.getPrescripcionesDTO().add(prescripcion);
 	}
 
 	public void removeEstudio(EstudioComplementarioDTO estudio) {
-		this.getEstudiosComplementarios().remove(estudio);
+		this.getEstudiosComplementariosDTO().remove(estudio);
 	}
 
 	public void removePrescripcion(PrescripcionDTO prescripcion) {
-		this.getPrescripciones().remove(prescripcion);
+		this.getPrescripcionesDTO().remove(prescripcion);
 	}
 
 }

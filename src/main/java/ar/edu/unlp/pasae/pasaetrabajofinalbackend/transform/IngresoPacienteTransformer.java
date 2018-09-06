@@ -53,8 +53,8 @@ public class IngresoPacienteTransformer implements Transformer<IngresoPaciente, 
 		return new IngresoPaciente(dto.getId(), dto.getMotivoConsulta(), dto.getEnfermedadActual(),
 				this.getPatologiaTransformer().toEntity(dto.getDiagnosticoSintomatico()),
 				this.getPatologiaTransformer().toEntity(dto.getDiagnosticoPresuntivo()),
-				this.getEstudioTransformer().toSet(dto.getEstudiosComplementarios()),
-				this.getPrescripcionTransformer().toSet(dto.getPrescripciones()), dto.getAntecedentesEnfermedad(),
+				this.getEstudioTransformer().toSet(dto.getEstudiosComplementariosDTO()),
+				this.getPrescripcionTransformer().toSet(dto.getPrescripcionesDTO()), dto.getAntecedentesEnfermedad(),
 				dto.getAntecedentesPersonales(), dto.getExamenFisico());
 	}
 
