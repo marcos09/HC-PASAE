@@ -73,6 +73,11 @@ public class PacienteController {
 		}
 		return null;
 	}
+	
+	@GetMapping(path = "/dni/{dni}", produces = "application/json")
+	public PacienteDTO searchWithDNI(@PathVariable(value = "dni") int dni) throws BaseException {
+		return this.getPacienteService().findByDni(dni);
+	}
 
 	@DeleteMapping(path = "/{id}")
 	public void delete(@PathVariable(value = "id") Long id) {

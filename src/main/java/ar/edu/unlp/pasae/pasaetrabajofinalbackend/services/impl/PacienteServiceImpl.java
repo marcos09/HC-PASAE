@@ -107,4 +107,14 @@ public class PacienteServiceImpl implements PacienteService {
 		this.transformer = transformer;
 	}
 
+	@Override
+	public PacienteDTO findByDni(int dni) {
+		
+		if (this.getRepository().findByDni(dni) !=null) {
+			return this.getTransformer().toDTO(this.getRepository().findByDni(dni));
+		} else {
+			throw new RuntimeException("El paciente no existe");
+		}
+	}
+
 }

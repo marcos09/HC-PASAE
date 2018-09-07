@@ -12,12 +12,12 @@ public interface PacienteService {
 
 	void delete(Long id);
 
-	PacienteDTO retrive(Long id)  throws BaseException;;
+	PacienteDTO retrive(Long id)  throws BaseException;
+	
+	PacienteDTO findByDni(int dni);
 
 	List<PacienteDTO> list();
 
 	List<PacienteDTO> findByApellidoContaining(String apellido);
-	
-	
 
 }
