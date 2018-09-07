@@ -23,19 +23,10 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.IngresoPacienteServic
 @RequestMapping("/ingreso")
 public class IngresoPacienteController {
 
-	/*
-	 * import org.slf4j.Logger;
-	 * import org.slf4j.LoggerFactory;
-	 * import ar.edu.unlp.pasae.pasaetrabajofinalbackend.aspect.ExceptionHandlerAspect;
-	 * 	private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlerAspect.class);
-	 * 
-	 */
-
 	@Autowired
 	private IngresoPacienteService ingresoService;
 
 	// Listo todos los ingresos
-
 	@GetMapping(path = "/list")
 	public List<IngresoPacienteDTO> list() {
 		List<IngresoPacienteDTO> ingresos = this.getIngresoService().list();
@@ -72,24 +63,12 @@ public class IngresoPacienteController {
 	}
 
 	// Alta de ingreso
-	@PutMapping(path = "/createIngreso", consumes = "application/json", produces = "application/json")
-	public void create(@RequestBody @Valid IngresoPacienteDTO ingresoPaciente) {
-		this.getIngresoService().create(ingresoPaciente);
+	@PutMapping(path = "/createIngreso/{idPaciente}", consumes = "application/json", produces = "application/json")
+	public void create(@RequestBody @Valid IngresoPacienteDTO ingresoPaciente, @PathVariable(value = "idPaciente") Long idPaciente) {
+		this.getIngresoService().create(ingresoPaciente, idPaciente);
 	}
 
 	private IngresoPacienteService getIngresoService() {
 		return ingresoService;
 	}
-
-//	 Prueba para ver si funciona el aspecto que convierte las excepciones no
-//	 manejadas
-//	 @GetMapping(path = "/exception")
-//	 public void exception() {
-//	 try {
-//	 getIngresoService().thowException();
-//	 } catch (final BaseException e) {
-//	 logger.error("Excepción {}", e.getLocalizedMessage());
-//	 }
-//	 }
-
 }

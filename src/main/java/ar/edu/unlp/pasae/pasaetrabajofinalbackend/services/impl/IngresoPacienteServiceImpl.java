@@ -1,7 +1,6 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -14,16 +13,21 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PatologiaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Medicamento;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Paciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Prescripcion;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.IngresoPacienteRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.MedicamentoRepository;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.PacienteRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.IngresoPacienteService;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PacienteService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.EstudioComplementarioTransformer;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.PatologiaTransformer;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.PrescripcionTransformer;
@@ -38,6 +42,10 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 
 	@Autowired
 	private MedicamentoRepository medicamentosRepository;
+	
+	@Autowired
+	private PacienteRepository pacienteRepository;
+
 
 	@Autowired
 	private HistoriaClinicaService historia;
@@ -98,15 +106,18 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 
 	}
 
+	//idPaciente debe recibir un número menor a 0 para indicar que se creará la historia sin paciente, un número mayor que se corresponderá
+	//al número de id del paciente a internar. Deberá existir dicho paciente previo al ingreso, caso contrario ocurrirá un error. 
 	@Override
-	public void create(IngresoPacienteDTO dto) {
+	public HistoriaClinicaDTO create(IngresoPacienteDTO dto, Long idPaciente) {
+		Paciente paciente = null;
 		PatologiaDTO sintomatico = dto.getDiagnosticoSintomatico();
 		PatologiaDTO presuntivo = dto.getDiagnosticoPresuntivo();
 
 		Set<Prescripcion> listPrescripciones = new HashSet<Prescripcion>();
 
 		for (PrescripcionDTO p : dto.getPrescripcionesDTO()) {
-			Optional<Medicamento> med = this.medicamentosRepository.findById(p.getMedicamento().getId());
+			Optional<Medicamento> med = this.getMedicamentosRepository().findById(p.getMedicamento().getId());
 			if (med.isPresent()) {
 				Prescripcion presc = this.getPrescripcionTransformer().toEntity(p);
 				presc.setMedicamento(med.get());
@@ -114,7 +125,17 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 			}
 
 		}
-
+		if(idPaciente > 0) {
+			Optional<Paciente> optional = this.getPacienteRepository().findById(idPaciente);
+			if(optional.isPresent()) {
+				paciente = optional.get();
+			}
+			else {
+				//Levantar excepción error con el paciente ingresado. 
+			}
+					
+			
+		}
 		IngresoPaciente ip = new IngresoPaciente(dto.getId(), dto.getMotivoConsulta(), dto.getEnfermedadActual(),
 				this.getPatologiaTransformer().toEntity(sintomatico),
 				this.getPatologiaTransformer().toEntity(presuntivo),
@@ -126,10 +147,55 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 	
 		Set<ConstraintViolation<IngresoPaciente>> validations = validator.validate(ip);// si esta vacio no hubieron
 																						// errores de validacion
+		
+		
 		if (validations.isEmpty()) {
 			this.getRepository().save(ip);
-			this.getHistoriaService().addIngreso(ip);
+			return this.getHistoriaService().addIngreso(ip, paciente);
 		}
+		else {
+			// Levantar excepcion por fallas en la validación.
+			return null;
+		}
+		
+		
+		
+	}
+
+	private MedicamentoRepository getMedicamentosRepository() {
+		return medicamentosRepository;
+	}
+
+	public void setMedicamentosRepository(MedicamentoRepository medicamentosRepository) {
+		this.medicamentosRepository = medicamentosRepository;
+	}
+
+	public HistoriaClinicaService getHistoria() {
+		return historia;
+	}
+
+	public void setHistoria(HistoriaClinicaService historia) {
+		this.historia = historia;
+	}
+
+	public Validator getValidator() {
+		return validator;
+	}
+
+	public void setValidator(Validator validator) {
+		this.validator = validator;
+	}
+
+	public void setEstudioTransformer(EstudioComplementarioTransformer estudioTransformer) {
+		this.estudioTransformer = estudioTransformer;
+	}
+
+	public void setPatologiaTransformer(PatologiaTransformer patologiaTransformer) {
+		this.patologiaTransformer = patologiaTransformer;
+	}
+
+	public void setPrescripcionTransformer(PrescripcionTransformer prescripcionTransformer) {
+		this.prescripcionTransformer = prescripcionTransformer;
 	}
 
 	@Override
@@ -148,7 +214,6 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
 		this.getRepository().deleteById(id);
 
 	}
@@ -162,11 +227,14 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 	public HistoriaClinicaService getHistoriaService() {
 		return historia;
 	}
-	// Prueba para ver si funciona el aspecto que convierte las excepciones no
-	// manejadas
-	// @Override
-	// public void thowException() throws BaseException {
-	// throw new RuntimeException("Excepción runtime");
-	// }
 
+	public PacienteRepository getPacienteRepository() {
+		return pacienteRepository;
+	}
+
+	public void setPacienteRepository(PacienteRepository pacienteRepository) {
+		this.pacienteRepository = pacienteRepository;
+	}
+	
+	
 }

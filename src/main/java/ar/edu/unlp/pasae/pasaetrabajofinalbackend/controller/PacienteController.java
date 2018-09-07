@@ -32,21 +32,24 @@ public class PacienteController {
 	private PacienteService pacienteService;
 
 	@PutMapping(path = "/createPaciente", consumes = "application/json", produces = "application/json")
-	public void create(@RequestBody @Valid PacienteDTO pacienteDTO) throws BaseException {
+	public PacienteDTO create(@RequestBody @Valid PacienteDTO pacienteDTO) throws BaseException {
 		try {
-			this.getPacienteService().create(pacienteDTO);
+			return this.getPacienteService().create(pacienteDTO);
 		} catch (final BaseException e) {
 			logger.error("Excepción {}", e.getLocalizedMessage());
+			return null;
 		}
 	}
 	
 	@PutMapping(path = "/update", consumes = "application/json", produces = "application/json")
-	public void update(@RequestBody @Valid PacienteDTO pacienteDTO) throws BaseException {
+	public PacienteDTO update(@RequestBody @Valid PacienteDTO pacienteDTO) throws BaseException {
 		try {
-			this.getPacienteService().update(pacienteDTO);
+			return this.getPacienteService().update(pacienteDTO);
 		} catch (final BaseException e) {
 			logger.error("Excepción {}", e.getLocalizedMessage());
+			throw new RuntimeException("El paciente no se pudo agregar correctamente");
 		}
+		
 	}
 
 	@GetMapping(path = "/list")

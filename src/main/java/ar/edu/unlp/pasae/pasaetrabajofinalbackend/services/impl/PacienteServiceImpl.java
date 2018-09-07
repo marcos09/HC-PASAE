@@ -31,7 +31,7 @@ public class PacienteServiceImpl implements PacienteService {
 	private Validator validator;
 
 	@Override
-	public void create(PacienteDTO persistentDTO) throws BaseException {
+	public PacienteDTO create(PacienteDTO persistentDTO) throws BaseException {
 		int dni = persistentDTO.getDni();
 
 		if (this.getRepository().findByDni(dni) != null) {
@@ -42,17 +42,21 @@ public class PacienteServiceImpl implements PacienteService {
 
 		Set<ConstraintViolation<PacienteDTO>> validations = validator.validate(persistentDTO);
 		if (validations.isEmpty()) {
-			this.getRepository().save(this.getTransformer().toEntity(persistentDTO));
+			return this.getTransformer().toDTO(
+					this.getRepository()
+					.save(this.getTransformer().toEntity(persistentDTO)));
 		}
+		throw new RuntimeException("El paciente no se pudo agregar correctamente");
 
 	}
 
 	@Override
-	public void update(PacienteDTO persistentDTO) {
+	public PacienteDTO update(PacienteDTO persistentDTO) {
 		Set<ConstraintViolation<PacienteDTO>> validations = validator.validate(persistentDTO);
 		if (validations.isEmpty()) {
-			this.getRepository().save(this.getTransformer().toEntity(persistentDTO));
+			return this.getTransformer().toDTO(this.getRepository().save(this.getTransformer().toEntity(persistentDTO)));
 		}
+		throw new RuntimeException("El paciente no se pudo actualizar correctamente");
 	}
 
 	@Override

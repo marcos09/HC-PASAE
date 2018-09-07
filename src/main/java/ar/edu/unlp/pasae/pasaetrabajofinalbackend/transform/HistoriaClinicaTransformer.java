@@ -51,6 +51,7 @@ public class HistoriaClinicaTransformer implements Transformer<HistoriaClinica, 
 		historiaDTO.setSeguimientos(this.getSeguimientoTransformer().toSetDTO(e.getSeguimientos()));
 		return historiaDTO;
 	}
+	
 
 	@Override
 	public HistoriaClinica toEntity(HistoriaClinicaDTO dto) {

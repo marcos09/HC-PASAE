@@ -10,10 +10,11 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Paciente;
 
 public interface HistoriaClinicaService {
 
-	void addIngreso(IngresoPaciente ip);
+	HistoriaClinicaDTO addIngreso(IngresoPaciente ip, Paciente paciente);
 
 	void update(HistoriaClinicaDTO persistentDTO);
 

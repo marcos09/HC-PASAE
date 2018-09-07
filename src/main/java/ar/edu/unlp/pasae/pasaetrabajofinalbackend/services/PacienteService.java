@@ -6,9 +6,9 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 
 public interface PacienteService {
-	void create(PacienteDTO persistentDTO) throws BaseException;
+	PacienteDTO create(PacienteDTO persistentDTO) throws BaseException;
 
-	void update(PacienteDTO persistentDTO) throws BaseException;
+	PacienteDTO update(PacienteDTO persistentDTO) throws BaseException;
 
 	void delete(Long id);
 
@@ -17,5 +17,7 @@ public interface PacienteService {
 	List<PacienteDTO> list();
 
 	List<PacienteDTO> findByApellidoContaining(String apellido);
+	
+	
 
 }

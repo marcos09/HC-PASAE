@@ -2,11 +2,14 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 
 public interface IngresoPacienteService {
 
-	void create(IngresoPacienteDTO persistentDTO);
+	HistoriaClinicaDTO create(IngresoPacienteDTO persistentDTO, Long idPaciente);
 
 	void update(IngresoPacienteDTO persistentDTO);
 
@@ -15,9 +18,5 @@ public interface IngresoPacienteService {
 	IngresoPacienteDTO retrive(Long id);
 
 	List<IngresoPacienteDTO> list();
-
-	// Prueba para ver si funciona el aspecto que convierte las excepciones no
-	// manejadas
-	// void thowException() throws BaseException;
 
 }

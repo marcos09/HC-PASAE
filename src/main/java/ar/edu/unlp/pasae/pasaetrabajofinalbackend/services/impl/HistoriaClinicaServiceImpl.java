@@ -29,6 +29,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.HistoriaClinicaRepo
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.EgresoTransformer;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.EstudioComplementarioTransformer;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.HistoriaClinicaTransformer;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.PrescripcionTransformer;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
 
@@ -42,6 +43,9 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 
 	@Autowired
 	private EgresoTransformer egresoTransformer;
+	
+	@Autowired
+	private HistoriaClinicaTransformer historiaTransformer;
 
 	public EgresoTransformer getEgresoTransformer() {
 		return egresoTransformer;
@@ -66,14 +70,28 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 	private Validator validator;
 
 	@Override
-	public void addIngreso(IngresoPaciente ingreso) {
+	public HistoriaClinicaDTO addIngreso(IngresoPaciente ingreso, Paciente paciente) {
 		HistoriaClinica historia = new HistoriaClinica((ingreso));
-		Set<ConstraintViolation<HistoriaClinica>> validations = validator.validate(historia);// si esta vacio no
-																								// hubieron errores de
-																								// validacion
+		historia.setPaciente(paciente);
+		Set<ConstraintViolation<HistoriaClinica>> validations = validator.validate(historia);// si esta vacio no hubieron errores de validacion
 		if (validations.isEmpty()) {
-			this.getRepository().save(historia);
+			return this.getHistoriaTransformer().toDTO(this.getRepository().save(historia));
+		}else {
+			//Levantar excepcion por errores de validacion. 
+			return null;
 		}
+	}
+
+	public HistoriaClinicaTransformer getHistoriaTransformer() {
+		return historiaTransformer;
+	}
+
+	public void setHistoriaTransformer(HistoriaClinicaTransformer historiaTransformer) {
+		this.historiaTransformer = historiaTransformer;
+	}
+
+	public void setEgresoTransformer(EgresoTransformer egresoTransformer) {
+		this.egresoTransformer = egresoTransformer;
 	}
 
 	// Actualizo la historia clinica
