@@ -51,6 +51,12 @@ public class MedicamentoServiceImpl implements MedicamentoService {
 	public void setRepository(MedicamentoRepository repository) {
 		this.repository = repository;
 	}
+
+	@Override
+	public MedicamentoDTO create(MedicamentoDTO medicamentoDTO) {
+		Medicamento medicamento = this.getTransformer().toEntity(medicamentoDTO);
+		return this.getTransformer().toDTO(this.getRepository().save(medicamento));
+	}
 	
 	
 	
