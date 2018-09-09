@@ -35,11 +35,23 @@ public class PrescripcionController {
 		this.getPrescripcionService().create(prescripcion);
 	}
 
+	@PutMapping(path = "/aplicar/{idPrescripcion}", consumes = "application/json", produces = "application/json")
+	public void aplicar(@PathVariable(value = "idPrescripcion") Long idPrescripcion) {
+		this.getPrescripcionService().aplicar(idPrescripcion);
+	}
+
+	
 	// Listo todas las prescripciones
 
 	@GetMapping(path = "/list")
 	public List<PrescripcionDTO> list() {
 		List<PrescripcionDTO> prescripciones = this.getPrescripcionService().list();
+		return prescripciones;
+	}
+	
+	@GetMapping(path = "/activas")
+	public List<PrescripcionDTO> listActivePrescriptions() {
+		List<PrescripcionDTO> prescripciones = this.getPrescripcionService().listActivePrescriptions();
 		return prescripciones;
 	}
 

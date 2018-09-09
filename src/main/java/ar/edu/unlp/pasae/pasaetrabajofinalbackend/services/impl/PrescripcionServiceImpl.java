@@ -31,7 +31,6 @@ public class PrescripcionServiceImpl implements PrescripcionService {
 
 	@Override
 	public void update(PrescripcionDTO dto) {
-		// TODO Auto-generated method stub
 		Optional<Prescripcion> op = this.getRepository().findById(dto.getId());
 		Prescripcion p = op.get();
 		p.setDatos(dto.getDatos());
@@ -41,19 +40,16 @@ public class PrescripcionServiceImpl implements PrescripcionService {
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
 		this.getRepository().deleteById(id);
 	}
 
 	@Override
 	public PrescripcionDTO retrive(Long id) {
-		// TODO Auto-generated method stub
 		return this.getTransformer().toDTO(this.getRepository().findById(id).get());
 	}
 
 	@Override
 	public List<PrescripcionDTO> list() {
-		// TODO Auto-generated method stub
 		return this.getTransformer().toListDTO(this.getRepository().findAll());
 	}
 
@@ -71,6 +67,25 @@ public class PrescripcionServiceImpl implements PrescripcionService {
 
 	public void setTransformer(Transformer<Prescripcion, PrescripcionDTO> transformer) {
 		this.transformer = transformer;
+	}
+
+	@Override
+	public List<PrescripcionDTO> listActivePrescriptions() {
+		return this.getTransformer().toListDTO(this.getRepository().findByFechaAdministracionIsNull());
+	}
+
+	@Override
+	public void aplicar(Long id) {
+		Optional<Prescripcion> optional = this.getRepository().findById(id);
+		if(optional.isPresent()) {
+			Prescripcion p = optional.get();
+			p.ejecutarPrescripcion();
+			this.getRepository().save(p);
+		}
+		else {
+			//Levantar excepcion
+		}
+		
 	}
 
 }
