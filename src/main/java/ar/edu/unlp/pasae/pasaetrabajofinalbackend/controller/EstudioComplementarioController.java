@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.aspect.ExceptionHandlerAspect;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EstudioComplementarioDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.EstudioComplementarioService;
 
 @RestController
@@ -22,6 +26,8 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.EstudioComplementario
 @RequestMapping("/estudio")
 public class EstudioComplementarioController {
 
+	private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlerAspect.class);
+	
 	@Autowired
 	private EstudioComplementarioService estudioService;
 
@@ -34,6 +40,16 @@ public class EstudioComplementarioController {
 	public void create(@RequestBody @Valid EstudioComplementarioDTO estudio) {
 		this.getEstudioService().create(estudio);
 	}
+	
+	// Update de estudio
+		@PutMapping(path = "/update", consumes = "application/json", produces = "application/json")
+		public void update(@RequestBody @Valid EstudioComplementarioDTO estudio) throws BaseException  {
+			try {
+				this.getEstudioService().update(estudio);
+			} catch (final BaseException e) {
+				logger.error("Excepción {}", e.getLocalizedMessage());
+			}
+		}
 
 	// Listado de estudios complementarios
 	@GetMapping(path = "/list")

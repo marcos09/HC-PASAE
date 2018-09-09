@@ -54,7 +54,7 @@ public class AppStartupRunner implements ApplicationRunner {
 	private MedicamentoRepository medicamentosRepository;
 	@Autowired
 	private PacienteRepository pacientesRepository;
-	
+
 	@Autowired
 	private PacienteController pacienteController;
 
@@ -96,18 +96,12 @@ public class AppStartupRunner implements ApplicationRunner {
 		// this.getUserRepository().save(new User(5L,
 		// "marcosmat","iriarte.marcos@gmail.com", "ROLE_STUDENT"));
 
-		
-		Patologia patologia3 = new Patologia( null, new HashSet<Patologia>(), "Patologia 3",
-				"Patologias hijas:  4 y 5");
-		Patologia patologia4 = new Patologia( patologia3, new HashSet<Patologia>(), "Patologia 4",
-				"Patologias hijas: 6");
-		Patologia patologia5 = new Patologia( patologia3, new HashSet<Patologia>(), "Patologia 5", "Sin hijos");
-		Patologia patologia6 = new Patologia( patologia4, new HashSet<Patologia>(), "Patologia 6", "Sin hijos");
-		patologia3.addChild(patologia4);
-		patologia3.addChild(patologia5);
-		patologia4.addChild(patologia6);
+		Patologia patologia3 = new Patologia("Patologia 3", "Otro dato");
+		Patologia patologia4 = new Patologia("Patologia 4", "Dato Random");
+		Patologia patologia5 = new Patologia("Patologia 5", "Otro dato");
+		Patologia patologia6 = new Patologia("Patologia 6", "Dato random");
 
-//		
+		//
 		this.getPatologiasRepository().save(patologia3);
 		this.getPatologiasRepository().save(patologia4);
 		this.getPatologiasRepository().save(patologia5);
@@ -116,9 +110,6 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.getIngresoRepository().save(new IngresoPaciente("motivo1", "enfermedad 1", patologia3, patologia4,
 				"antecedentesEnfermedad", "antecedentesPersonales", "examenFisico"));
 
-		
-	
-		
 		/*
 		 * Paciente paciente1 = new Paciente(11111111, false, null, null, "Juan Martín",
 		 * "Gomez", "Calle falsa 123", 123123123); Paciente paciente2 = new
@@ -149,11 +140,9 @@ public class AppStartupRunner implements ApplicationRunner {
 	// Método explicado en la última parte del documento introducción
 	private void createHistoria() {
 
-		Patologia patologia1 = new Patologia("Patologia padre", "Patologias hijas: 2");
-		Patologia patologia2 = new Patologia(patologia1, new HashSet<Patologia>(), "Patologia 2",
-				"Sin hijos");
-		patologia1.addChild(patologia2);
-		
+		Patologia patologia1 = new Patologia("Patologia padre", "Dato XxX");
+		Patologia patologia2 = new Patologia("Patologia 2", "Dato xXxXx");
+
 		this.getPatologiasRepository().save(patologia1);
 		this.getPatologiasRepository().save(patologia2);
 
@@ -163,7 +152,7 @@ public class AppStartupRunner implements ApplicationRunner {
 
 		Paciente p = new Paciente(12345678, false, null, null, "Paciente historia nombre", "Apellido paciente historia",
 				"Domicilio", "1321421");
-		
+
 		HistoriaClinica hc = new HistoriaClinica(ingreso);
 		hc.setPaciente(p);
 
@@ -219,10 +208,10 @@ public class AppStartupRunner implements ApplicationRunner {
 
 		Egreso egreso = new Egreso(
 				"Murio a causa de un derrame cerebral producto del fuerte golpe recibido en el cráneo");
-//		hc.setEgreso(egreso);
+		// hc.setEgreso(egreso);
 
-//		this.getMedicamentosRepository().save(med1);
-//		this.getMedicamentosRepository().save(med2);
+		// this.getMedicamentosRepository().save(med1);
+		// this.getMedicamentosRepository().save(med2);
 		// this.getIngresoRepository().save(ingreso);
 		this.getHistoriaRepository().save(hc);
 		Date date = new Date();

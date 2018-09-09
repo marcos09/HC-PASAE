@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EstudioComplementarioDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.EstudioComplementarioRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.EstudioComplementarioService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
@@ -31,11 +32,16 @@ public class EstudioComplementarioServiceImpl implements EstudioComplementarioSe
 	}
 
 	@Override
-	public void update(EstudioComplementarioDTO dto) {
+	public void update(EstudioComplementarioDTO dto) throws BaseException{
 		Optional<EstudioComplementario> op = this.getEstudioRepository().findById(dto.getId());
 		EstudioComplementario ec = op.get();
-		ec.setInformeResultado(dto.getInformeResultado());
-		this.getEstudioRepository().save(ec);
+		if (ec.getInformeResultado() == null) {
+			ec.setInformeResultado(dto.getInformeResultado());
+			this.getEstudioRepository().save(ec);
+		}
+		else {
+			throw new RuntimeException("El resultado del estudio complementario ya se cargo");
+		}
 	}
 
 	@Override
