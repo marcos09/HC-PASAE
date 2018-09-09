@@ -20,17 +20,16 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
 @Service
 @Transactional
 
-public class PatologiasServiceImpl implements PatologiasService{
+public class PatologiasServiceImpl implements PatologiasService {
 
-	
 	@Autowired
 	private PatologiasRepository repository;
 	@Autowired
 	private Transformer<Patologia, PatologiaDTO> transformer;
-	
+
 	@Autowired
 	private Validator validator;
-	
+
 	private Transformer<Patologia, PatologiaDTO> getTransformer() {
 		return transformer;
 	}
@@ -50,14 +49,13 @@ public class PatologiasServiceImpl implements PatologiasService{
 
 	@Override
 	public void create(PatologiaDTO dto) {
-		// TODO Auto-generated method stub
-	
-		Patologia ip = new Patologia(dto.getId(),this.getTransformer().toEntity(dto.getFather()),this.getTransformer().toListEntity(dto.getChilds()),dto.getNombre(),dto.getOtroDato());
-		Set<ConstraintViolation<Patologia>> validations = validator.validate(ip);//si esta vacio no hubieron errores de validacion
+		Patologia ip = new Patologia(dto.getId(), dto.getNombre(), dto.getOtroDato());
+		Set<ConstraintViolation<Patologia>> validations = validator.validate(ip);// si esta vacio no hubieron errores de
+																					// validacion
 		if (validations.isEmpty()) {
 			this.getRepository().save(ip);
 		}
-		
+
 	}
 
 	@Override
@@ -66,18 +64,16 @@ public class PatologiasServiceImpl implements PatologiasService{
 		Optional<Patologia> op = this.getRepository().findById(dto.getId());
 		Patologia p = op.get();
 		p.setOtroDato(dto.getOtroDato());
-		p.setChilds(this.getTransformer().toListEntity(dto.getChilds()));
-		p.setFather(this.getTransformer().toEntity(dto.getFather()));
 		p.setNombre(dto.getNombre());
 		this.getRepository().save(p);
-		
+
 	}
 
 	@Override
 	public void delete(Long id) {
 		// TODO Auto-generated method stub
 		this.getRepository().deleteById(id);
-		
+
 	}
 
 	@Override
@@ -90,10 +86,8 @@ public class PatologiasServiceImpl implements PatologiasService{
 	@Override
 	public List<PatologiaDTO> list() {
 		// TODO Auto-generated method stub
-		 List<Patologia> list = this.getRepository().findAll();
-		 return this.getTransformer().toListDTO(list);
+		List<Patologia> list = this.getRepository().findAll();
+		return this.getTransformer().toListDTO(list);
 	}
-	
-	
 
 }
