@@ -10,8 +10,13 @@ public interface PrescripcionService {
 	void update(PrescripcionDTO persistentDTO);
 
 	void delete(Long id);
+	
+	void aplicar(Long id);
 
 	PrescripcionDTO retrive(Long id);
 
 	List<PrescripcionDTO> list();
+	
+	List<PrescripcionDTO> listActivePrescriptions();
+	
 }
