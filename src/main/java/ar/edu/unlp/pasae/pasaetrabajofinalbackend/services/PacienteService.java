@@ -14,7 +14,7 @@ public interface PacienteService {
 
 	PacienteDTO retrive(Long id)  throws BaseException;
 	
-	PacienteDTO findByDni(int dni);
+	PacienteDTO findByDni(int dni) throws BaseException;
 
 	List<PacienteDTO> list();
 

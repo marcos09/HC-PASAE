@@ -166,7 +166,6 @@ public class AppStartupRunner implements ApplicationRunner {
 		
 		HistoriaClinica hc = new HistoriaClinica(ingreso);
 		hc.setPaciente(p);
-		
 
 		Seguimiento seg1 = new Seguimiento("Seguimiento 1 sin estudios ni indicaciones",
 				new HashSet<EstudioComplementario>(), new HashSet<Prescripcion>());

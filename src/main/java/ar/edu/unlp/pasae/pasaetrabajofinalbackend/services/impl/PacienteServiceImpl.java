@@ -108,7 +108,7 @@ public class PacienteServiceImpl implements PacienteService {
 	}
 
 	@Override
-	public PacienteDTO findByDni(int dni) {
+	public PacienteDTO findByDni(int dni) throws BaseException{
 		
 		if (this.getRepository().findByDni(dni) !=null) {
 			return this.getTransformer().toDTO(this.getRepository().findByDni(dni));
