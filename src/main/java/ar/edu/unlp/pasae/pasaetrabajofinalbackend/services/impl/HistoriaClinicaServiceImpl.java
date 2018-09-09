@@ -2,6 +2,7 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -16,9 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EgresoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaCompactaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Egreso;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.HistoriaClinica;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
@@ -235,9 +238,32 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 		return null;
 	}
 
-	public List<HistoriaClinicaDTO> historiasActivas() {
-		return this.getTransformer().toListDTO(this.getRepository().findByEgresoIsNull());
+	public List<HistoriaCompactaDTO> historiasActivas() {
+		List<HistoriaClinica> list = this.getRepository().findByEgresoIsNull();
+		List<HistoriaCompactaDTO> result = new ArrayList<HistoriaCompactaDTO>();
+		for (HistoriaClinica h : list) {
+			String nombreCompleto = h.getPaciente().getApellido() + ", " + h.getPaciente().getNombre();
+			result.add(
+					new HistoriaCompactaDTO(h.getId(), h.getPaciente().getId(), nombreCompleto, h.getIngreso().getEnfermedadActual(),
+							h.getIngreso().getMotivoConsulta(), h.getIngreso().getFechaIngreso()
+							)
+					);
+
+		}
+		return result;
 	}
+	
+	/*
+	 * 	public List<EgresoDTO> toListDTO(List<Egreso> list) {
+		List<EgresoDTO> lista = new ArrayList<EgresoDTO>();
+		for (Egreso e : list) {
+			lista.add(this.toDTO(e));
+		}
+		return lista;
+	}
+(non-Javadoc)
+	 * @see ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService#egresar(java.lang.Long, ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EgresoDTO)
+	 */
 
 	@Override
 	public void egresar(Long id, @Valid EgresoDTO egreso) {

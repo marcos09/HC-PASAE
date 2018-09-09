@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EgresoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaCompactaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
@@ -29,7 +30,7 @@ public interface HistoriaClinicaService {
 	HistoriaOrdenadaDTO getHistoriaOrdenada(Long idHistoria);
 
 	PacienteDTO getPaciente(Long id);
-	List<HistoriaClinicaDTO> historiasActivas();
+	List<HistoriaCompactaDTO> historiasActivas();
 
 	void egresar(Long id,@Valid EgresoDTO egreso);
 

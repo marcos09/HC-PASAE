@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EgresoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaCompactaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
@@ -85,10 +86,11 @@ public class HistoriaClinicaController {
 	public PacienteDTO getPaciente(@PathVariable(value = "id") Long id) {
 		return this.getHistoriaService().getPaciente(id);
 	}
+	
 	//Listado de historias clinicas de pacientes internados actualmente (No egresados)
 		@GetMapping(path = "/activas")
-		public List<HistoriaClinicaDTO> historiasActivas() {
-			List<HistoriaClinicaDTO> historias = this.getHistoriaService().historiasActivas();
-			return historias;
+		public List<HistoriaCompactaDTO> historiasActivas() {
+			return this.getHistoriaService().historiasActivas();
+			
 		}
 }
