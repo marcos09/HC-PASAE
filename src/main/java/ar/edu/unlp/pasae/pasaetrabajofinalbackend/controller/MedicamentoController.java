@@ -29,7 +29,7 @@ public class MedicamentoController {
 		return medicamentos;
 	}
 	
-	@PutMapping(path = "/createMedicamento")
+	@PutMapping(path = "/createMedicamento" , consumes = "application/json", produces = "application/json")
 	public MedicamentoDTO create(@RequestBody @Valid MedicamentoDTO medicamentoDTO) {
 		return this.getMedicamentoService().create(medicamentoDTO);
 	}
