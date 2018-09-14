@@ -2,7 +2,6 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,8 +30,8 @@ public class MedicamentoTransformer implements Transformer<Medicamento, Medicame
 	}
 
 	@Override
-	public Set<Medicamento> toListEntity(Set<MedicamentoDTO> list) {
-		Set<Medicamento> lista = new HashSet<Medicamento>();
+	public List<Medicamento> toListEntity(Set<MedicamentoDTO> list) {
+		List<Medicamento> lista = new ArrayList<Medicamento>();
 		for (MedicamentoDTO p : list) {
 			lista.add(this.toEntity(p));
 		}

@@ -158,7 +158,8 @@ public class AppStartupRunner implements ApplicationRunner {
 
 		Seguimiento seg1 = new Seguimiento("Seguimiento 1 sin estudios ni indicaciones",
 				new HashSet<EstudioComplementario>(), new HashSet<Prescripcion>());
-
+		
+		
 		// Creación del estudio para el seguimiento 2
 		EstudioComplementario ec1 = new EstudioComplementario("TAC de craneo y cuello.");
 		Set<EstudioComplementario> estudioTac = new HashSet<EstudioComplementario>();

@@ -31,23 +31,23 @@ public class HistoriaClinica extends GenericPersistentClass {
 	
 	@NotNull(message = "La coleccion de seguimientos no puede ser nula")
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Seguimiento> seguimientos;
+	private List<Seguimiento> seguimientos;
 
 	public HistoriaClinica() {
 		super();
-		this.setSeguimientos(new HashSet<Seguimiento>());
+		this.setSeguimientos(new ArrayList<Seguimiento>());
 	}
 
 	public HistoriaClinica(IngresoPaciente i) {
 		super();
-		this.setSeguimientos(new HashSet<Seguimiento>());
+		this.setSeguimientos(new ArrayList<Seguimiento>());
 		this.setIngreso(i);
 	}
 	
 	public HistoriaClinica(Long id, IngresoPaciente i) {
 		super();
 		this.setId(id);
-		this.setSeguimientos(new HashSet<Seguimiento>());
+		this.setSeguimientos(new ArrayList<Seguimiento>());
 		this.setIngreso(i);
 	}
 
@@ -67,11 +67,11 @@ public class HistoriaClinica extends GenericPersistentClass {
 		this.ingreso = ingreso;
 	}
 
-	public Set<Seguimiento> getSeguimientos() {
+	public List<Seguimiento> getSeguimientos() {
 		return seguimientos;
 	}
 
-	public void setSeguimientos(Set<Seguimiento> seguimientos) {
+	public void setSeguimientos(List<Seguimiento> seguimientos) {
 		this.seguimientos = seguimientos;
 	}
 

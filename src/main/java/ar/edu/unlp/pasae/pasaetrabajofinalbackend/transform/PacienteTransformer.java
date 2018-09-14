@@ -44,8 +44,8 @@ public class PacienteTransformer implements Transformer<Paciente, PacienteDTO> {
 	}
 
 	@Override
-	public Set<Paciente> toListEntity(Set<PacienteDTO> list) {
-		Set<Paciente> lista = new HashSet<Paciente>();
+	public List<Paciente> toListEntity(Set<PacienteDTO> list) {
+		List<Paciente> lista = new ArrayList<Paciente>();
 		for (PacienteDTO p : list) {
 			lista.add(this.toEntity(p));
 		}

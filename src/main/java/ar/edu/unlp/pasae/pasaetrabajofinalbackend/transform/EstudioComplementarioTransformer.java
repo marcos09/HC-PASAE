@@ -44,8 +44,8 @@ public class EstudioComplementarioTransformer implements Transformer<EstudioComp
 	}
 
 	@Override
-	public Set<EstudioComplementario> toListEntity(Set<EstudioComplementarioDTO> list) {
-		Set<EstudioComplementario> lista = new HashSet<EstudioComplementario>();
+	public List<EstudioComplementario> toListEntity(Set<EstudioComplementarioDTO> list) {
+		List<EstudioComplementario> lista = new ArrayList<EstudioComplementario>();
 		for (EstudioComplementarioDTO e : list) {
 			lista.add(this.toEntity(e));
 		}

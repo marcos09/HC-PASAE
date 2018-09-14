@@ -43,8 +43,8 @@ public class PatologiaTransformer implements Transformer<Patologia, PatologiaDTO
 	}
 
 	@Override
-	public Set<Patologia> toListEntity(Set<PatologiaDTO> list) {
-		Set<Patologia> lista = new HashSet<Patologia>();
+	public List<Patologia> toListEntity(Set<PatologiaDTO> list) {
+		List<Patologia> lista = new ArrayList<Patologia>();
 		for (PatologiaDTO p : list) {
 			lista.add(this.toEntity(p));
 		}

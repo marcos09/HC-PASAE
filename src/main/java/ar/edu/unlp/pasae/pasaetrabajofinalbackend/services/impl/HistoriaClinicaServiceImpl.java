@@ -2,7 +2,6 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -19,9 +18,9 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EgresoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaCompactaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Egreso;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.HistoriaClinica;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
@@ -33,6 +32,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaServic
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.EgresoTransformer;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.EstudioComplementarioTransformer;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.HistoriaClinicaTransformer;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.IngresoPacienteTransformer;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.PrescripcionTransformer;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
 
@@ -50,9 +50,9 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 	@Autowired
 	private HistoriaClinicaTransformer historiaTransformer;
 
-	public EgresoTransformer getEgresoTransformer() {
-		return egresoTransformer;
-	}
+	@Autowired
+	private IngresoPacienteTransformer ingresoTransformer;
+	
 
 	@Autowired
 	private PrescripcionTransformer prescripcionTransformes;
@@ -212,15 +212,21 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 			HistoriaOrdenadaDTO historiaOrdenada = new HistoriaOrdenadaDTO();
 			historiaOrdenada.setAplicaciones(this.getPrescripcionTransformes().toListDTO(prescripciones));
 			historiaOrdenada.setEstudios(this.getEstudioTransformer().toListDTO(estudios));
-			/*
-			 * historia.getSeguimientos().toArray()
-			 * historiaOrdenada.setSeguimientos((Set<SeguimientoDTO>)this.
-			 * getSeguimientoTransformer().toListDTO(null);
-			 * 
-			 * historia.getSeguimientos(). .toCollectionDTO((List<Seguimiento>)
-			 * historia.getSeguimientos()));
-			 */
-
+			IngresoPacienteDTO ingresoDTO = this.getIngresoTransformer().toDTO(historia.getIngreso());
+			historiaOrdenada.setIngreso(ingresoDTO);
+			if(historia.getEgreso() != null) {
+				EgresoDTO egresoDTO = this.getEgresoTransformer().toDTO(historia.getEgreso());
+				historiaOrdenada.setEgreso(egresoDTO);
+			}
+			
+			historiaOrdenada.setPacienteDTO(this.getPacienteTransformer().toDTO(historia.getPaciente()));
+			historiaOrdenada.setId(historia.getId());
+			
+			List<Seguimiento> seguimientosList = new ArrayList<Seguimiento>();
+			seguimientosList.addAll(historia.getSeguimientos());
+			ArrayList<SeguimientoDTO> seguimientos = (ArrayList<SeguimientoDTO>) this.getSeguimientoTransformer().toCollectionDTO(seguimientosList);
+			Collections.sort(seguimientos);	
+			historiaOrdenada.setSeguimientos(seguimientos);
 			return historiaOrdenada;
 		}
 		return null;
@@ -277,4 +283,19 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 		}
 		// Levantar excepción historia no encontrada
 	}
+	
+	public EgresoTransformer getEgresoTransformer() {
+		return egresoTransformer;
+	}
+
+	public IngresoPacienteTransformer getIngresoTransformer() {
+		return ingresoTransformer;
+	}
+
+	public void setIngresoTransformer(IngresoPacienteTransformer ingresoTransformer) {
+		this.ingresoTransformer = ingresoTransformer;
+	}
+	
+	
+
 }

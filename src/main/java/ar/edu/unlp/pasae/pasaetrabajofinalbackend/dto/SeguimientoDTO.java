@@ -6,7 +6,9 @@ import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 
-public class SeguimientoDTO extends GenericDTOImpl {
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
+
+public class SeguimientoDTO extends GenericDTOImpl implements Comparable<SeguimientoDTO> {
 
 	private Date fecha;
 	private String resultado;
@@ -71,6 +73,11 @@ public class SeguimientoDTO extends GenericDTOImpl {
 
 	public void setEstudiosComplementariosDTO(Set<EstudioComplementarioDTO> estudiosComplementarios) {
 		this.estudiosComplementariosDTO = estudiosComplementarios;
+	}
+
+	@Override
+	public int compareTo(SeguimientoDTO seguimiento) {
+		return this.getFecha().compareTo(seguimiento.getFecha());
 	}
 
 }

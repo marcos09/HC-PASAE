@@ -46,8 +46,8 @@ public class UserTransformer implements Transformer<User, UserDTO> {
 	}
 
 	@Override
-	public Set<User> toListEntity(Set<UserDTO> list) {
-		Set<User> lista = new HashSet<User>();
+	public List<User> toListEntity(Set<UserDTO> list) {
+		List<User> lista = new ArrayList<User>();
 		for (UserDTO u : list) {
 			lista.add(this.toEntity(u));
 		}

@@ -2,7 +2,6 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -77,8 +76,8 @@ public class IngresoPacienteTransformer implements Transformer<IngresoPaciente, 
 	}
 
 	@Override
-	public Set<IngresoPaciente> toListEntity(Set<IngresoPacienteDTO> list) {
-		Set<IngresoPaciente> lista = new HashSet<IngresoPaciente>();
+	public List<IngresoPaciente> toListEntity(Set<IngresoPacienteDTO> list) {
+		List<IngresoPaciente> lista = new ArrayList<IngresoPaciente>();
 		for (IngresoPacienteDTO p : list) {
 			lista.add(this.toEntity(p));
 		}

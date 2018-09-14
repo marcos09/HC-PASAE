@@ -43,8 +43,8 @@ public class EgresoTransformer implements Transformer<Egreso, EgresoDTO> {
 	}
 
 	@Override
-	public Set<Egreso> toListEntity(Set<EgresoDTO> list) {
-		Set<Egreso> lista = new HashSet<Egreso>();
+	public List<Egreso> toListEntity(Set<EgresoDTO> list) {
+		List<Egreso> lista = new ArrayList<Egreso>();
 		for (EgresoDTO e : list) {
 			lista.add(this.toEntity(e));
 		}

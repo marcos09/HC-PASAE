@@ -1,9 +1,10 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class HistoriaClinicaDTO extends GenericDTOImpl {
@@ -12,23 +13,25 @@ public class HistoriaClinicaDTO extends GenericDTOImpl {
 	private IngresoPacienteDTO ingreso;
 	private EgresoDTO egreso;
 	@NotNull(message = "La coleccion de seguimientos no puede ser nula")
-	private Set<SeguimientoDTO> seguimientos;
+	private List<SeguimientoDTO> seguimientos;
 
+	private PacienteDTO pacienteDTO;
+	
 	public HistoriaClinicaDTO() {
 		super();
-		this.setSeguimientos(new HashSet<SeguimientoDTO>());
+		this.setSeguimientos(new ArrayList<SeguimientoDTO>());
 	}
 
 	public HistoriaClinicaDTO(IngresoPacienteDTO i) {
 		super();
-		this.setSeguimientos(new HashSet<SeguimientoDTO>());
+		this.setSeguimientos(new ArrayList<SeguimientoDTO>());
 		this.setIngreso(i);
 	}
 
 	public HistoriaClinicaDTO(Long id, IngresoPacienteDTO i) {
 		super();
 		this.setId(id);
-		this.setSeguimientos(new HashSet<SeguimientoDTO>());
+		this.setSeguimientos(new ArrayList<SeguimientoDTO>());
 		this.setIngreso(i);
 	}
 
@@ -48,11 +51,11 @@ public class HistoriaClinicaDTO extends GenericDTOImpl {
 		this.ingreso = ingreso;
 	}
 
-	public Set<SeguimientoDTO> getSeguimientos() {
+	public List<SeguimientoDTO> getSeguimientos() {
 		return seguimientos;
 	}
 
-	public void setSeguimientos(Set<SeguimientoDTO> seguimientos) {
+	public void setSeguimientos(List<SeguimientoDTO> seguimientos) {
 		this.seguimientos = seguimientos;
 	}
 
@@ -64,4 +67,12 @@ public class HistoriaClinicaDTO extends GenericDTOImpl {
 		this.getSeguimientos().remove(seguimiento);
 	}
 
+	public PacienteDTO getPacienteDTO() {
+		return pacienteDTO;
+	}
+
+	public void setPacienteDTO(PacienteDTO pacienteDTO) {
+		this.pacienteDTO = pacienteDTO;
+	}
+	
 }

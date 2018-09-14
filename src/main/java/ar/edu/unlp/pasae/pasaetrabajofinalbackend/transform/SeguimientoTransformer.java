@@ -63,8 +63,8 @@ public class SeguimientoTransformer implements Transformer<Seguimiento, Seguimie
 	}
 
 	@Override
-	public Set<Seguimiento> toListEntity(Set<SeguimientoDTO> list) {
-		Set<Seguimiento> lista = new HashSet<Seguimiento>();
+	public List<Seguimiento> toListEntity(Set<SeguimientoDTO> list) {
+		List<Seguimiento> lista = new ArrayList<Seguimiento>();
 		for (SeguimientoDTO e : list) {
 			lista.add(this.toEntity(e));
 		}

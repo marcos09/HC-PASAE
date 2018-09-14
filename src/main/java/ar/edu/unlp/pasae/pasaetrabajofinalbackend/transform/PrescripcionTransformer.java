@@ -49,8 +49,8 @@ public class PrescripcionTransformer implements Transformer<Prescripcion, Prescr
 	}
 
 	@Override
-	public Set<Prescripcion> toListEntity(Set<PrescripcionDTO> list) {
-		Set<Prescripcion> lista = new HashSet<Prescripcion>();
+	public List<Prescripcion> toListEntity(Set<PrescripcionDTO> list) {
+		ArrayList<Prescripcion> lista = new ArrayList<Prescripcion>();
 		for (PrescripcionDTO p : list) {
 			lista.add(this.toEntity(p));
 		}
