@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.aspect.ExceptionHandlerAspect;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EgresoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaCompactaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService;
 
 @RestController
@@ -30,6 +34,8 @@ public class HistoriaClinicaController {
 	public HistoriaClinicaController() {
 	}
 
+	private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlerAspect.class);
+	
 	@Autowired
 	private HistoriaClinicaService historiaService;
 
@@ -37,7 +43,7 @@ public class HistoriaClinicaController {
 		return historiaService;
 	}
 
-	//Listado de historias clinicas
+	// Listado de historias clinicas
 	@GetMapping(path = "/list")
 	public List<HistoriaClinicaDTO> list() {
 		List<HistoriaClinicaDTO> historias = this.getHistoriaService().list();
@@ -49,12 +55,12 @@ public class HistoriaClinicaController {
 	public HistoriaOrdenadaDTO showSorted(@PathVariable(value = "id") Long id) {
 		return this.getHistoriaService().getHistoriaOrdenada(id);
 	}
-	
+
 	// Recupero una historia clinica mediante el id
-		@GetMapping(path = "/{id}", produces = "application/json")
-		public HistoriaClinicaDTO show(@PathVariable(value = "id") Long id) {
-			return this.getHistoriaService().retrive(id);
-		}
+	@GetMapping(path = "/{id}", produces = "application/json")
+	public HistoriaClinicaDTO show(@PathVariable(value = "id") Long id) {
+		return this.getHistoriaService().retrive(id);
+	}
 
 	// Elimino historia clinica con el id
 	@DeleteMapping(path = "/{id}")
@@ -67,30 +73,37 @@ public class HistoriaClinicaController {
 	public void update(@RequestBody @Valid HistoriaClinicaDTO historiaDTO) {
 		this.getHistoriaService().update(historiaDTO);
 	}
-	
-	//Agregar seguimiento a una historia
+
+	// Agregar seguimiento a una historia
 	@PutMapping(path = "/agregarSeguimiento/{id}", consumes = "application/json", produces = "application/json")
-	public void agregarSeguimiento(@PathVariable(value = "id") Long id, @RequestBody SeguimientoDTO seguimiento) {
-		
-		this.getHistoriaService().agregarSeguimiento(id, seguimiento);
-	}
-	
-	//Egresar paciente
-		@PutMapping(path = "/egresar/{id}", consumes = "application/json", produces = "application/json")
-		public void egresar(@PathVariable(value = "id") Long id, @RequestBody EgresoDTO egreso) {
-			
-			this.getHistoriaService().egresar(id, egreso);
+	public Object agregarSeguimiento(@PathVariable(value = "id") Long id, @RequestBody SeguimientoDTO seguimiento)
+			throws BaseException {
+		try {
+			return this.getHistoriaService().agregarSeguimiento(id, seguimiento);
+		} catch (final BaseException e) {
+			logger.error("Excepción {}", e.getLocalizedMessage());
+			return e;
 		}
-	
-	@GetMapping(path="/{id}/paciente", produces = "application/json")
+	}
+
+	// Egresar paciente
+	@PutMapping(path = "/egresar/{id}", consumes = "application/json", produces = "application/json")
+	public void egresar(@PathVariable(value = "id") Long id, @RequestBody EgresoDTO egreso) {
+
+		this.getHistoriaService().egresar(id, egreso);
+
+	}
+
+	@GetMapping(path = "/{id}/paciente", produces = "application/json")
 	public PacienteDTO getPaciente(@PathVariable(value = "id") Long id) {
 		return this.getHistoriaService().getPaciente(id);
 	}
-	
-	//Listado de historias clinicas de pacientes internados actualmente (No egresados)
-		@GetMapping(path = "/activas")
-		public List<HistoriaCompactaDTO> historiasActivas() {
-			return this.getHistoriaService().historiasActivas();
-			
-		}
+
+	// Listado de historias clinicas de pacientes internados actualmente (No
+	// egresados)
+	@GetMapping(path = "/activas")
+	public List<HistoriaCompactaDTO> historiasActivas() {
+		return this.getHistoriaService().historiasActivas();
+
+	}
 }

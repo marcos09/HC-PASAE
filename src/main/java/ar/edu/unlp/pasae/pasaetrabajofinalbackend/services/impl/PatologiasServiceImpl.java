@@ -49,7 +49,7 @@ public class PatologiasServiceImpl implements PatologiasService {
 
 	@Override
 	public void create(PatologiaDTO dto) {
-		Patologia ip = new Patologia(dto.getId(), dto.getNombre(), dto.getOtroDato());
+		Patologia ip = new Patologia(dto.getId(), dto.getNombre(), dto.getOtroDato(), true);
 		Set<ConstraintViolation<Patologia>> validations = validator.validate(ip);// si esta vacio no hubieron errores de
 																					// validacion
 		if (validations.isEmpty()) {
@@ -72,7 +72,10 @@ public class PatologiasServiceImpl implements PatologiasService {
 	@Override
 	public void delete(Long id) {
 		// TODO Auto-generated method stub
-		this.getRepository().deleteById(id);
+		Optional<Patologia> op = this.getRepository().findById(id);
+		Patologia p = op.get();
+		p.setDisponible(false);
+		this.getRepository().save(p);
 
 	}
 
@@ -86,7 +89,7 @@ public class PatologiasServiceImpl implements PatologiasService {
 	@Override
 	public List<PatologiaDTO> list() {
 		// TODO Auto-generated method stub
-		List<Patologia> list = this.getRepository().findAll();
+		List<Patologia> list = this.getRepository().findByDisponibleIsTrue();
 		return this.getTransformer().toListDTO(list);
 	}
 

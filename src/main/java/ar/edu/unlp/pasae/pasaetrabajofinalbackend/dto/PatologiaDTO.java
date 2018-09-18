@@ -8,6 +8,7 @@ public class PatologiaDTO extends GenericDTOImpl {
 	private String nombre;
 
 	private String otroDato;
+	private boolean disponible;
 
 	public PatologiaDTO() {
 		super();
@@ -19,11 +20,20 @@ public class PatologiaDTO extends GenericDTOImpl {
 		this.setOtroDato(otroDato);
 	}
 
-	public PatologiaDTO(Long id, String nombre, String otroDato) {
+	public boolean isDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
+	}
+
+	public PatologiaDTO(Long id, String nombre, String otroDato, boolean b) {
 		super();
 		this.setId(id);
 		this.setNombre(nombre);
 		this.setOtroDato(otroDato);
+		this.setDisponible(b);
 	}
 
 	public PatologiaDTO(Long id, String nombre) {

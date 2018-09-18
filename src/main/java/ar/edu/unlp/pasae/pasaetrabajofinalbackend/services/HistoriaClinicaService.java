@@ -12,6 +12,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Paciente;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 
 public interface HistoriaClinicaService {
 
@@ -25,7 +26,7 @@ public interface HistoriaClinicaService {
 
 	List<HistoriaClinicaDTO> list();
 
-	void agregarSeguimiento(Long id, @Valid SeguimientoDTO seguimiento);
+	Object agregarSeguimiento(Long id, @Valid SeguimientoDTO seguimiento) throws BaseException;
 
 	HistoriaOrdenadaDTO getHistoriaOrdenada(Long idHistoria);
 

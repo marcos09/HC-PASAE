@@ -56,7 +56,8 @@ public class PacienteServiceImpl implements PacienteService {
 		if (validations.isEmpty()) {
 			return this.getTransformer().toDTO(this.getRepository().save(this.getTransformer().toEntity(persistentDTO)));
 		}
-		throw new RuntimeException("El paciente no se pudo actualizar correctamente");
+		String message = "El paciente no se pudo actualizar correctamente";
+		throw new RuntimeException(message);
 	}
 
 	@Override

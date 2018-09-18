@@ -51,6 +51,12 @@ public class PatologiasController {
 	public void create(@RequestBody PatologiaDTO patologia) {
 		this.getPatologiasService().create(patologia);
 	}
+	
+	// Modificacion de una patologia
+		@PutMapping(path = "/updatePatologia", consumes = "application/json", produces = "application/json")
+		public void update(@RequestBody PatologiaDTO patologia) {
+			this.getPatologiasService().update(patologia);
+		}
 
 	public PatologiasService getPatologiasService() {
 		return patologiasService;

@@ -25,13 +25,13 @@ public class SeguimientoDTO extends GenericDTOImpl implements Comparable<Seguimi
 	}
 
 	public SeguimientoDTO(Long id, String resultado, Set<EstudioComplementarioDTO> estudios,
-			Set<PrescripcionDTO> prescripciones) {
+			Set<PrescripcionDTO> prescripciones, Date fecha) {
 		super();
 		this.setId(id);
 		this.setResultado(resultado);
 		this.setEstudiosComplementariosDTO(estudios);
 		this.setPrescripcionesDTO(prescripciones);
-		this.setFecha(new Date());
+		this.setFecha(fecha);
 	}
 
 	public SeguimientoDTO(String resultado, Set<EstudioComplementarioDTO> estudios,

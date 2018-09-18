@@ -33,7 +33,7 @@ public class SeguimientoTransformer implements Transformer<Seguimiento, Seguimie
 	public SeguimientoDTO toDTO(Seguimiento e) {
 		return new SeguimientoDTO(e.getId(), e.getResultado(),
 				this.getEstudioTransformer().toSetDTO(e.getEstudiosComplementarios()),
-				this.getPrescripcionTransformer().toSetDTO(e.getPrescripciones()));
+				this.getPrescripcionTransformer().toSetDTO(e.getPrescripciones()),e.getFecha());
 	}
 
 	@Override

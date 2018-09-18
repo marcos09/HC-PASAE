@@ -16,11 +16,22 @@ public class Patologia extends GenericPersistentClass {
 	private String nombre;
 
 	private String otroDato;
+	
+	private boolean disponible;
+
+	public boolean isDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
+	}
 
 	public Patologia(String nombre, String otroDato) {
 		super();
 		this.setNombre(nombre);
 		this.setOtroDato(otroDato);
+		this.setDisponible(true);
 	}
 
 	public Patologia(String nombre) {
@@ -28,11 +39,12 @@ public class Patologia extends GenericPersistentClass {
 		this.setNombre(nombre);
 	}
 
-	public Patologia(Long id, String nombre, String otroDato) {
+	public Patologia(Long id, String nombre, String otroDato, boolean b) {
 		super();
 		this.setId(id);
 		this.setNombre(nombre);
 		this.setOtroDato(otroDato);
+		this.setDisponible(b);
 	}
 
 	public Patologia(Long id, String nombre) {

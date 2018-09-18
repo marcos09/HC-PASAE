@@ -16,12 +16,12 @@ public class PatologiaTransformer implements Transformer<Patologia, PatologiaDTO
 
 	@Override
 	public PatologiaDTO toDTO(Patologia e) {
-		return new PatologiaDTO(e.getId(), e.getNombre(), e.getOtroDato());
+		return new PatologiaDTO(e.getId(), e.getNombre(), e.getOtroDato(), e.isDisponible());
 	}
 
 	@Override
 	public Patologia toEntity(PatologiaDTO dto) {
-		return new Patologia(dto.getId(), dto.getNombre(), dto.getOtroDato());
+		return new Patologia(dto.getId(), dto.getNombre(), dto.getOtroDato(), dto.isDisponible());
 	}
 
 	@Override
