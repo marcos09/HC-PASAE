@@ -2,7 +2,6 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -16,10 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EgresoDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.ElementoHistoriaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaCompactaDTO;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
@@ -211,36 +209,39 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 	}
 
 	@Override
-	public HistoriaOrdenadaDTO getHistoriaOrdenada(Long idHistoria) {
+	public List<ElementoHistoriaDTO> getHistoriaOrdenada(Long idHistoria) {
+		
 		Optional<HistoriaClinica> optional = this.getRepository().findById(idHistoria);
 		if (optional.isPresent()) {
 			HistoriaClinica historia = optional.get();
+			ArrayList<ElementoHistoriaDTO> result = new ArrayList<ElementoHistoriaDTO>();
+			
 			ArrayList<EstudioComplementario> estudios = (ArrayList<EstudioComplementario>) historia
 					.getEstudiosFinalizados();
-
-			Collections.sort(estudios);
-			ArrayList<Prescripcion> prescripciones = (ArrayList<Prescripcion>) historia.getPrescripciones();
-			Collections.sort(prescripciones);
-			HistoriaOrdenadaDTO historiaOrdenada = new HistoriaOrdenadaDTO();
-			historiaOrdenada.setAplicaciones(this.getPrescripcionTransformes().toListDTO(prescripciones));
-			historiaOrdenada.setEstudios(this.getEstudioTransformer().toListDTO(estudios));
-			IngresoPacienteDTO ingresoDTO = this.getIngresoTransformer().toDTO(historia.getIngreso());
-			historiaOrdenada.setIngreso(ingresoDTO);
-			if (historia.getEgreso() != null) {
-				EgresoDTO egresoDTO = this.getEgresoTransformer().toDTO(historia.getEgreso());
-				historiaOrdenada.setEgreso(egresoDTO);
+			
+			for(EstudioComplementario e: estudios) {
+				result.add(new ElementoHistoriaDTO(e.getId(), "EstudioComplementario", e.getFechaResultado()));
 			}
-
-			historiaOrdenada.setPacienteDTO(this.getPacienteTransformer().toDTO(historia.getPaciente()));
-			historiaOrdenada.setId(historia.getId());
-
-			List<Seguimiento> seguimientosList = new ArrayList<Seguimiento>();
-			seguimientosList.addAll(historia.getSeguimientos());
-			ArrayList<SeguimientoDTO> seguimientos = (ArrayList<SeguimientoDTO>) this.getSeguimientoTransformer()
-					.toCollectionDTO(seguimientosList);
-			Collections.sort(seguimientos);
-			historiaOrdenada.setSeguimientos(seguimientos);
-			return historiaOrdenada;
+			
+			
+			ArrayList<Prescripcion> prescripciones = (ArrayList<Prescripcion>) historia.getPrescripciones();
+			
+			for(Prescripcion p: prescripciones) {
+				result.add(new ElementoHistoriaDTO(p.getId(), "Aplicacion", p.getFechaAdministracion()));
+			}
+			
+			result.add(new ElementoHistoriaDTO(historia.getIngreso().getId(), "Ingreso", historia.getIngreso().getFechaIngreso()));
+			
+			if (historia.getEgreso() != null) {
+				result.add(new ElementoHistoriaDTO(historia.getEgreso().getId(), "Egreso", historia.getEgreso().getFecha()));
+			}
+			
+			for(Seguimiento s: historia.getSeguimientos()) {
+				result.add(new ElementoHistoriaDTO(s.getId(), "Seguimiento", s.getFecha()));
+			}
+			
+			Collections.sort(result);
+			return result;
 		}
 		return null;
 	}

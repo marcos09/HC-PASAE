@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.aspect.ExceptionHandlerAspect;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EgresoDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.ElementoHistoriaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaCompactaDTO;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
@@ -52,7 +52,7 @@ public class HistoriaClinicaController {
 
 	// Recupero una historia clinica mediante el id
 	@GetMapping(path = "/ordenada/{id}", produces = "application/json")
-	public HistoriaOrdenadaDTO showSorted(@PathVariable(value = "id") Long id) {
+	public List<ElementoHistoriaDTO> showSorted(@PathVariable(value = "id") Long id) {
 		return this.getHistoriaService().getHistoriaOrdenada(id);
 	}
 

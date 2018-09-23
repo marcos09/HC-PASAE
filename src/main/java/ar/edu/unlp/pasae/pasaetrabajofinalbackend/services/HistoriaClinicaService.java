@@ -5,9 +5,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EgresoDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.ElementoHistoriaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaCompactaDTO;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
@@ -28,7 +28,7 @@ public interface HistoriaClinicaService {
 
 	Object agregarSeguimiento(Long id, @Valid SeguimientoDTO seguimiento) throws BaseException;
 
-	HistoriaOrdenadaDTO getHistoriaOrdenada(Long idHistoria);
+	List<ElementoHistoriaDTO> getHistoriaOrdenada(Long idHistoria);
 
 	PacienteDTO getPaciente(Long id);
 	List<HistoriaCompactaDTO> historiasActivas();

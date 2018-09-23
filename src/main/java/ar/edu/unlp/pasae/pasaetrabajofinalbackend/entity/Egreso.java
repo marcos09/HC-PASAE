@@ -17,6 +17,7 @@ public class Egreso extends GenericPersistentClass {
 
 	public Egreso() {
 		super();
+		this.setFecha(new Date());
 	}
 
 	public Egreso(String diagnosticoFinal) {
