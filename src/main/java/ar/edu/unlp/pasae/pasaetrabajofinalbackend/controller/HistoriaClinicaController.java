@@ -21,6 +21,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EgresoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.ElementoHistoriaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaCompactaDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
@@ -54,6 +55,11 @@ public class HistoriaClinicaController {
 	@GetMapping(path = "/ordenada/{id}", produces = "application/json")
 	public List<ElementoHistoriaDTO> showSorted(@PathVariable(value = "id") Long id) {
 		return this.getHistoriaService().getHistoriaOrdenada(id);
+	}
+	
+	@GetMapping(path = "/completaOrdenada/{id}", produces = "application/json")
+	public HistoriaOrdenadaDTO showCompleteSorted(@PathVariable(value = "id") Long id) {
+		return this.getHistoriaService().getHistoriaCompletaOrdenada(id);
 	}
 
 	// Recupero una historia clinica mediante el id
@@ -89,9 +95,7 @@ public class HistoriaClinicaController {
 	// Egresar paciente
 	@PutMapping(path = "/egresar/{id}", consumes = "application/json", produces = "application/json")
 	public void egresar(@PathVariable(value = "id") Long id, @RequestBody EgresoDTO egreso) {
-
 		this.getHistoriaService().egresar(id, egreso);
-
 	}
 
 	@GetMapping(path = "/{id}/paciente", produces = "application/json")
@@ -99,11 +103,11 @@ public class HistoriaClinicaController {
 		return this.getHistoriaService().getPaciente(id);
 	}
 
-	// Listado de historias clinicas de pacientes internados actualmente (No
-	// egresados)
+	// Listado de historias clinicas de pacientes internados actualmente (No egresados)
 	@GetMapping(path = "/activas")
 	public List<HistoriaCompactaDTO> historiasActivas() {
 		return this.getHistoriaService().historiasActivas();
 
 	}
+	
 }
