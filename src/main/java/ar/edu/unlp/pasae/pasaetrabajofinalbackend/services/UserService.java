@@ -12,5 +12,6 @@ public interface UserService  {
 	void delete(Long id); 
 	UserDTO retrive(Long id);
 	List<UserDTO> list();
+	List<UserDTO> search(UserDTO userDTO);
 	
 }

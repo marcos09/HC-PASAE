@@ -115,4 +115,10 @@ public class UserServiceImpl implements UserService {
 		this.validator = validator;
 	}
 
+	@Override
+	public List<UserDTO> search(UserDTO userDTO) {
+		return this.getTransformer().toListDTO(
+			this.getRepository().findByUsernameContainingAndEmailContaining(userDTO.getUsername(), userDTO.getEmail()));
+	}
+
 }

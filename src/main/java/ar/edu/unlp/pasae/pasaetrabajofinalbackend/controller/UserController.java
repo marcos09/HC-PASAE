@@ -44,12 +44,20 @@ public class UserController {
 		return this.getUserService().retrive(id);
 	}
 
+	
 	// Elimino un usuario con el id
 	@DeleteMapping(path = "/{id}")
 	public void delete(@PathVariable(value = "id") Long id) {
 		this.getUserService().delete(id);
 	}
 
+	
+	@PutMapping(path = "/buscar", consumes = "application/json", produces = "application/json")
+	public List<UserDTO> searchUsers(@RequestBody @Valid UserDTO user){
+		return this.getUserService().search(user);
+	}
+	
+	
 	// Alta de un usuario
 	@PutMapping(path = "/crearUsuario", consumes = "application/json", produces = "application/json")
 	public void create(@RequestBody @Valid UserDTO user) throws BaseException {

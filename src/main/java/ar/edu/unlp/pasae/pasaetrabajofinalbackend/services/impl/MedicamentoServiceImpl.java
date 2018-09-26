@@ -3,6 +3,7 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,6 +58,14 @@ public class MedicamentoServiceImpl implements MedicamentoService {
 		Medicamento medicamento = this.getTransformer().toEntity(medicamentoDTO);
 		return this.getTransformer().toDTO(this.getRepository().save(medicamento));
 	}
+	
+	public Iterable<MedicamentoDTO> medicamentosByPage(int pageNumber, int pageSize){
+	      PageRequest pageRequest = new PageRequest(pageNumber,pageSize);
+	      Iterable<Medicamento> res = this.repository.findAll(pageRequest);
+	      
+	      // return  this.getTransformer().toCollectionDTO(res);
+	      return null;
+	   }
 	
 	
 	
