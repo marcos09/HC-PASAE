@@ -42,7 +42,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
 @Service
 @Transactional
 
-public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
+public class HistoriaClinicaServiceImpl extends GenericServiceImpl<HistoriaClinicaRepository, HistoriaClinica, HistoriaClinicaDTO> implements HistoriaClinicaService {
 
 	@Autowired
 	private EstudioComplementarioTransformer estudioTransformer;
@@ -58,12 +58,6 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 
 	@Autowired
 	private PrescripcionTransformer prescripcionTransformes;
-
-	@Autowired
-	private HistoriaClinicaRepository repository;
-
-	@Autowired
-	private Transformer<HistoriaClinica, HistoriaClinicaDTO> transformer;
 
 	@Autowired
 	private Transformer<Seguimiento, SeguimientoDTO> seguimientoTransformer;
@@ -129,22 +123,6 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 	@Override
 	public List<HistoriaClinicaDTO> list() {
 		return this.getTransformer().toListDTO(this.getRepository().findAll());
-	}
-
-	public HistoriaClinicaRepository getRepository() {
-		return repository;
-	}
-
-	public Transformer<HistoriaClinica, HistoriaClinicaDTO> getTransformer() {
-		return transformer;
-	}
-
-	public void setRepository(HistoriaClinicaRepository repository) {
-		this.repository = repository;
-	}
-
-	public void setTransformer(Transformer<HistoriaClinica, HistoriaClinicaDTO> transformer) {
-		this.transformer = transformer;
 	}
 
 	public Transformer<Paciente, PacienteDTO> getPacienteTransformer() {

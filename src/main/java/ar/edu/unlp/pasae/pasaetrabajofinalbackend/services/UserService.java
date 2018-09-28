@@ -13,5 +13,7 @@ public interface UserService  {
 	UserDTO retrive(Long id);
 	List<UserDTO> list();
 	List<UserDTO> search(UserDTO userDTO);
+	List<UserDTO> userByPage(int pageNumber, int pageSize);
+
 	
 }
