@@ -69,5 +69,14 @@ public class EstudioComplementarioController {
 	public void delete(@PathVariable(value = "id") Long id) {
 		this.getEstudioService().delete(id);
 	}
+	
+	// Recupero un estudio con el id
+	@GetMapping(path = "/activos", produces = "application/json")
+	public List<EstudioComplementarioDTO> estudiosActivos() {
+		 return this.getEstudioService().estudiosActivos();
+	}
+
+	
+	
 
 }

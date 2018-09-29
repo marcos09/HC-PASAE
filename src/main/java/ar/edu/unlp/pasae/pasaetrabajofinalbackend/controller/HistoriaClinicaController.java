@@ -74,6 +74,12 @@ public class HistoriaClinicaController {
 		this.getHistoriaService().delete(id);
 	}
 
+	// Verifico si la historia existe. Devuelve true si existe false en caso contrario.
+	@GetMapping(path = "/existe/{id}", produces = "application/json")
+	public Boolean exists(@PathVariable(value = "id") Long id) {
+		return this.getHistoriaService().existsById(id);
+	}
+
 	// Alta de historia clinica
 	@PutMapping(path = "/actualizarHistoria", consumes = "application/json", produces = "application/json")
 	public void update(@RequestBody @Valid HistoriaClinicaDTO historiaDTO) {

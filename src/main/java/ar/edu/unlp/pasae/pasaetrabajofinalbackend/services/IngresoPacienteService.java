@@ -2,12 +2,10 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 
-public interface IngresoPacienteService {
+public interface IngresoPacienteService extends GenericService {
 
 	HistoriaClinicaDTO create(IngresoPacienteDTO persistentDTO, Long idPaciente);
 

@@ -51,4 +51,9 @@ public class EstudioComplementarioServiceImpl extends GenericServiceImpl<Estudio
 		return this.getTransformer().toListDTO(this.getRepository().findAll());
 	}
 
+	@Override
+	public List<EstudioComplementarioDTO> estudiosActivos() {
+		return this.getTransformer().toListDTO(this.getRepository().findByInformeResultadoIsNull());
+	}
+
 }

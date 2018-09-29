@@ -16,5 +16,7 @@ public interface EstudioComplementarioService extends GenericService{
 	EstudioComplementarioDTO retrive(Long id);
 
 	List<EstudioComplementarioDTO> list();
+	
+	List<EstudioComplementarioDTO> estudiosActivos();
 
 }

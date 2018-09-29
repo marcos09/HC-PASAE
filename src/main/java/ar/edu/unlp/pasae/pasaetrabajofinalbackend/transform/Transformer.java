@@ -3,8 +3,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Seguimiento;
-
 public interface Transformer <Entity, DTO> {
 	DTO toDTO(Entity e);
 	Entity toEntity(DTO dto);

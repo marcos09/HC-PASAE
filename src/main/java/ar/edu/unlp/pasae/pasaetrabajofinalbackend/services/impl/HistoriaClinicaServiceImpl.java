@@ -239,6 +239,7 @@ public class HistoriaClinicaServiceImpl extends GenericServiceImpl<HistoriaClini
 	}
 
 	public List<HistoriaCompactaDTO> historiasActivas() {
+		
 		List<HistoriaClinica> list = this.getRepository().findByEgresoIsNull();
 		List<HistoriaCompactaDTO> result = new ArrayList<HistoriaCompactaDTO>();
 		for (HistoriaClinica h : list) {
@@ -320,6 +321,6 @@ public class HistoriaClinicaServiceImpl extends GenericServiceImpl<HistoriaClini
 				return historiaOrdenada;
 			}
 			return null;
-	}	
+	}
 
 }

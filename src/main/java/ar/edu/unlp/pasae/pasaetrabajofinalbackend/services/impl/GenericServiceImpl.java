@@ -1,14 +1,15 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.GenericDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.GenericPersistentEntity;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.GenericRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.GenericService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
 
-public abstract class GenericServiceImpl<T, entityType extends GenericPersistentEntity, dtoType extends GenericDTO > implements GenericService{
+public abstract class GenericServiceImpl<T extends GenericRepository<entityType> , entityType extends GenericPersistentEntity, dtoType extends GenericDTO> implements GenericService{
 
-	
 	@Autowired
 	private Transformer<entityType, dtoType> transformer;
 	
@@ -24,7 +25,7 @@ public abstract class GenericServiceImpl<T, entityType extends GenericPersistent
 	}
 
 	public boolean existsById(Long id) {
-		return false;
+		return this.getRepository().existsById(id);
 	}
 	
 	protected Transformer<entityType, dtoType> getTransformer() {

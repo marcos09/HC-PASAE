@@ -9,9 +9,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.controller.PacienteController;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Egreso;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.HistoriaClinica;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
@@ -55,8 +52,6 @@ public class AppStartupRunner implements ApplicationRunner {
 	@Autowired
 	private PacienteRepository pacientesRepository;
 
-	@Autowired
-	private PacienteController pacienteController;
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
@@ -70,7 +65,7 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.getMedicamentosRepository().save(med2);
 		this.getMedicamentosRepository().save(med3);
 
-		Prescripcion presc = new Prescripcion("1 comprimido cada 24 hs", med1);
+		// Prescripcion presc = new Prescripcion("1 comprimido cada 24 hs", med1);
 
 		/*
 		 * HashSet<Prescripcion> prescripcionesP1 = new HashSet<Prescripcion>();
@@ -207,8 +202,7 @@ public class AppStartupRunner implements ApplicationRunner {
 		hc.addSeguimiento(seg3);
 		hc.addSeguimiento(seg4);
 
-		Egreso egreso = new Egreso(
-				"Murio a causa de un derrame cerebral producto del fuerte golpe recibido en el cráneo");
+		// Egreso egreso = new Egreso("Murio a causa de un derrame cerebral producto del fuerte golpe recibido en el cráneo");
 		// hc.setEgreso(egreso);
 
 		// this.getMedicamentosRepository().save(med1);

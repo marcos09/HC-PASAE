@@ -4,7 +4,7 @@ import java.util.List;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionDTO;
 
-public interface PrescripcionService {
+public interface PrescripcionService extends GenericService {
 	void create(PrescripcionDTO persistentDTO);
 
 	void update(PrescripcionDTO persistentDTO);

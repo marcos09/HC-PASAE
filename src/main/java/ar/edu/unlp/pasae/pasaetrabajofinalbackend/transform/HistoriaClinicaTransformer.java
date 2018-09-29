@@ -80,6 +80,7 @@ public class HistoriaClinicaTransformer implements Transformer<HistoriaClinica, 
 		return historiaDTO;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public HistoriaClinica toEntity(HistoriaClinicaDTO dto) {
 		HistoriaClinica historia = new HistoriaClinica(dto.getId(),

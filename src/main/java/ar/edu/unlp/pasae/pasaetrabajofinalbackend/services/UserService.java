@@ -5,7 +5,7 @@ import java.util.List;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.UserDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 
-public interface UserService  {
+public interface UserService extends GenericService {
 
 	void create(UserDTO persistentDTO) throws BaseException; 
 	void update(UserDTO persistentDTO);
