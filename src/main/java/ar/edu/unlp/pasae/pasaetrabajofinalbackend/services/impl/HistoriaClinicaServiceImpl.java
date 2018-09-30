@@ -164,17 +164,17 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 				Set<PrescripcionDTO> prescripcionesDTO = seguimiento.getPrescripcionesDTO();
 				for (PrescripcionDTO p : prescripcionesDTO) {
 					if (p.getMedicamento() == null) {
-						throw new RuntimeException("Debe indicar un medicamento en la prescripcion");
+						throw new BaseException("Debe indicar un medicamento en la prescripcion");
 					}
 				}
 				historia.addSeguimiento(this.getSeguimientoTransformer().toEntity(seguimiento));
 				this.getRepository().save(historia);
 				return historia;
 			} else {
-				throw new RuntimeException("El paciente ya egreso");
+				throw new BaseException("El paciente ya egreso");
 			}
 		} else {
-			throw new RuntimeException("La historia clinica no existe");
+			throw new BaseException("La historia clinica no existe");
 		}
 	}
 
@@ -249,15 +249,16 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 	}
 
 	@Override
-	public PacienteDTO getPaciente(Long id) {
+	public PacienteDTO getPaciente(Long id) throws BaseException{
 
 		Optional<HistoriaClinica> optional = this.getRepository().findById(id);
 		if (optional.isPresent()) {
 			HistoriaClinica historia = optional.get();
 			Paciente paciente = historia.getPaciente();
 			return this.getPacienteTransformer().toDTO(paciente);
+		}else {
+			throw new BaseException("La historia clinica no existe");
 		}
-		return null;
 	}
 
 	public List<HistoriaCompactaDTO> historiasActivas() {

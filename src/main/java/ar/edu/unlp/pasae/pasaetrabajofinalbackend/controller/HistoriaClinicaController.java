@@ -1,12 +1,16 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -88,7 +92,10 @@ public class HistoriaClinicaController {
 			return this.getHistoriaService().agregarSeguimiento(id, seguimiento);
 		} catch (final BaseException e) {
 			logger.error("Excepción {}", e.getLocalizedMessage());
-			return e;
+			Map<String, Object> response = new HashMap<String, Object>();
+			response.put("errors", e.getLocalizedMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+//			return e;
 		}
 	}
 
@@ -99,8 +106,16 @@ public class HistoriaClinicaController {
 	}
 
 	@GetMapping(path = "/{id}/paciente", produces = "application/json")
-	public PacienteDTO getPaciente(@PathVariable(value = "id") Long id) {
+	public Object getPaciente(@PathVariable(value = "id") Long id) throws BaseException{
+		try {
 		return this.getHistoriaService().getPaciente(id);
+		}
+		catch (final BaseException e) {
+			logger.error("Excepción {}", e.getLocalizedMessage());
+			Map<String, Object> response = new HashMap<String, Object>();
+			response.put("errors", e.getLocalizedMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
 	}
 
 	// Listado de historias clinicas de pacientes internados actualmente (No egresados)

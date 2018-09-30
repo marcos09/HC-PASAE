@@ -31,7 +31,7 @@ public interface HistoriaClinicaService {
 
 	List<ElementoHistoriaDTO> getHistoriaOrdenada(Long idHistoria);
 
-	PacienteDTO getPaciente(Long id);
+	PacienteDTO getPaciente(Long id) throws BaseException;
 	List<HistoriaCompactaDTO> historiasActivas();
 
 	void egresar(Long id,@Valid EgresoDTO egreso);
