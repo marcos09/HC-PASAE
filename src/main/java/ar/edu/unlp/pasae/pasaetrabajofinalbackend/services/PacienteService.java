@@ -5,7 +5,7 @@ import java.util.List;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 
-public interface PacienteService {
+public interface PacienteService extends GenericService {
 	PacienteDTO create(PacienteDTO persistentDTO) throws BaseException;
 
 	PacienteDTO update(PacienteDTO persistentDTO) throws BaseException;

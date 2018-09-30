@@ -3,7 +3,6 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,19 +10,12 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Prescripcion;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.PrescripcionRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PrescripcionService;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
 
 @Service
 @Transactional
 
-public class PrescripcionServiceImpl implements PrescripcionService {
-
-	@Autowired
-	private PrescripcionRepository repository;
+public class PrescripcionServiceImpl extends GenericServiceImpl<PrescripcionRepository, Prescripcion, PrescripcionDTO> implements PrescripcionService {
 	
-	@Autowired
-	private Transformer<Prescripcion, PrescripcionDTO> transformer;
-
 	@Override
 	public void create(PrescripcionDTO persistentDTO) {
 		this.getRepository().save(this.getTransformer().toEntity(persistentDTO));
@@ -51,22 +43,6 @@ public class PrescripcionServiceImpl implements PrescripcionService {
 	@Override
 	public List<PrescripcionDTO> list() {
 		return this.getTransformer().toListDTO(this.getRepository().findAll());
-	}
-
-	public PrescripcionRepository getRepository() {
-		return repository;
-	}
-
-	public Transformer<Prescripcion, PrescripcionDTO> getTransformer() {
-		return transformer;
-	}
-
-	public void setRepository(PrescripcionRepository repository) {
-		this.repository = repository;
-	}
-
-	public void setTransformer(Transformer<Prescripcion, PrescripcionDTO> transformer) {
-		this.transformer = transformer;
 	}
 
 	@Override

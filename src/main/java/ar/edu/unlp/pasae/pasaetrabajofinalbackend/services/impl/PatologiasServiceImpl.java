@@ -15,37 +15,15 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PatologiaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Patologia;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.PatologiasRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PatologiasService;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
 
 @Service
 @Transactional
 
-public class PatologiasServiceImpl implements PatologiasService {
+public class PatologiasServiceImpl extends GenericServiceImpl<PatologiasRepository, Patologia, PatologiaDTO> implements PatologiasService {
 
-	@Autowired
-	private PatologiasRepository repository;
-	@Autowired
-	private Transformer<Patologia, PatologiaDTO> transformer;
 
 	@Autowired
 	private Validator validator;
-
-	private Transformer<Patologia, PatologiaDTO> getTransformer() {
-		return transformer;
-	}
-
-	@SuppressWarnings("unused")
-	private void setTransformer(Transformer<Patologia, PatologiaDTO> transformer) {
-		this.transformer = transformer;
-	}
-
-	public PatologiasRepository getRepository() {
-		return repository;
-	}
-
-	public void setRepository(PatologiasRepository repository) {
-		this.repository = repository;
-	}
 
 	@Override
 	public void create(PatologiaDTO dto) {

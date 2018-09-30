@@ -72,6 +72,13 @@ public class UserController {
 	public UserService getUserService() {
 		return userService;
 	}
+	
+	// Listo todos los ingresos
+	@GetMapping(path = "/paginatedList/{pageNumber}/{pageSize}")
+	public List<UserDTO> paginatedList(@PathVariable(value = "pageNumber") int pageNumber, @PathVariable(value = "pageSize") int pageSize) {
+		return this.getUserService().userByPage(pageNumber, pageSize);
+	}
+
 
 		
 }

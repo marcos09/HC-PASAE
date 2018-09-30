@@ -4,7 +4,7 @@ import java.util.List;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PatologiaDTO;
 
-public interface PatologiasService {
+public interface PatologiasService extends GenericService {
 	
 	void create(PatologiaDTO persistentDTO); 
 	void update(PatologiaDTO persistentDTO);

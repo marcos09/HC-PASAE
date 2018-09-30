@@ -15,7 +15,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Paciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 
-public interface HistoriaClinicaService {
+public interface HistoriaClinicaService extends GenericService {
 
 	HistoriaClinicaDTO addIngreso(IngresoPaciente ip, Paciente paciente);
 

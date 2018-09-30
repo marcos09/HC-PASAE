@@ -6,8 +6,6 @@ import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
-
 public class SeguimientoDTO extends GenericDTOImpl implements Comparable<SeguimientoDTO> {
 
 	private Date fecha;

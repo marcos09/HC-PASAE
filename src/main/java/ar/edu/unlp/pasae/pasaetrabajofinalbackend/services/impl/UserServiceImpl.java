@@ -1,5 +1,6 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -8,6 +9,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,36 +18,14 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.User;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.UserRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.UserService;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService {
-
-	@Autowired
-	private UserRepository repository;
-	@Autowired
-	private Transformer<User, UserDTO> transformer;
+public class UserServiceImpl extends GenericServiceImpl<UserRepository, User, UserDTO> implements UserService {
 
 	@Autowired
 	private Validator validator;
 
-	private Transformer<User, UserDTO> getTransformer() {
-		return transformer;
-	}
-
-	@SuppressWarnings("unused")
-	private void setTransformer(Transformer<User, UserDTO> transformer) {
-		this.transformer = transformer;
-	}
-
-	public UserRepository getRepository() {
-		return repository;
-	}
-
-	public void setRepository(UserRepository repository) {
-		this.repository = repository;
-	}
 
 	public UserServiceImpl() {
 		super();
@@ -120,5 +100,17 @@ public class UserServiceImpl implements UserService {
 		return this.getTransformer().toListDTO(
 			this.getRepository().findByUsernameContainingAndEmailContaining(userDTO.getUsername(), userDTO.getEmail()));
 	}
+	
+	
+	public List<UserDTO> userByPage(int pageNumber, int pageSize){
+			PageRequest.of(pageNumber, pageSize);
+	      PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+	      Iterable<User> res = this.getRepository().findAll(pageRequest);
+	      List<UserDTO> users = new ArrayList<UserDTO>();
+	      for(User u: res){
+	    	  users.add(this.getTransformer().toDTO(u));
+	    	  }
+	      return  users;
+	   }
 
 }

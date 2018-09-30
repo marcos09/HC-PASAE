@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PatologiaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
@@ -27,18 +26,13 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.MedicamentoReposito
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.PacienteRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.IngresoPacienteService;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PacienteService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.EstudioComplementarioTransformer;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.PatologiaTransformer;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.PrescripcionTransformer;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
 
 @Service
 @Transactional
-public class IngresoPacienteServiceImpl implements IngresoPacienteService {
-
-	@Autowired
-	private IngresoPacienteRepository repository;
+public class IngresoPacienteServiceImpl extends GenericServiceImpl<IngresoPacienteRepository, IngresoPaciente, IngresoPacienteDTO> implements IngresoPacienteService {
 
 	@Autowired
 	private MedicamentoRepository medicamentosRepository;
@@ -49,9 +43,6 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 
 	@Autowired
 	private HistoriaClinicaService historia;
-
-	@Autowired
-	private Transformer<IngresoPaciente, IngresoPacienteDTO> transformer;
 
 	@Autowired
 	private Validator validator;
@@ -75,23 +66,6 @@ public class IngresoPacienteServiceImpl implements IngresoPacienteService {
 
 	public PrescripcionTransformer getPrescripcionTransformer() {
 		return prescripcionTransformer;
-	}
-
-	private Transformer<IngresoPaciente, IngresoPacienteDTO> getTransformer() {
-		return transformer;
-	}
-
-	@SuppressWarnings("unused")
-	private void setTransformer(Transformer<IngresoPaciente, IngresoPacienteDTO> transformer) {
-		this.transformer = transformer;
-	}
-
-	public IngresoPacienteRepository getRepository() {
-		return repository;
-	}
-
-	public void setRepository(IngresoPacienteRepository repository) {
-		this.repository = repository;
 	}
 
 	public IngresoPacienteServiceImpl() {
