@@ -37,4 +37,6 @@ public interface HistoriaClinicaService extends GenericService {
 	void egresar(Long id,@Valid EgresoDTO egreso);
 
 	HistoriaOrdenadaDTO getHistoriaCompletaOrdenada(Long idHistoria);
+
+	Object getPacienteEgreso(Long id) throws BaseException;
 }

@@ -12,7 +12,7 @@ public interface UserService extends GenericService {
 	void delete(Long id); 
 	UserDTO retrive(Long id);
 	List<UserDTO> list();
-	List<UserDTO> search(UserDTO userDTO);
+	List<UserDTO> search(UserDTO userDTO) throws BaseException;
 	List<UserDTO> userByPage(int pageNumber, int pageSize);
 
 	

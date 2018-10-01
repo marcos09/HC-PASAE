@@ -2,7 +2,9 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -322,6 +324,23 @@ public class HistoriaClinicaServiceImpl extends GenericServiceImpl<HistoriaClini
 				return historiaOrdenada;
 			}
 			return null;
+	}
+
+	@Override
+	public Object getPacienteEgreso(Long id) throws BaseException{
+		Optional<HistoriaClinica> optional = this.getRepository().findById(id);
+		if (optional.isPresent()) {
+			HistoriaClinica historia = optional.get();
+			Paciente paciente = historia.getPaciente();
+			Map<String, Object> response = new HashMap<String, Object>();
+			response.put("paciente", this.getPacienteTransformer().toDTO(paciente));
+			if (historia.getEgreso() != null) {
+				response.put("egreso", this.getEgresoTransformer().toDTO(historia.getEgreso()));
+			}
+			return response;
+		}else {
+			throw new BaseException("La historia clinica no existe");
+		}
 	}
 
 }

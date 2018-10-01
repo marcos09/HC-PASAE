@@ -32,7 +32,7 @@ public class EstudioComplementarioServiceImpl extends GenericServiceImpl<Estudio
 			this.getRepository().save(ec);
 		}
 		else {
-			throw new RuntimeException("El resultado del estudio complementario ya se cargo");
+			throw new BaseException("El resultado del estudio complementario ya se cargo");
 		}
 	}
 
@@ -42,8 +42,14 @@ public class EstudioComplementarioServiceImpl extends GenericServiceImpl<Estudio
 	}
 
 	@Override
-	public EstudioComplementarioDTO retrive(Long id) {
-		return this.getTransformer().toDTO(this.getRepository().findById(id).get());
+	public EstudioComplementarioDTO retrive(Long id) throws BaseException{
+		Optional <EstudioComplementario> op = this.getRepository().findById(id);
+		if (op.isPresent()) {
+			return this.getTransformer().toDTO(op.get());
+		}else {
+			throw new BaseException("El estudio no existe");
+		}
+		
 	}
 
 	@Override

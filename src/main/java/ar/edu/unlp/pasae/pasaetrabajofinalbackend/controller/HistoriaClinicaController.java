@@ -101,7 +101,6 @@ public class HistoriaClinicaController {
 			Map<String, Object> response = new HashMap<String, Object>();
 			response.put("errors", e.getLocalizedMessage());
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-//			return e;
 		}
 	}
 
@@ -115,6 +114,19 @@ public class HistoriaClinicaController {
 	public Object getPaciente(@PathVariable(value = "id") Long id) throws BaseException{
 		try {
 		return this.getHistoriaService().getPaciente(id);
+		}
+		catch (final BaseException e) {
+			logger.error("Excepción {}", e.getLocalizedMessage());
+			Map<String, Object> response = new HashMap<String, Object>();
+			response.put("errors", e.getLocalizedMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
+	}
+	
+	@GetMapping(path = "/{id}/pacienteEgreso", produces = "application/json")
+	public Object getPacienteEgreso(@PathVariable(value = "id") Long id) throws BaseException{
+		try {
+		return this.getHistoriaService().getPacienteEgreso(id);
 		}
 		catch (final BaseException e) {
 			logger.error("Excepción {}", e.getLocalizedMessage());

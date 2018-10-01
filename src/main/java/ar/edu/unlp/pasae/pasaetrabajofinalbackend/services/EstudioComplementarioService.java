@@ -13,7 +13,7 @@ public interface EstudioComplementarioService extends GenericService{
 
 	void delete(Long id);
 
-	EstudioComplementarioDTO retrive(Long id);
+	EstudioComplementarioDTO retrive(Long id) throws BaseException;
 
 	List<EstudioComplementarioDTO> list();
 	

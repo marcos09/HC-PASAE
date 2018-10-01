@@ -37,14 +37,14 @@ public class UserServiceImpl extends GenericServiceImpl<UserRepository, User, Us
 		String mail = persistentDTO.getEmail();
 		if (this.getRepository().findByEmail(mail) != null) {
 			if (mail.equals(this.getRepository().findByEmail(mail).getEmail())) {
-				throw new RuntimeException("El usuario con el mail que intenta agregar ya existe");
+				throw new BaseException("El usuario con el mail que intenta agregar ya existe");
 			}
 		}
 
 		String username = persistentDTO.getUsername();
 		if (this.getRepository().findByUsername(username) != null) {
 			if (username.equals(this.getRepository().findByUsername(username).getUsername())) {
-				throw new RuntimeException("El nombre de usuario que intenta agregar ya existe");
+				throw new BaseException("El nombre de usuario que intenta agregar ya existe");
 			}
 		}
 
@@ -96,9 +96,15 @@ public class UserServiceImpl extends GenericServiceImpl<UserRepository, User, Us
 	}
 
 	@Override
-	public List<UserDTO> search(UserDTO userDTO) {
-		return this.getTransformer().toListDTO(
-			this.getRepository().findByUsernameContainingAndEmailContaining(userDTO.getUsername(), userDTO.getEmail()));
+	public List<UserDTO> search(UserDTO userDTO) throws BaseException{
+		List<UserDTO> list = this.getTransformer().toListDTO(
+				this.getRepository().findByUsernameContainingAndEmailContaining(userDTO.getUsername(), userDTO.getEmail()));
+		if (!list.isEmpty()) {
+			return list;
+		}else {
+			throw new BaseException("El usuario con el mail que intenta agregar ya existe");
+		}
+				
 	}
 	
 	
