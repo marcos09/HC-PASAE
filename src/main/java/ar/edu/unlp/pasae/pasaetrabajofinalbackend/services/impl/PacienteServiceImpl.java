@@ -46,13 +46,13 @@ public class PacienteServiceImpl extends GenericServiceImpl<PacienteRepository, 
 	}
 
 	@Override
-	public PacienteDTO update(PacienteDTO persistentDTO) {
+	public PacienteDTO update(PacienteDTO persistentDTO) throws BaseException{
 		Set<ConstraintViolation<PacienteDTO>> validations = validator.validate(persistentDTO);
 		if (validations.isEmpty()) {
 			return this.getTransformer().toDTO(this.getRepository().save(this.getTransformer().toEntity(persistentDTO)));
+		}else {
+			throw new BaseException("El paciente no se pudo actualizar correctamente");
 		}
-		String message = "El paciente no se pudo actualizar correctamente";
-		throw new RuntimeException(message);
 	}
 
 	@Override

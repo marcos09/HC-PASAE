@@ -91,6 +91,8 @@ public class IngresoPacienteServiceImpl
 		Paciente paciente = null;
 		PatologiaDTO sintomatico = dto.getDiagnosticoSintomatico();
 		PatologiaDTO presuntivo = dto.getDiagnosticoPresuntivo();
+		
+	
 
 		Set<Prescripcion> listPrescripciones = new HashSet<Prescripcion>();
 
