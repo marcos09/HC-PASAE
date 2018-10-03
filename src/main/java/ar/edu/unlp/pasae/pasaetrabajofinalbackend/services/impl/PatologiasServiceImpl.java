@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PatologiaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Patologia;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.PatologiasRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PatologiasService;
 
@@ -26,30 +27,34 @@ public class PatologiasServiceImpl extends GenericServiceImpl<PatologiasReposito
 	private Validator validator;
 
 	@Override
-	public void create(PatologiaDTO dto) {
+	public PatologiaDTO create(PatologiaDTO dto) throws BaseException {
 		Patologia ip = new Patologia(dto.getId(), dto.getNombre(), dto.getOtroDato(), true);
 		Set<ConstraintViolation<Patologia>> validations = validator.validate(ip);// si esta vacio no hubieron errores de
 																					// validacion
 		if (validations.isEmpty()) {
-			this.getRepository().save(ip);
+			return this.getTransformer().toDTO(this.getRepository().save(ip));
+
+		}
+		else {
+			throw new BaseException("Ocurrieron errores en la validacion");
 		}
 
 	}
 
 	@Override
 	public void update(PatologiaDTO dto) {
-		// TODO Auto-generated method stub
 		Optional<Patologia> op = this.getRepository().findById(dto.getId());
 		Patologia p = op.get();
-		p.setOtroDato(dto.getOtroDato());
-		p.setNombre(dto.getNombre());
-		this.getRepository().save(p);
+		if( p != null) {
+			p.setOtroDato(dto.getOtroDato());
+			p.setNombre(dto.getNombre());
+			this.getRepository().save(p);
+		}
 
 	}
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
 		Optional<Patologia> op = this.getRepository().findById(id);
 		Patologia p = op.get();
 		p.setDisponible(false);
@@ -59,14 +64,12 @@ public class PatologiasServiceImpl extends GenericServiceImpl<PatologiasReposito
 
 	@Override
 	public PatologiaDTO retrive(Long id) {
-		// TODO Auto-generated method stub
 		Patologia p = this.getRepository().findById(id).get();
 		return this.getTransformer().toDTO(p);
 	}
 
 	@Override
 	public List<PatologiaDTO> list() {
-		// TODO Auto-generated method stub
 		List<Patologia> list = this.getRepository().findByDisponibleIsTrue();
 		return this.getTransformer().toListDTO(list);
 	}

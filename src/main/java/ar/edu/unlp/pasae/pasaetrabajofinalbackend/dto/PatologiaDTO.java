@@ -18,6 +18,7 @@ public class PatologiaDTO extends GenericDTOImpl {
 		super();
 		this.setNombre(nombre);
 		this.setOtroDato(otroDato);
+		this.setDisponible(true);
 	}
 
 	public boolean isDisponible() {

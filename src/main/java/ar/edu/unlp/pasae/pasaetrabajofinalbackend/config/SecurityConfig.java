@@ -62,6 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  implements Web
 				.and()
 	        .formLogin()
 	            .loginPage("/login")
+//	            .defaultSuccessUrl("http://localhost:4200")
 	            .permitAll()
 	            .and()
 	        .logout()
