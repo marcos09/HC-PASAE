@@ -30,6 +30,9 @@ public class IngresoPacienteDTO extends GenericDTOImpl {
 
 	public IngresoPacienteDTO() {
 		super();
+		this.setEstudiosComplementariosDTO(new HashSet<EstudioComplementarioDTO>());
+		this.setPrescripcionesDTO(new HashSet<PrescripcionDTO>());
+		
 	}
 
 	public IngresoPacienteDTO(Long id, String motivoConsulta, String enfermedadActual,
@@ -55,6 +58,23 @@ public class IngresoPacienteDTO extends GenericDTOImpl {
 			String antecedentesPersonales, String examenFisico, Date fecha) {
 		super();
 		this.setId(id);
+		this.setMotivoConsulta(motivoConsulta);
+		this.setEnfermedadActual(enfermedadActual);
+		this.setDiagnosticoSintomatico(diagnosticoSintomatico);
+		this.setDiagnosticoPresuntivo(diagnosticoPresuntivo);
+		this.setEstudiosComplementariosDTO(new HashSet<EstudioComplementarioDTO>());
+		this.setPrescripcionesDTO(new HashSet<PrescripcionDTO>());
+		this.setFechaIngreso(fecha);
+		this.setAntecedentesEnfermedad(antecedentesEnfermedad);
+		this.setAntecedentesPersonales(antecedentesPersonales);
+		this.setExamenFisico(examenFisico);
+
+	}
+	
+	public IngresoPacienteDTO( String motivoConsulta, String enfermedadActual,
+			PatologiaDTO diagnosticoSintomatico, PatologiaDTO diagnosticoPresuntivo, String antecedentesEnfermedad,
+			String antecedentesPersonales, String examenFisico, Date fecha) {
+		super();
 		this.setMotivoConsulta(motivoConsulta);
 		this.setEnfermedadActual(enfermedadActual);
 		this.setDiagnosticoSintomatico(diagnosticoSintomatico);

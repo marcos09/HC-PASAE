@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.web.filter.GenericFilterBean;
+import org.springframework.web.servlet.ModelAndView;
 
 public class CustomOauth2AuthenticationFilter extends GenericFilterBean {
 
@@ -27,8 +28,10 @@ public class CustomOauth2AuthenticationFilter extends GenericFilterBean {
 			final OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) oAuth2Authentication.getDetails();
 			final HttpServletResponse response = (HttpServletResponse) res;
 			response.addCookie(new Cookie("access_token", details.getTokenValue()));
+//			response.sendRedirect("http://localhost:4200/usuarios");
+			
 		}
-
+	
 		chain.doFilter(req, res);
 	}
 

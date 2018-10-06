@@ -71,7 +71,7 @@ public class HistoriaClinicaServiceImpl extends GenericServiceImpl<HistoriaClini
 	private Validator validator;
 
 	@Override
-	public HistoriaClinicaDTO addIngreso(IngresoPaciente ingreso, Paciente paciente) {
+	public HistoriaClinicaDTO addIngreso(IngresoPaciente ingreso, Paciente paciente) throws BaseException {
 		HistoriaClinica historia = new HistoriaClinica((ingreso));
 		historia.setPaciente(paciente);
 		Set<ConstraintViolation<HistoriaClinica>> validations = validator.validate(historia);// si esta vacio no
@@ -80,8 +80,7 @@ public class HistoriaClinicaServiceImpl extends GenericServiceImpl<HistoriaClini
 		if (validations.isEmpty()) {
 			return this.getHistoriaTransformer().toDTO(this.getRepository().save(historia));
 		} else {
-			// Levantar excepcion por errores de validacion.
-			return null;
+			throw new BaseException("Ocurrieron errores en la validacion al crear la historia");
 		}
 	}
 

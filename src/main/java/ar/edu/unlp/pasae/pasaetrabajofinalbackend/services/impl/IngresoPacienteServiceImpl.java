@@ -21,6 +21,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Medicamento;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Paciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Prescripcion;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.IngresoPacienteRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.MedicamentoRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.PacienteRepository;
@@ -32,14 +33,15 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.PrescripcionTransfor
 
 @Service
 @Transactional
-public class IngresoPacienteServiceImpl extends GenericServiceImpl<IngresoPacienteRepository, IngresoPaciente, IngresoPacienteDTO> implements IngresoPacienteService {
+public class IngresoPacienteServiceImpl
+		extends GenericServiceImpl<IngresoPacienteRepository, IngresoPaciente, IngresoPacienteDTO>
+		implements IngresoPacienteService {
 
 	@Autowired
 	private MedicamentoRepository medicamentosRepository;
-	
+
 	@Autowired
 	private PacienteRepository pacienteRepository;
-
 
 	@Autowired
 	private HistoriaClinicaService historia;
@@ -80,13 +82,17 @@ public class IngresoPacienteServiceImpl extends GenericServiceImpl<IngresoPacien
 
 	}
 
-	//idPaciente debe recibir un número menor a 0 para indicar que se creará la historia sin paciente, un número mayor que se corresponderá
-	//al número de id del paciente a internar. Deberá existir dicho paciente previo al ingreso, caso contrario ocurrirá un error. 
+	// idPaciente debe recibir un número menor a 0 para indicar que se creará la
+	// historia sin paciente, un número mayor que se corresponderá
+	// al número de id del paciente a internar. Deberá existir dicho paciente previo
+	// al ingreso, caso contrario ocurrirá un error.
 	@Override
-	public HistoriaClinicaDTO create(IngresoPacienteDTO dto, Long idPaciente) {
+	public HistoriaClinicaDTO create(IngresoPacienteDTO dto, Long idPaciente) throws BaseException {
 		Paciente paciente = null;
 		PatologiaDTO sintomatico = dto.getDiagnosticoSintomatico();
 		PatologiaDTO presuntivo = dto.getDiagnosticoPresuntivo();
+		
+	
 
 		Set<Prescripcion> listPrescripciones = new HashSet<Prescripcion>();
 
@@ -99,41 +105,30 @@ public class IngresoPacienteServiceImpl extends GenericServiceImpl<IngresoPacien
 			}
 
 		}
-		if(idPaciente > 0) {
+		if (idPaciente > 0) {
 			Optional<Paciente> optional = this.getPacienteRepository().findById(idPaciente);
-			if(optional.isPresent()) {
+			if (optional.isPresent()) {
 				paciente = optional.get();
+			} else {
+				throw new BaseException("El paciente no se indico en la creacion del ingreso");
 			}
-			else {
-				//Levantar excepción error con el paciente ingresado. 
-			}
-					
-			
+
 		}
 		IngresoPaciente ip = new IngresoPaciente(dto.getId(), dto.getMotivoConsulta(), dto.getEnfermedadActual(),
 				this.getPatologiaTransformer().toEntity(sintomatico),
 				this.getPatologiaTransformer().toEntity(presuntivo),
-				this.getEstudioTransformer().toSet(dto.getEstudiosComplementariosDTO()),
-				listPrescripciones,
-				dto.getAntecedentesEnfermedad(), 
-				dto.getAntecedentesPersonales(), 
-				dto.getExamenFisico());
-	
+				this.getEstudioTransformer().toSet(dto.getEstudiosComplementariosDTO()), listPrescripciones,
+				dto.getAntecedentesEnfermedad(), dto.getAntecedentesPersonales(), dto.getExamenFisico());
+
 		Set<ConstraintViolation<IngresoPaciente>> validations = validator.validate(ip);// si esta vacio no hubieron
 																						// errores de validacion
-		
-		
 		if (validations.isEmpty()) {
 			this.getRepository().save(ip);
 			return this.getHistoriaService().addIngreso(ip, paciente);
+		} else {
+			throw new BaseException("Errores en validacion");
 		}
-		else {
-			// Levantar excepcion por fallas en la validación.
-			return null;
-		}
-		
-		
-		
+
 	}
 
 	private MedicamentoRepository getMedicamentosRepository() {
@@ -209,6 +204,5 @@ public class IngresoPacienteServiceImpl extends GenericServiceImpl<IngresoPacien
 	public void setPacienteRepository(PacienteRepository pacienteRepository) {
 		this.pacienteRepository = pacienteRepository;
 	}
-	
-	
+
 }

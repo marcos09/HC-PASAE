@@ -29,7 +29,7 @@ public class PacienteServiceImpl extends GenericServiceImpl<PacienteRepository, 
 
 		if (this.getRepository().findByDni(dni) != null) {
 			if (dni == (this.getRepository().findByDni(dni).getDni())) {
-				throw new RuntimeException("El paciente con el dni que intenta agregar ya existe");
+				throw new BaseException("El paciente con el dni que intenta agregar ya existe");
 			}
 		}
 
@@ -38,19 +38,21 @@ public class PacienteServiceImpl extends GenericServiceImpl<PacienteRepository, 
 			return this.getTransformer().toDTO(
 					this.getRepository()
 					.save(this.getTransformer().toEntity(persistentDTO)));
+		}else {
+			throw new BaseException("El paciente no se pudo agregar correctamente");
 		}
-		throw new RuntimeException("El paciente no se pudo agregar correctamente");
+		
 
 	}
 
 	@Override
-	public PacienteDTO update(PacienteDTO persistentDTO) {
+	public PacienteDTO update(PacienteDTO persistentDTO) throws BaseException{
 		Set<ConstraintViolation<PacienteDTO>> validations = validator.validate(persistentDTO);
 		if (validations.isEmpty()) {
 			return this.getTransformer().toDTO(this.getRepository().save(this.getTransformer().toEntity(persistentDTO)));
+		}else {
+			throw new BaseException("El paciente no se pudo actualizar correctamente");
 		}
-		String message = "El paciente no se pudo actualizar correctamente";
-		throw new RuntimeException(message);
 	}
 
 	@Override
@@ -63,7 +65,7 @@ public class PacienteServiceImpl extends GenericServiceImpl<PacienteRepository, 
 		if (this.getRepository().findById(id) != null) {
 			return this.getTransformer().toDTO(this.getRepository().findById(id).get());
 		} else {
-			throw new RuntimeException("El paciente no existe");
+			throw new BaseException("El paciente no existe");
 		}
 
 	}
@@ -91,7 +93,7 @@ public class PacienteServiceImpl extends GenericServiceImpl<PacienteRepository, 
 		if (this.getRepository().findByDni(dni) !=null) {
 			return this.getTransformer().toDTO(this.getRepository().findByDni(dni));
 		} else {
-			throw new RuntimeException("El paciente no existe");
+			throw new BaseException("El paciente no existe");
 		}
 	}
 

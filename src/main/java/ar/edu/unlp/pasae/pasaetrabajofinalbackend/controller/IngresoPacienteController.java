@@ -1,11 +1,17 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.aspect.ExceptionHandlerAspect;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.IngresoPacienteService;
 
 @RestController
@@ -25,6 +33,9 @@ public class IngresoPacienteController {
 
 	@Autowired
 	private IngresoPacienteService ingresoService;
+	
+	private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlerAspect.class);
+	
 
 	// Listo todos los ingresos
 	@GetMapping(path = "/list")
@@ -64,8 +75,15 @@ public class IngresoPacienteController {
 
 	// Alta de ingreso
 	@PutMapping(path = "/createIngreso/{idPaciente}", consumes = "application/json", produces = "application/json")
-	public void create(@RequestBody @Valid IngresoPacienteDTO ingresoPaciente, @PathVariable(value = "idPaciente") Long idPaciente) {
-		this.getIngresoService().create(ingresoPaciente, idPaciente);
+	public Object create(@RequestBody @Valid IngresoPacienteDTO ingresoPaciente, @PathVariable(value = "idPaciente") Long idPaciente) throws BaseException {
+		try {
+			return this.getIngresoService().create(ingresoPaciente, idPaciente);
+		} catch (final BaseException e) {
+			logger.error("Excepción {}", e.getLocalizedMessage());
+			Map<String, Object> response = new HashMap<String, Object>();
+			response.put("errors", e.getLocalizedMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
 	}
 
 	private IngresoPacienteService getIngresoService() {

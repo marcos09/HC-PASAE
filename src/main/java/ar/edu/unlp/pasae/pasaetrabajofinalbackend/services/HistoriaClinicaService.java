@@ -17,7 +17,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 
 public interface HistoriaClinicaService extends GenericService {
 
-	HistoriaClinicaDTO addIngreso(IngresoPaciente ip, Paciente paciente);
+	HistoriaClinicaDTO addIngreso(IngresoPaciente ip, Paciente paciente) throws BaseException;
 
 	void update(HistoriaClinicaDTO persistentDTO);
 

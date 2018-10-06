@@ -1,12 +1,16 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,22 +36,26 @@ public class PacienteController {
 	private PacienteService pacienteService;
 
 	@PutMapping(path = "/createPaciente", consumes = "application/json", produces = "application/json")
-	public PacienteDTO create(@RequestBody @Valid PacienteDTO pacienteDTO) throws BaseException {
+	public Object create(@RequestBody @Valid PacienteDTO pacienteDTO) throws BaseException {
 		try {
 			return this.getPacienteService().create(pacienteDTO);
 		} catch (final BaseException e) {
 			logger.error("Excepción {}", e.getLocalizedMessage());
-			return null;
+			Map<String, Object> response = new HashMap<String, Object>();
+			response.put("errors", e.getLocalizedMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}
 	}
 	
 	@PutMapping(path = "/update", consumes = "application/json", produces = "application/json")
-	public PacienteDTO update(@RequestBody @Valid PacienteDTO pacienteDTO) throws BaseException {
+	public Object update(@RequestBody @Valid PacienteDTO pacienteDTO) throws BaseException {
 		try {
 			return this.getPacienteService().update(pacienteDTO);
 		} catch (final BaseException e) {
 			logger.error("Excepción {}", e.getLocalizedMessage());
-			throw new RuntimeException("El paciente no se pudo agregar correctamente");
+			Map<String, Object> response = new HashMap<String, Object>();
+			response.put("errors", e.getLocalizedMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}
 		
 	}
@@ -75,13 +83,15 @@ public class PacienteController {
 	}
 	
 	@GetMapping(path = "/dni/{dni}", produces = "application/json")
-	public PacienteDTO searchWithDNI(@PathVariable(value = "dni") int dni) throws BaseException {
+	public Object searchWithDNI(@PathVariable(value = "dni") int dni) throws BaseException {
 		try {
 			return this.getPacienteService().findByDni(dni);
 		} catch (final BaseException e) {
 			logger.error("Excepción {}", e.getLocalizedMessage());
+			Map<String, Object> response = new HashMap<String, Object>();
+			response.put("errors", e.getLocalizedMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}
-		return null;
 	}
 
 	@DeleteMapping(path = "/{id}")
