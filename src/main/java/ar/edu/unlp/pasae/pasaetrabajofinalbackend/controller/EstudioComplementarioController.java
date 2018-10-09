@@ -65,8 +65,6 @@ public class EstudioComplementarioController {
 	// Recupero un estudio con el id
 	@GetMapping(path = "/{id}", produces = "application/json")
 	public Object show(@PathVariable(value = "id") Long id) throws BaseException{
-		
-		
 		try {
 			return this.getEstudioService().retrive(id);
 		} catch (final BaseException e) {

@@ -24,6 +24,8 @@ public class PacienteDTO extends GenericDTOImpl {
 	@NotEmpty(message = "El telefono no puede ser nulo o vacío")
 	private String numeroTelefono;
 
+	private Boolean isHospitalized;
+	
 	public PacienteDTO() {
 		super();
 	}
@@ -119,4 +121,12 @@ public class PacienteDTO extends GenericDTOImpl {
 		this.numeroTelefono = numeroTelefono;
 	}
 
+	public Boolean getIsHospitalized() {
+		return isHospitalized;
+	}
+
+	public void setIsHospitalized(Boolean isHospitalized) {
+		this.isHospitalized = isHospitalized;
+	}
+	
 }

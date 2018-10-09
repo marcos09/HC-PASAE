@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.aspect.ExceptionHandlerAspect;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PacienteService;
 
 @RestController
@@ -35,6 +36,10 @@ public class PacienteController {
 	@Autowired
 	private PacienteService pacienteService;
 
+	@Autowired
+	private HistoriaClinicaService historiaService;
+
+	
 	@PutMapping(path = "/createPaciente", consumes = "application/json", produces = "application/json")
 	public Object create(@RequestBody @Valid PacienteDTO pacienteDTO) throws BaseException {
 		try {
@@ -85,7 +90,12 @@ public class PacienteController {
 	@GetMapping(path = "/dni/{dni}", produces = "application/json")
 	public Object searchWithDNI(@PathVariable(value = "dni") int dni) throws BaseException {
 		try {
-			return this.getPacienteService().findByDni(dni);
+			PacienteDTO paciente= this.getPacienteService().findByDni(dni);
+			if(paciente != null) {
+				paciente.setIsHospitalized(this.getHistoriaService().isHospitalized(dni));
+			}
+			return paciente;
+			
 		} catch (final BaseException e) {
 			logger.error("Excepción {}", e.getLocalizedMessage());
 			Map<String, Object> response = new HashMap<String, Object>();
@@ -105,6 +115,14 @@ public class PacienteController {
 
 	public void setPacienteService(PacienteService pacienteService) {
 		this.pacienteService = pacienteService;
+	}
+
+	protected HistoriaClinicaService getHistoriaService() {
+		return historiaService;
+	}
+
+	protected void setHistoriaService(HistoriaClinicaService historiaService) {
+		this.historiaService = historiaService;
 	}
 
 }

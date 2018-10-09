@@ -342,4 +342,21 @@ public class HistoriaClinicaServiceImpl extends GenericServiceImpl<HistoriaClini
 		}
 	}
 
+	@Override
+	public IngresoPacienteDTO getIngreso(Long id) throws BaseException {
+		Optional<HistoriaClinica> optional = this.getRepository().findById(id);
+		if (optional.isPresent()) {
+			HistoriaClinica historia = optional.get();
+			return this.getIngresoTransformer().toDTO(historia.getIngreso());
+		}else {
+			throw new BaseException("La historia clinica no existe");
+		}
+
+	}
+
+	@Override
+	public Boolean isHospitalized(int dni) {
+		return  this.getRepository().findByDniAndEgresoIsNull(dni).isPresent();
+	}
+
 }

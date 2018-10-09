@@ -105,4 +105,6 @@ public class Seguimiento extends GenericPersistentClass implements Comparable<Se
 		return this.getFecha().compareTo(seguimiento.getFecha());
 	}
 
+	
+
 }
