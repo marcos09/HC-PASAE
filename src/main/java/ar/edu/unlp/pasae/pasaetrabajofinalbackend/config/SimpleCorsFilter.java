@@ -27,12 +27,8 @@ public class SimpleCorsFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletResponse response = (HttpServletResponse) res;
 		HttpServletRequest request = (HttpServletRequest) req;
-		response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-		/*
-		 * URLs para producción en heroku
-		response.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
-		response.setHeader("Access-Control-Allow-Origin", "http://https://pasae-trabajofinal.herokuapp.com/");
-		*/
+		//response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+		response.setHeader("Access-Control-Allow-Origin", request.getHeader("origin"));
 
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 

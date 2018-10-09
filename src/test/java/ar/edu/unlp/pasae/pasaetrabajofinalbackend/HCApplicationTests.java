@@ -164,6 +164,10 @@ public class HCApplicationTests {
 
 		PatologiaDTO request = new PatologiaDTO(nombre, "Otro Dato");
 
+//		thrown.expect(BaseException.class);
+//		
+//		this.getPatologiaService().create(request);
+		
 		try {
 			this.getPatologiaService().create(request);
 		} catch (BaseException e) {
@@ -184,20 +188,17 @@ public class HCApplicationTests {
 		
 		
 		PatologiaDTO patologiaDTO = new PatologiaDTO("Nombre", "Otro Dato");
-		this.getPatologiaService().create(patologiaDTO);
+		patologiaDTO = this.getPatologiaService().create(patologiaDTO);
 		
-		IngresoPacienteDTO ingresoDTO = new IngresoPacienteDTO( null,"Motociclista accidentado en la vía pública",
-				"Traumatismo severo de craneo, lesiones en manos, rodillas, pérdida del conocimiento.", patologiaDTO,
-				patologiaDTO, "antecedentesEnfermedad", "antecedentesPersonales", "examenFisico", new Date());
-		
-//		IngresoPacienteDTO ingresoDTO = new IngresoPacienteDTO();
-//		ingresoDTO.setAntecedentesEnfermedad("antecedentes enfermedad");
-//		ingresoDTO.setAntecedentesPersonales("antecedentes personales");
-//		ingresoDTO.setDiagnosticoPresuntivo(patologiaDTO);
-//		ingresoDTO.setDiagnosticoSintomatico(patologiaDTO);
-//		ingresoDTO.setEnfermedadActual("enfermedad actual");
-//		ingresoDTO.setExamenFisico("examen fisico");
-//		ingresoDTO.setMotivoConsulta("motivo consulta");
+
+		IngresoPacienteDTO ingresoDTO = new IngresoPacienteDTO();
+		ingresoDTO.setAntecedentesEnfermedad("antecedentes enfermedad");
+		ingresoDTO.setAntecedentesPersonales("antecedentes personales");
+		ingresoDTO.setDiagnosticoPresuntivo(patologiaDTO);
+		ingresoDTO.setDiagnosticoSintomatico(patologiaDTO);
+		ingresoDTO.setEnfermedadActual("enfermedad actual");
+		ingresoDTO.setExamenFisico("examen fisico");
+		ingresoDTO.setMotivoConsulta("motivo consulta");
 		
 		PacienteDTO pacienteDTO = new PacienteDTO(37423111, false, null, null, "Nombre", "Apellido",
 				"Domicilio", "1321421");
