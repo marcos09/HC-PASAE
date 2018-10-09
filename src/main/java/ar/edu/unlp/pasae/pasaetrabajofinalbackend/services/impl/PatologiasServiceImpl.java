@@ -32,10 +32,10 @@ public class PatologiasServiceImpl extends GenericServiceImpl<PatologiasReposito
 		Set<ConstraintViolation<Patologia>> validations = validator.validate(ip);// si esta vacio no hubieron errores de
 																					// validacion
 		if (validations.isEmpty()) {
+			
 			return this.getTransformer().toDTO(this.getRepository().save(ip));
 
-		}
-		else {
+		} else {
 			throw new BaseException("Ocurrieron errores en la validacion");
 		}
 
