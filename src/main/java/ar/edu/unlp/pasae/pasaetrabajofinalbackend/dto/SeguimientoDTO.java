@@ -14,7 +14,9 @@ public class SeguimientoDTO extends GenericDTOImpl implements Comparable<Seguimi
 	private Set<PrescripcionDTO> prescripcionesDTO;
 	@NotNull(message = "La coleccion de estudios complementarios no puede ser nula")
 	private Set<EstudioComplementarioDTO> estudiosComplementariosDTO;
-
+	
+	private Boolean isCompleted;
+	
 	public SeguimientoDTO() {
 		super();
 		this.setEstudiosComplementariosDTO(new HashSet<EstudioComplementarioDTO>());
@@ -76,6 +78,14 @@ public class SeguimientoDTO extends GenericDTOImpl implements Comparable<Seguimi
 	@Override
 	public int compareTo(SeguimientoDTO seguimiento) {
 		return this.getFecha().compareTo(seguimiento.getFecha());
+	}
+
+	public Boolean getIsCompleted() {
+		return isCompleted;
+	}
+
+	public void setIsCompleted(Boolean isCompleted) {
+		this.isCompleted = isCompleted;
 	}
 
 }

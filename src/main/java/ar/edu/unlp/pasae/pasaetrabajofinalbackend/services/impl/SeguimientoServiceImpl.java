@@ -17,7 +17,10 @@ public class SeguimientoServiceImpl extends GenericServiceImpl<SeguimientoReposi
 		Optional<Seguimiento> optional = this.getRepository().findById(id);
 		if(optional.isPresent()) {
 			Seguimiento s = optional.get();
-			return this.getTransformer().toDTO(s);
+			SeguimientoDTO seguimientoDTO =  this.getTransformer().toDTO(s);
+			seguimientoDTO.setIsCompleted(s.isCompleted());
+			return seguimientoDTO;
+		
 		}
 		return null;
 	}
