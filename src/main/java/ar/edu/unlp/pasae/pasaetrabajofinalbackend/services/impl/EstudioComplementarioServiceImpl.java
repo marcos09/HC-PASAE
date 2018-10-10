@@ -74,7 +74,6 @@ public class EstudioComplementarioServiceImpl extends GenericServiceImpl<Estudio
 		Optional <EstudioComplementario> op = this.getRepository().findById(idEstudio);
 		if (op.isPresent()) {
 			Long id = op.get().getId();
-			System.out.println(id);
 			Paciente p = this.getRepository().findPacienteFromEstudio(id);
 			return this.getPacienteTransformer().toDTO(p);
 		}else {

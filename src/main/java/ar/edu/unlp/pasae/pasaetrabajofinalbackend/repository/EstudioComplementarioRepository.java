@@ -16,9 +16,11 @@ public interface EstudioComplementarioRepository extends GenericRepository<Estud
 //	  @Query(value = "select hc.paciente from Historia_Clinica hc where   "
 //		+ " hc.seguimientos in "
 //  		+ "(select s from Seguimiento s where :ec in (select * from Seguimiento.estudiosComplementarios)) ", nativeQuery = true)
-	  @Query(value = "SELECT p FROM HistoriaClinica hc INNER JOIN hc.paciente p INNER JOIN hc.seguimientos s WHERE s IN "
+	  @Query(value = "SELECT p FROM HistoriaClinica hc LEFT JOIN hc.paciente p "
+	  		+ "LEFT JOIN hc.seguimientos s LEFT JOIN  hc.ingreso.estudiosComplementarios iec WHERE s IN "
 	  		+ "(SELECT s FROM Seguimiento s INNER JOIN s.estudiosComplementarios e WHERE e IN"
-	  		+ "(SELECT ec FROM EstudioComplementario ec WHERE ec.id = ?1)) ")
+	  		+ "(SELECT ec FROM EstudioComplementario ec WHERE ec.id = ?1)) "
+	  		+ "OR iec IN (SELECT ec FROM EstudioComplementario ec WHERE ec.id = ?1)")
 	  Paciente findPacienteFromEstudio(Long ec1);
 	/*  
   		
