@@ -86,6 +86,23 @@ public class EstudioComplementarioController {
 	public List<EstudioComplementarioDTO> estudiosActivos() {
 		 return this.getEstudioService().estudiosActivos();
 	}
+	
+	@GetMapping(path = "/{id}/paciente", produces = "application/json")
+	public Object getPacienteFromEstudio(@PathVariable(value = "id") Long id) {
+		try {
+			return this.getEstudioService().findPacienteFromEstudio(id);		
+		} catch (final BaseException e) {
+			logger.error("Excepción {}", e.getLocalizedMessage());
+			Map<String, Object> response = new HashMap<String, Object>();
+			response.put("errors", e.getLocalizedMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
+
+	
+	}
+
+	
+	
 
 	
 	

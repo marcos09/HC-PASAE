@@ -13,4 +13,5 @@ public interface HistoriaClinicaRepository extends GenericRepository<HistoriaCli
 	
 	  @Query("select hc from HistoriaClinica hc where hc.paciente.dni = ?1 and hc.egreso is null")
 	  Optional<HistoriaClinica> findByDniAndEgresoIsNull(int dni);
+
 }
