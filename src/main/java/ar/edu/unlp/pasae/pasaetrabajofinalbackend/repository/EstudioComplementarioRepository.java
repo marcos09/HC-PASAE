@@ -3,6 +3,7 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Paciente;
@@ -12,10 +13,13 @@ public interface EstudioComplementarioRepository extends GenericRepository<Estud
 
 	List<EstudioComplementario> findByInformeResultadoIsNull();
 
-	  @Query("select hc.paciente from HistoriaClinica hc where   "
-		+ " hc.seguimientos in "
-  		+ "(select s from Seguimiento s where ?1 in s.estudiosComplementarios) ")
-	  Paciente findPacienteFromEstudio(EstudioComplementario e);
+//	  @Query(value = "select hc.paciente from Historia_Clinica hc where   "
+//		+ " hc.seguimientos in "
+//  		+ "(select s from Seguimiento s where :ec in (select * from Seguimiento.estudiosComplementarios)) ", nativeQuery = true)
+	  @Query(value = "SELECT p FROM HistoriaClinica hc INNER JOIN hc.paciente p INNER JOIN hc.seguimientos s WHERE s IN "
+	  		+ "(SELECT s FROM Seguimiento s INNER JOIN s.estudiosComplementarios e WHERE e IN"
+	  		+ "(SELECT ec FROM EstudioComplementario ec WHERE ec.id = ?1)) ")
+	  Paciente findPacienteFromEstudio(Long ec1);
 	/*  
   		
   	*/
