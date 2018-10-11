@@ -66,7 +66,11 @@ public class EstudioComplementarioController {
 	@GetMapping(path = "/{id}", produces = "application/json")
 	public Object show(@PathVariable(value = "id") Long id) throws BaseException{
 		try {
-			return this.getEstudioService().retrive(id);
+			Map<String, Object> response = new HashMap<String, Object>();
+			response.put("paciente", this.getPacienteFromEstudio(id));
+			response.put("estudio", this.getEstudioService().retrive(id));
+			return response;
+//			return this.getEstudioService().retrive(id);
 		} catch (final BaseException e) {
 			logger.error("Excepción {}", e.getLocalizedMessage());
 			Map<String, Object> response = new HashMap<String, Object>();
