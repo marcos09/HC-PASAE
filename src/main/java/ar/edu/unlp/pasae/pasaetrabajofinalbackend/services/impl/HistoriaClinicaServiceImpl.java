@@ -297,7 +297,7 @@ public class HistoriaClinicaServiceImpl extends GenericServiceImpl<HistoriaClini
 				HistoriaClinica historia = optional.get();
 				ArrayList<EstudioComplementario> estudios = (ArrayList<EstudioComplementario>) historia
 						.getEstudiosFinalizados();
-
+				estudios.addAll(historia.getIngreso().getEstudiosComplementarios());
 				Collections.sort(estudios);
 				ArrayList<Prescripcion> prescripciones = (ArrayList<Prescripcion>) historia.getPrescripciones();
 				Collections.sort(prescripciones);
