@@ -3,20 +3,27 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EstudioComplementarioDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Paciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.EstudioComplementarioRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.EstudioComplementarioService;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.Transformer;
 
 @Service
 @Transactional
 
 public class EstudioComplementarioServiceImpl extends GenericServiceImpl<EstudioComplementarioRepository, EstudioComplementario, EstudioComplementarioDTO> implements EstudioComplementarioService {
 	
+	@Autowired
+	private Transformer<Paciente, PacienteDTO> pacienteTransformer;
+
 	@Override
 	public void create(EstudioComplementarioDTO persistentDTO) {
 		this.getRepository().save(this.getTransformer().toEntity(persistentDTO));
@@ -61,5 +68,28 @@ public class EstudioComplementarioServiceImpl extends GenericServiceImpl<Estudio
 	public List<EstudioComplementarioDTO> estudiosActivos() {
 		return this.getTransformer().toListDTO(this.getRepository().findByInformeResultadoIsNull());
 	}
+
+	@Override
+	public PacienteDTO findPacienteFromEstudio(Long idEstudio) throws BaseException  {
+		Optional <EstudioComplementario> op = this.getRepository().findById(idEstudio);
+		if (op.isPresent()) {
+			Long id = op.get().getId();
+			Paciente p = this.getRepository().findPacienteFromEstudio(id);
+			return this.getPacienteTransformer().toDTO(p);
+		}else {
+			throw new BaseException("El estudio no existe");
+		}
+
+	}
+
+	protected Transformer<Paciente, PacienteDTO> getPacienteTransformer() {
+		return pacienteTransformer;
+	}
+
+	protected void setPacienteTransformer(Transformer<Paciente, PacienteDTO> pacienteTransformer) {
+		this.pacienteTransformer = pacienteTransformer;
+	}
+	
+	
 
 }

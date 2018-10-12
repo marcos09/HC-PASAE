@@ -104,5 +104,21 @@ public class Seguimiento extends GenericPersistentClass implements Comparable<Se
 	public int compareTo(Seguimiento seguimiento) {
 		return this.getFecha().compareTo(seguimiento.getFecha());
 	}
+	
+	public Boolean isCompleted() {
+		for(EstudioComplementario e: estudiosComplementarios) {
+			if(e.getFechaResultado() == null) {
+				return false;
+			}
+		}
+		for(Prescripcion p: prescripciones) {
+			if(p.getFechaAdministracion() == null) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	
 
 }

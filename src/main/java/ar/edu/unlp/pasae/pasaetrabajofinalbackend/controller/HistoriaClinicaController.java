@@ -26,7 +26,6 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.ElementoHistoriaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaCompactaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService;
@@ -142,5 +141,21 @@ public class HistoriaClinicaController {
 		return this.getHistoriaService().historiasActivas();
 
 	}
+	
+	@GetMapping(path = "/{id}/ingreso", produces = "application/json")
+	public Object getIngreso(@PathVariable(value = "id") Long id) throws BaseException{
+		try {
+			return this.getHistoriaService().getIngreso(id);
+		}
+		catch (final BaseException e) {
+			logger.error("Excepción {}", e.getLocalizedMessage());
+			Map<String, Object> response = new HashMap<String, Object>();
+			response.put("errors", e.getLocalizedMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
+	}
+
+	
+	
 	
 }

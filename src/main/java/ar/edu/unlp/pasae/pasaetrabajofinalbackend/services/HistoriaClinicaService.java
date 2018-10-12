@@ -9,6 +9,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.ElementoHistoriaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaCompactaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
@@ -39,4 +40,8 @@ public interface HistoriaClinicaService extends GenericService {
 	HistoriaOrdenadaDTO getHistoriaCompletaOrdenada(Long idHistoria);
 
 	Object getPacienteEgreso(Long id) throws BaseException;
+	
+	IngresoPacienteDTO getIngreso(Long id) throws BaseException;
+
+	Boolean isHospitalized(int dni);
 }

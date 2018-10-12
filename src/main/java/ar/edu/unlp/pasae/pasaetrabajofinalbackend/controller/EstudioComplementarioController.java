@@ -65,10 +65,12 @@ public class EstudioComplementarioController {
 	// Recupero un estudio con el id
 	@GetMapping(path = "/{id}", produces = "application/json")
 	public Object show(@PathVariable(value = "id") Long id) throws BaseException{
-		
-		
 		try {
-			return this.getEstudioService().retrive(id);
+			Map<String, Object> response = new HashMap<String, Object>();
+			response.put("paciente", this.getPacienteFromEstudio(id));
+			response.put("estudio", this.getEstudioService().retrive(id));
+			return response;
+//			return this.getEstudioService().retrive(id);
 		} catch (final BaseException e) {
 			logger.error("Excepción {}", e.getLocalizedMessage());
 			Map<String, Object> response = new HashMap<String, Object>();
@@ -88,6 +90,23 @@ public class EstudioComplementarioController {
 	public List<EstudioComplementarioDTO> estudiosActivos() {
 		 return this.getEstudioService().estudiosActivos();
 	}
+	
+	@GetMapping(path = "/{id}/paciente", produces = "application/json")
+	public Object getPacienteFromEstudio(@PathVariable(value = "id") Long id) {
+		try {
+			return this.getEstudioService().findPacienteFromEstudio(id);		
+		} catch (final BaseException e) {
+			logger.error("Excepción {}", e.getLocalizedMessage());
+			Map<String, Object> response = new HashMap<String, Object>();
+			response.put("errors", e.getLocalizedMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
+
+	
+	}
+
+	
+	
 
 	
 	
