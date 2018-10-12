@@ -3,7 +3,6 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Paciente;
