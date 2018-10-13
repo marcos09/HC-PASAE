@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotEmpty;
 
+import org.apache.commons.lang3.ObjectUtils;
+
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
 public class EstudioComplementario extends GenericPersistentClass implements Comparable<EstudioComplementario> {
@@ -87,7 +89,8 @@ public class EstudioComplementario extends GenericPersistentClass implements Com
 
 	@Override
 	public int compareTo(EstudioComplementario estudio) {
-		return this.getFechaResultado().compareTo(estudio.getFechaResultado());
+		return ObjectUtils.compare(this.getFechaResultado(), estudio.getFechaResultado());
+
 	}
 
 }
