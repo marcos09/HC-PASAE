@@ -146,6 +146,7 @@ public class HistoriaClinicaServiceImpl extends GenericServiceImpl<HistoriaClini
 						throw new BaseException("Debe indicar un medicamento en la prescripcion");
 					}
 				}
+				
 				historia.addSeguimiento(this.getSeguimientoTransformer().toEntity(seguimiento));
 				this.getRepository().save(historia);
 				return historia;
