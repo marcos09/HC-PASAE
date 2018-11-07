@@ -173,7 +173,9 @@ public class AppStartupRunner implements ApplicationRunner {
 		estudioSeg3.add(ec3);
 
 		Medicamento med1 = new Medicamento("Ibuprofeno 600", "Indicaciones", "Contraindicaciones");
-		Prescripcion p1 = new Prescripcion("Tomar un comprimido a las 18 hs", med1);
+		this.medicamentosRepository.save(med1);
+		Prescripcion p1 = new Prescripcion("Tomar un comprimido a las 18 hs");
+		p1.setMedicamento(med1);
 		Set<Prescripcion> prescSeg3 = new HashSet<Prescripcion>();
 		prescSeg3.add(p1);
 		// Fin complementos seguimiento 3
@@ -189,7 +191,9 @@ public class AppStartupRunner implements ApplicationRunner {
 
 		// Prescripciones seguimiento 4
 		Medicamento med2 = new Medicamento("Morfina 12mg", "Indicaciones", "Contraindicaciones");
-		Prescripcion p2 = new Prescripcion("Única dosis", med2);
+		this.medicamentosRepository.save(med2);
+		Prescripcion p2 = new Prescripcion("Única dosis");
+		p2.setMedicamento(med2);
 		Set<Prescripcion> prescSeg4 = new HashSet<Prescripcion>();
 		prescSeg4.add(p2);
 		// Fin prescripciones seguimiento 4
