@@ -20,13 +20,19 @@ public class Prescripcion extends GenericPersistentClass implements Comparable<P
 	@NotEmpty(message = "Los datos no pueden ser nulos o vacíos")
 	private String datos;
 	@NotNull(message = "El medicamento no puede ser nulo o vacío")
-	@OneToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER)
 	private Medicamento medicamento;
 
 	private Date fechaAdministracion;
 
 	public Prescripcion() {
 		super();
+		this.setFechaIndicacion(new Date());
+	}
+	
+	public Prescripcion(String datos) {
+		super();
+		this.setDatos(datos);
 		this.setFechaIndicacion(new Date());
 	}
 
