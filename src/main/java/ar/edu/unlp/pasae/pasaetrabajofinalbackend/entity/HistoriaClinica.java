@@ -109,7 +109,7 @@ public class HistoriaClinica extends GenericPersistentClass {
 		return estudios;
 	}
 	
-	public Collection<Prescripcion> getPrescripciones() {
+	public Collection<Prescripcion> getPrescripcionesFinalizadas() {
 		List<Prescripcion> prescripciones = new ArrayList<Prescripcion>();
 		for(Prescripcion p: this.getIngreso().getPrescripciones()) {
 			if(p.getFechaAdministracion() != null) {
@@ -126,5 +126,33 @@ public class HistoriaClinica extends GenericPersistentClass {
 		return prescripciones;
 	}
 
-	
+	public Collection<Prescripcion> getPrescripciones() {
+		List<Prescripcion> prescripciones = new ArrayList<Prescripcion>();
+		for(Prescripcion p: this.getIngreso().getPrescripciones()) {
+				prescripciones.add(p);
+			
+		}
+		for(Seguimiento s: this.getSeguimientos()) {
+			for(Prescripcion p: s.getPrescripciones()) {
+				prescripciones.add(p);
+				
+			}
+		}
+		return prescripciones;
+	}
+
+	public Collection<EstudioComplementario> getEstudios() {
+		List<EstudioComplementario> estudios = new ArrayList<EstudioComplementario>();
+		
+		for(EstudioComplementario e: this.getIngreso().getEstudiosComplementarios()) {
+			estudios.add(e);
+		}
+		for(Seguimiento s: this.getSeguimientos()) {
+			for(EstudioComplementario e: s.getEstudiosComplementarios()) {
+				estudios.add(e);
+			}
+		}
+		return estudios;
+	}
+
 }

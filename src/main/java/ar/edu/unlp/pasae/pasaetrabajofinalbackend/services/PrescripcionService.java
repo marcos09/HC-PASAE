@@ -19,4 +19,6 @@ public interface PrescripcionService extends GenericService {
 	
 	List<PrescripcionDTO> listActivePrescriptions();
 	
+	List<PrescripcionDTO> listEndPrescriptionForHistory(Long id);
+	
 }

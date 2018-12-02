@@ -2,6 +2,7 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,12 +19,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EgresoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.ElementoHistoriaDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EstudiosDivididosDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaCompactaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionesDivididasDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.HistoriaClinica;
@@ -205,7 +208,7 @@ public class HistoriaClinicaServiceImpl extends GenericServiceImpl<HistoriaClini
 			}
 			
 			
-			ArrayList<Prescripcion> prescripciones = (ArrayList<Prescripcion>) historia.getPrescripciones();
+			ArrayList<Prescripcion> prescripciones = (ArrayList<Prescripcion>) historia.getPrescripcionesFinalizadas();
 			
 			for(Prescripcion p: prescripciones) {
 				result.add(new ElementoHistoriaDTO(p.getId(), "Aplicacion", p.getFechaAdministracion()));
@@ -299,7 +302,7 @@ public class HistoriaClinicaServiceImpl extends GenericServiceImpl<HistoriaClini
 						.getEstudiosFinalizados();
 				estudios.addAll(historia.getIngreso().getEstudiosComplementarios());
 				Collections.sort(estudios);
-				ArrayList<Prescripcion> prescripciones = (ArrayList<Prescripcion>) historia.getPrescripciones();
+				ArrayList<Prescripcion> prescripciones = (ArrayList<Prescripcion>) historia.getPrescripcionesFinalizadas();
 				Collections.sort(prescripciones);
 				HistoriaOrdenadaDTO historiaOrdenada = new HistoriaOrdenadaDTO();
 				historiaOrdenada.setAplicaciones(this.getPrescripcionTransformes().toListDTO(prescripciones));
@@ -324,7 +327,45 @@ public class HistoriaClinicaServiceImpl extends GenericServiceImpl<HistoriaClini
 			}
 			return null;
 	}
-
+	
+	@Override
+	public PrescripcionesDivididasDTO getPrescripciones(Long idHistoria){
+		
+		Optional<HistoriaClinica> optional = this.getRepository().findById(idHistoria);
+		if (optional.isPresent()) {
+			HistoriaClinica historia = optional.get();
+			ArrayList<Prescripcion> prescripciones = (ArrayList<Prescripcion>) historia.getPrescripciones();
+			ArrayList<Prescripcion> prescripcionesPendientes = new ArrayList<Prescripcion>();
+			ArrayList<Prescripcion> prescripcionesFinalizadas = new ArrayList<Prescripcion>();
+			
+			
+			for(Prescripcion p: prescripciones) {
+				if(p.getFechaAdministracion() != null) {
+					prescripcionesFinalizadas.add(p);
+				}
+				else {
+					prescripcionesPendientes.add(p);
+				}
+			}
+			
+			Collections.sort(prescripcionesFinalizadas);
+			
+			//Método que ordena las prescripciones pendientes según el orden de indicación
+			Collections.sort(prescripcionesPendientes,new Comparator<Prescripcion>(){
+	                public int compare(Prescripcion p1, Prescripcion p2){
+	                      return p1.getFechaIndicacion().compareTo(p2.getFechaIndicacion());
+	                }
+                }
+			);
+			return new PrescripcionesDivididasDTO(
+						this.getPrescripcionTransformes().toListDTO((List<Prescripcion>) prescripcionesFinalizadas),
+						this.getPrescripcionTransformes().toListDTO((List<Prescripcion>) prescripcionesPendientes)
+					);
+			
+		}
+		return null;
+	}	
+	
 	@Override
 	public Object getPacienteEgreso(Long id) throws BaseException{
 		Optional<HistoriaClinica> optional = this.getRepository().findById(id);
@@ -357,6 +398,49 @@ public class HistoriaClinicaServiceImpl extends GenericServiceImpl<HistoriaClini
 	@Override
 	public Boolean isHospitalized(int dni) {
 		return  this.getRepository().findByDniAndEgresoIsNull(dni).isPresent();
+	}
+
+	@Override
+	public EstudiosDivididosDTO getEstudios(Long id) {
+		Optional<HistoriaClinica> optional = this.getRepository().findById(id);
+		if (optional.isPresent()) {
+			HistoriaClinica historia = optional.get();
+			
+			ArrayList<EstudioComplementario> estudios = (ArrayList<EstudioComplementario>) historia.getEstudios();
+			ArrayList<EstudioComplementario> estudiosPendientes = new ArrayList<EstudioComplementario>();
+			ArrayList<EstudioComplementario> estudiosFinalizados = new ArrayList<EstudioComplementario>();
+			
+			
+			for(EstudioComplementario e: estudios) {
+				if(e.getFechaResultado() != null) {
+					estudiosFinalizados.add(e);
+				}
+				else {
+					estudiosPendientes.add(e);
+				}
+			}
+			
+			Collections.sort(estudiosFinalizados);
+			
+			//Método que ordena los estudios pendientes según el orden de indicación
+			Collections.sort(estudiosPendientes,new Comparator<EstudioComplementario>(){
+	                public int compare(EstudioComplementario e1, EstudioComplementario e2){
+	                      return e1.getFechaIndicacion().compareTo(e2.getFechaIndicacion());
+	                }
+                }
+			);
+
+			Collections.sort(estudiosPendientes);
+
+			return new EstudiosDivididosDTO(
+						this.getEstudioTransformer().toListDTO(estudiosFinalizados),
+						this.getEstudioTransformer().toListDTO(estudiosPendientes)
+						
+					);
+			
+		}
+		return null;
+
 	}
 
 }

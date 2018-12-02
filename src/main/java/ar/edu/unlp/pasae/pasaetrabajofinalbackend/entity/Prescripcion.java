@@ -10,6 +10,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.ObjectUtils;
+
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
 public class Prescripcion extends GenericPersistentClass implements Comparable<Prescripcion> {
@@ -90,8 +92,9 @@ public class Prescripcion extends GenericPersistentClass implements Comparable<P
 	}
 
 	@Override
-	public int compareTo(Prescripcion presc) {
-		return this.getFechaAdministracion().compareTo(presc.getFechaAdministracion());
+	public int compareTo(Prescripcion prescripcion) {
+		return ObjectUtils.compare(this.getFechaAdministracion(), prescripcion.getFechaAdministracion());
+
 	}
 
 }

@@ -66,5 +66,12 @@ public class PrescripcionController {
 	public void delete(@PathVariable(value = "id") Long id) {
 		this.getPrescripcionService().delete(id);
 	}
+	
+	// Recupero una prescripcion con el id
+		@GetMapping(path = "/aplicadas/{idHistoria}", produces = "application/json")
+		public PrescripcionDTO showEndPrescriptions(@PathVariable(value = "id") Long idHistoria) {
+			
+			return this.getPrescripcionService().retrive(idHistoria);
+		}
 
 }

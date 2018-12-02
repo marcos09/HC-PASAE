@@ -6,11 +6,13 @@ import javax.validation.Valid;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EgresoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.ElementoHistoriaDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EstudiosDivididosDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaCompactaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionesDivididasDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Paciente;
@@ -44,4 +46,9 @@ public interface HistoriaClinicaService extends GenericService {
 	IngresoPacienteDTO getIngreso(Long id) throws BaseException;
 
 	Boolean isHospitalized(int dni);
+	
+	PrescripcionesDivididasDTO getPrescripciones(Long id);
+
+	EstudiosDivididosDTO getEstudios(Long id);
+
 }

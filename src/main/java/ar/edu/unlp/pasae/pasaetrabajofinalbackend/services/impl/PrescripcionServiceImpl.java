@@ -64,4 +64,10 @@ public class PrescripcionServiceImpl extends GenericServiceImpl<PrescripcionRepo
 		
 	}
 
+	@Override
+	public List<PrescripcionDTO> listEndPrescriptionForHistory(Long id) {
+		this.getRepository(); //
+		return null;
+	}
+
 }

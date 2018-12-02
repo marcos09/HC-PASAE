@@ -39,6 +39,7 @@ public abstract class GenericServiceImpl<T extends GenericRepository<entityType>
 	protected GenericServiceImpl() {
 		super();
 	}
+
 	
 	
 
