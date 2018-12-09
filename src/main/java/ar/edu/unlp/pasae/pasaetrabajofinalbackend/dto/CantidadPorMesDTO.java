@@ -4,11 +4,22 @@ public class CantidadPorMesDTO {
 
 	private Long cantidad;
 	private String monthString;
+	private int nroMes;
 	
-	
+	public int getNroMes() {
+		return nroMes;
+	}
+
+
+	public void setNroMes(int nroMes) {
+		this.nroMes = nroMes;
+	}
+
+
 	public CantidadPorMesDTO(Long cantidad, int mes) {
 		super();
 		this.setCantidad(cantidad);	
+		this.setNroMes(mes);
 		
 		switch (mes) {
         case 1:  monthString = "Enero";
@@ -39,7 +50,6 @@ public class CantidadPorMesDTO {
                  break;
 		}
 	}
-	
 	
 	public Long getCantidad() {
 		return cantidad;
