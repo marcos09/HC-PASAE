@@ -202,7 +202,7 @@ public class IngresoPaciente extends GenericPersistentClass {
 		return examenFisico;
 	}
 
-	private void setFechaIngreso(Date fechaIngreso) {
+	public void setFechaIngreso(Date fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
 	}
 

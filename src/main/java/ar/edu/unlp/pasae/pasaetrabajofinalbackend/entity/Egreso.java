@@ -18,12 +18,14 @@ public class Egreso extends GenericPersistentClass {
 	public Egreso() {
 		super();
 		this.setFecha(new Date());
+		
 	}
 
 	public Egreso(String diagnosticoFinal) {
 		super();
 		this.setFecha(new Date());
 		this.setDiagnosticoFinal(diagnosticoFinal);
+		
 	}
 
 	public Egreso(Long id, String diagnosticoFinal) {

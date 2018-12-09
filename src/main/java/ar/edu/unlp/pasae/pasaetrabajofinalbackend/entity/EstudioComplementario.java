@@ -58,7 +58,7 @@ public class EstudioComplementario extends GenericPersistentClass implements Com
 		return fechaIndicacion;
 	}
 
-	private void setFechaIndicacion(Date fechaIndicacion) {
+	public void setFechaIndicacion(Date fechaIndicacion) {
 		this.fechaIndicacion = fechaIndicacion;
 	}
 
@@ -66,7 +66,7 @@ public class EstudioComplementario extends GenericPersistentClass implements Com
 		return fechaResultado;
 	}
 
-	private void setFechaResultado(Date fechaResultado) {
+	public void setFechaResultado(Date fechaResultado) {
 		this.fechaResultado = fechaResultado;
 	}
 

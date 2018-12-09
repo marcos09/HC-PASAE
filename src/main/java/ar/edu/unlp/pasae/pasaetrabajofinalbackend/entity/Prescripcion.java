@@ -92,7 +92,7 @@ public class Prescripcion extends GenericPersistentClass implements Comparable<P
 		return fechaAdministracion;
 	}
 
-	private void setFechaAdministracion(Date fechaAdministracion) {
+	public void setFechaAdministracion(Date fechaAdministracion) {
 		this.fechaAdministracion = fechaAdministracion;
 	}
 

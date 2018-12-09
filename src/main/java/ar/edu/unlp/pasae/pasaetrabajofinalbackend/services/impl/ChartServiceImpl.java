@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.CantidadIngresosDiagnosticoDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.CantidadPorMesDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.CantidadPrescripcionesMedicamentoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionDTO;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientosPromedioInternacionDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.ChartRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.ChartService;
 
@@ -28,7 +28,7 @@ public class ChartServiceImpl implements ChartService{
 	}
 
 	@Override
-	public Set<SeguimientosPromedioInternacionDTO> avgSeguimientos() {
+	public Long avgSeguimientos() {
 		return this.getChartRepository().avgSeguimientosInternacion();
 	}
 
@@ -71,6 +71,21 @@ public class ChartServiceImpl implements ChartService{
 	@Override
 	public Long cantidadInternadosActualmente() {
 		return this.getChartRepository().cantidadInternadosActualmente();
+	}
+
+	@Override
+	public List<CantidadPorMesDTO> cantidadEgresosPorMes() {
+		return this.getChartRepository().cantidadEgresosPorMes();
+	}
+
+	@Override
+	public List<CantidadPorMesDTO> cantidadIngresosPorMes() {
+		return this.getChartRepository().cantidadIngresosPorMes();
+	}
+
+	@Override
+	public List<CantidadPorMesDTO> cantidadSeguimientosPorMes() {
+		return this.getChartRepository().cantidadSeguimientosPorMes();
 	}
 
 

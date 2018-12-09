@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Set;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.CantidadIngresosDiagnosticoDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.CantidadPorMesDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.CantidadPrescripcionesMedicamentoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionDTO;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientosPromedioInternacionDTO;
 
 public interface ChartService extends GenericService {
 
-	Set<SeguimientosPromedioInternacionDTO> avgSeguimientos();
+	Long avgSeguimientos();
 	
 	Set<CantidadIngresosDiagnosticoDTO> getCountDiagnosticoSintomatico();
 	
@@ -25,5 +25,11 @@ public interface ChartService extends GenericService {
 	Long cantidadInternacionesRealizadas();
 	
 	Long cantidadInternadosActualmente();
+	
+	List<CantidadPorMesDTO> cantidadEgresosPorMes();
+	
+	List<CantidadPorMesDTO> cantidadIngresosPorMes();
+	
+	List<CantidadPorMesDTO> cantidadSeguimientosPorMes();
 
 }
