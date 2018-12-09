@@ -3,7 +3,6 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -30,7 +29,6 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaCompactaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionesDivididasDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientosPromedioInternacionDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService;
 
@@ -168,13 +166,5 @@ public class HistoriaClinicaController {
 	public EstudiosDivididosDTO getEstudios(@PathVariable(value = "id") Long id) {
 		return this.getHistoriaService().getEstudios(id);
 	}
-	
-	// Promedio de seguimientos por internacion
-		@GetMapping(path = "/avgSeguimientos")
-		public Set<SeguimientosPromedioInternacionDTO> avgSeguimientos() {
-			return this.getHistoriaService().avgSeguimientos();
-
-		}
-
 	
 }

@@ -28,7 +28,6 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionesDivididasDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientosPromedioInternacionDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.EstudioComplementario;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.HistoriaClinica;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
@@ -37,7 +36,6 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Prescripcion;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Seguimiento;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.HistoriaClinicaRepository;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.ChartsRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.EgresoTransformer;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.EstudioComplementarioTransformer;
@@ -75,9 +73,6 @@ public class HistoriaClinicaServiceImpl extends GenericServiceImpl<HistoriaClini
 	@Autowired
 	private Validator validator;
 	
-	@Autowired
-	private ChartsRepository chartsRepository;
-
 	@Override
 	public HistoriaClinicaDTO addIngreso(IngresoPaciente ingreso, Paciente paciente) throws BaseException {
 		HistoriaClinica historia = new HistoriaClinica((ingreso));
@@ -447,11 +442,6 @@ public class HistoriaClinicaServiceImpl extends GenericServiceImpl<HistoriaClini
 		}
 		return null;
 
-	}
-
-	@Override
-	public Set<SeguimientosPromedioInternacionDTO> avgSeguimientos() {
-		return this.chartsRepository.avgSeguimientosInternacion();
 	}
 
 }

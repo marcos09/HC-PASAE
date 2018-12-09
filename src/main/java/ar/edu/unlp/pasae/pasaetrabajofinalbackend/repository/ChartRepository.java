@@ -9,7 +9,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.CantidadPrescripcionesMedi
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientosPromedioInternacionDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.GenericPersistentClass;
 
-public interface ChartsRepository extends GenericRepository<GenericPersistentClass> {
+public interface ChartRepository extends GenericRepository<GenericPersistentClass> {
 
 	
 	@Query(value = "SELECT " +
@@ -41,5 +41,18 @@ public interface ChartsRepository extends GenericRepository<GenericPersistentCla
 			+ "FROM IngresoPaciente i "
 			+ "GROUP BY diagnosticoSintomatico")
 	Set<CantidadIngresosDiagnosticoDTO> cantidadIngresosPorDiagnosticoSintomatico();
+
+	@Query(value= "SELECT COUNT( DISTINCT dni ) FROM Paciente")
+	Long cantidadTotalPacientesAtendidos();
+
+	@Query(value= "SELECT COUNT(*) FROM IngresoPaciente")
+	Long cantidadInternacionesRealizadas();
+
+	@Query(value= "SELECT COUNT(*) FROM HistoriaClinica hc WHERE egreso IS NULL")
+	Long cantidadInternadosActualmente();
+	
+	
+
 	
 }
+

@@ -1,7 +1,6 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -15,7 +14,6 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionesDivididasDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientosPromedioInternacionDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.IngresoPaciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Paciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
@@ -52,7 +50,5 @@ public interface HistoriaClinicaService extends GenericService {
 	PrescripcionesDivididasDTO getPrescripciones(Long id);
 
 	EstudiosDivididosDTO getEstudios(Long id);
-
-	Set<SeguimientosPromedioInternacionDTO> avgSeguimientos();
 
 }

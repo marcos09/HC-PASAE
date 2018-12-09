@@ -2,7 +2,6 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -14,7 +13,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.CantidadIngresosDiagnosticoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PatologiaDTO;
@@ -24,7 +22,6 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Medicamento;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Paciente;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Prescripcion;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.ChartsRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.IngresoPacienteRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.MedicamentoRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.PacienteRepository;
@@ -45,9 +42,6 @@ public class IngresoPacienteServiceImpl
 
 	@Autowired
 	private PacienteRepository pacienteRepository;
-
-	@Autowired
-	private ChartsRepository chartRepository;
 
 	@Autowired
 	private HistoriaClinicaService historia;
@@ -88,15 +82,6 @@ public class IngresoPacienteServiceImpl
 
 	}
 	
-	
-
-	public ChartsRepository getChartRepository() {
-		return chartRepository;
-	}
-
-	public void setChartRepository(ChartsRepository chartRepository) {
-		this.chartRepository = chartRepository;
-	}
 
 	// idPaciente debe recibir un número menor a 0 para indicar que se creará la
 	// historia sin paciente, un número mayor que se corresponderá
@@ -219,17 +204,6 @@ public class IngresoPacienteServiceImpl
 
 	public void setPacienteRepository(PacienteRepository pacienteRepository) {
 		this.pacienteRepository = pacienteRepository;
-	}
-
-
-	@Override
-	public Set<CantidadIngresosDiagnosticoDTO> getCountDiagnosticoSintomatico() {
-		return this.getChartRepository().cantidadIngresosPorDiagnosticoSintomatico();
-	}
-
-	@Override
-	public Set<CantidadIngresosDiagnosticoDTO> getCountDiagnosticoPresuntivo() {
-		return this.getChartRepository().cantidadIngresosPorDiagnosticoPresuntivo();
 	}
 
 }

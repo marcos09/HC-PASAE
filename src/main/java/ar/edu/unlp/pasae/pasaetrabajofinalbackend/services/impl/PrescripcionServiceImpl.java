@@ -2,17 +2,15 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.CantidadPrescripcionesMedicamentoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Prescripcion;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.ChartRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.PrescripcionRepository;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.ChartsRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PrescripcionService;
 
 @Service
@@ -21,7 +19,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PrescripcionService;
 public class PrescripcionServiceImpl extends GenericServiceImpl<PrescripcionRepository, Prescripcion, PrescripcionDTO> implements PrescripcionService {
 	
 	@Autowired
-	private ChartsRepository chartsRepository;
+	private ChartRepository chartsRepository;
 
 	@Override
 	public void create(PrescripcionDTO persistentDTO) {
@@ -44,12 +42,12 @@ public class PrescripcionServiceImpl extends GenericServiceImpl<PrescripcionRepo
 	}
 
 	
-	public ChartsRepository getChartsRepository() {
+	public ChartRepository getChartsRepository() {
 		return chartsRepository;
 	}
 
 
-	public void setChartsRepository(ChartsRepository chartsRepository) {
+	public void setChartsRepository(ChartRepository chartsRepository) {
 		this.chartsRepository = chartsRepository;
 	}
 
@@ -81,17 +79,6 @@ public class PrescripcionServiceImpl extends GenericServiceImpl<PrescripcionRepo
 			//Levantar excepcion
 		}
 		
-	}
-
-	@Override
-	public List<PrescripcionDTO> listEndPrescriptionForHistory(Long id) {
-		this.getRepository(); //
-		return null;
-	}
-
-	@Override
-	public Set<CantidadPrescripcionesMedicamentoDTO> cantidadPrescripcionesMedicamento() {
-		return this.getChartsRepository().cantidadPrescripcionesPorMedicamento();
 	}
 
 }
