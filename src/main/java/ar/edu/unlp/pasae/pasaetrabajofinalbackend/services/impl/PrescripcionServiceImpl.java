@@ -2,13 +2,17 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.CantidadPrescripcionesMedicamentoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Prescripcion;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.PrescripcionRepository;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.ChartsRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PrescripcionService;
 
 @Service
@@ -16,11 +20,15 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PrescripcionService;
 
 public class PrescripcionServiceImpl extends GenericServiceImpl<PrescripcionRepository, Prescripcion, PrescripcionDTO> implements PrescripcionService {
 	
+	@Autowired
+	private ChartsRepository chartsRepository;
+
 	@Override
 	public void create(PrescripcionDTO persistentDTO) {
 		this.getRepository().save(this.getTransformer().toEntity(persistentDTO));
 	}
 
+	
 	@Override
 	public void update(PrescripcionDTO dto) {
 		Optional<Prescripcion> op = this.getRepository().findById(dto.getId());
@@ -34,6 +42,17 @@ public class PrescripcionServiceImpl extends GenericServiceImpl<PrescripcionRepo
 	public void delete(Long id) {
 		this.getRepository().deleteById(id);
 	}
+
+	
+	public ChartsRepository getChartsRepository() {
+		return chartsRepository;
+	}
+
+
+	public void setChartsRepository(ChartsRepository chartsRepository) {
+		this.chartsRepository = chartsRepository;
+	}
+
 
 	@Override
 	public PrescripcionDTO retrive(Long id) {
@@ -68,6 +87,11 @@ public class PrescripcionServiceImpl extends GenericServiceImpl<PrescripcionRepo
 	public List<PrescripcionDTO> listEndPrescriptionForHistory(Long id) {
 		this.getRepository(); //
 		return null;
+	}
+
+	@Override
+	public Set<CantidadPrescripcionesMedicamentoDTO> cantidadPrescripcionesMedicamento() {
+		return this.getChartsRepository().cantidadPrescripcionesPorMedicamento();
 	}
 
 }

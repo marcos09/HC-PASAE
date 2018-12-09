@@ -37,7 +37,7 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Prescripcion;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Seguimiento;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.HistoriaClinicaRepository;
-import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.chartsRepository;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.ChartsRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.EgresoTransformer;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.transform.EstudioComplementarioTransformer;
@@ -76,7 +76,7 @@ public class HistoriaClinicaServiceImpl extends GenericServiceImpl<HistoriaClini
 	private Validator validator;
 	
 	@Autowired
-	private chartsRepository chartsRepository;
+	private ChartsRepository chartsRepository;
 
 	@Override
 	public HistoriaClinicaDTO addIngreso(IngresoPaciente ingreso, Paciente paciente) throws BaseException {

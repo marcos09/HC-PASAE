@@ -1,6 +1,7 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.CantidadPrescripcionesMedicamentoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PrescripcionService;
 
 @RestController
@@ -67,11 +69,19 @@ public class PrescripcionController {
 		this.getPrescripcionService().delete(id);
 	}
 	
-	// Recupero una prescripcion con el id
+	// Recupero las prescripciones aplicadas para una historia
 		@GetMapping(path = "/aplicadas/{idHistoria}", produces = "application/json")
 		public PrescripcionDTO showEndPrescriptions(@PathVariable(value = "id") Long idHistoria) {
 			
 			return this.getPrescripcionService().retrive(idHistoria);
 		}
+		
+		
+		@GetMapping(path = "/cantidadIndicacionesMedicamento", produces = "application/json")
+		public Set<CantidadPrescripcionesMedicamentoDTO> countPrescriptions() {
+			return this.getPrescripcionService().cantidadPrescripcionesMedicamento();
+		}
+
+		
 
 }

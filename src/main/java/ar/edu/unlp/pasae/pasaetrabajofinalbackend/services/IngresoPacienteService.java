@@ -1,10 +1,13 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.CantidadIngresosDiagnosticoDTO;
 
 public interface IngresoPacienteService extends GenericService {
 
@@ -18,4 +21,7 @@ public interface IngresoPacienteService extends GenericService {
 
 	List<IngresoPacienteDTO> list();
 
+	Set<CantidadIngresosDiagnosticoDTO> getCountDiagnosticoSintomatico();
+	Set<CantidadIngresosDiagnosticoDTO> getCountDiagnosticoPresuntivo();
+	
 }

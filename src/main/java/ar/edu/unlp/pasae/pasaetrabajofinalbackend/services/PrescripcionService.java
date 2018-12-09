@@ -1,7 +1,9 @@
 package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services;
 
 import java.util.List;
+import java.util.Set;
 
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.CantidadPrescripcionesMedicamentoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionDTO;
 
 public interface PrescripcionService extends GenericService {
@@ -21,4 +23,5 @@ public interface PrescripcionService extends GenericService {
 	
 	List<PrescripcionDTO> listEndPrescriptionForHistory(Long id);
 	
+	Set<CantidadPrescripcionesMedicamentoDTO> cantidadPrescripcionesMedicamento();
 }

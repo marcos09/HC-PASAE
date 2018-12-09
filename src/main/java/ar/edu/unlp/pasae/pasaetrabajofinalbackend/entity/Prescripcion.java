@@ -2,7 +2,6 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;

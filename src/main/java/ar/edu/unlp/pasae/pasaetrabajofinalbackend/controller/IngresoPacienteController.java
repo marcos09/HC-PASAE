@@ -3,6 +3,7 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.aspect.ExceptionHandlerAspect;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.CantidadIngresosDiagnosticoDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.CantidadPrescripcionesMedicamentoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.IngresoPacienteDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.IngresoPacienteService;
@@ -84,9 +87,23 @@ public class IngresoPacienteController {
 			response.put("errors", e.getLocalizedMessage());
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}
-	}
-
+	}	
+	
 	private IngresoPacienteService getIngresoService() {
 		return ingresoService;
 	}
+	
+	
+	@GetMapping(path = "/cantidadPacientesDiagnosticoPresuntivo", produces = "application/json")
+	public Set<CantidadIngresosDiagnosticoDTO> cantidadPacientesDiagnosticoPresuntivo() {
+		return this.getIngresoService().getCountDiagnosticoPresuntivo();
+	}
+
+	@GetMapping(path = "/cantidadPacientesDiagnosticoSintomatico", produces = "application/json")
+	public Set<CantidadIngresosDiagnosticoDTO> cantidadPacientesDiagnosticoSintomatico() {
+		return this.getIngresoService().getCountDiagnosticoSintomatico();
+	}
+
+	
+
 }
