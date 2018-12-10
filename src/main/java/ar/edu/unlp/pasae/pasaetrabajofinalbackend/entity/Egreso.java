@@ -39,7 +39,7 @@ public class Egreso extends GenericPersistentClass {
 		return fecha;
 	}
 
-	private void setFecha(Date fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 
