@@ -63,6 +63,8 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.createHistoria();
 		this.createHistoria2();
 		this.createHistoria3();
+		this.createHistoria4();
+		this.createHistoria5();
 		Medicamento med1 = new Medicamento("Enarapril", "Antihipertensivo", "contraindicacion");
 		Medicamento med2 = new Medicamento("Losartan", "Antihipertensivo", "contraindicacion2");
 		Medicamento med3 = new Medicamento("metformina", "Diabetes", "contraindicacion3");
@@ -178,7 +180,7 @@ public class AppStartupRunner implements ApplicationRunner {
 				patologia2, "antecedentesEnfermedad", "antecedentesPersonales", "examenFisico");
 
 		Date date;
-		date = new SimpleDateFormat("yyy-MM-dd").parse("2018-11-19");
+		date = new SimpleDateFormat("yyyy-MM-dd").parse("2018-11-19");
 		ingreso.setFechaIngreso(date);
 		
 		Paciente p = new Paciente(12345678, false, null, null, "Paciente historia nombre", "Apellido paciente historia",
@@ -263,7 +265,7 @@ public class AppStartupRunner implements ApplicationRunner {
 		 Egreso egreso = new Egreso("Fin de la internacion");
 		 Date date2;
 			
-		date2 = new SimpleDateFormat("yyy-MM-dd").parse("2018-11-27");
+		date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-11-27");
 		 
 //		 egreso.setFecha(date2);
 //		 hc.setEgreso(egreso);
@@ -274,8 +276,6 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.getHistoriaRepository().save(hc);
 	}
 
-	
-	
 	
 	public void createHistoria2() throws ParseException {
 
@@ -290,7 +290,7 @@ public class AppStartupRunner implements ApplicationRunner {
 //		LocalDate date = LocalDate.parse("2018-11-22");
 		Date date;
 		
-		date = new SimpleDateFormat("yyy-MM-dd").parse("2018-11-22");
+		date = new SimpleDateFormat("yyyy-MM-dd").parse("2018-11-22");
 		ingreso.setFechaIngreso(date);
 	
 		
@@ -386,7 +386,7 @@ public class AppStartupRunner implements ApplicationRunner {
 		 Egreso egreso = new Egreso("Murio a causa de un derrame cerebral producto del fuerte golpe recibido en el cráneo");
 		 Date date2;
 			
-		date2 = new SimpleDateFormat("yyy-MM-dd").parse("2018-11-29");
+		date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-11-29");
 		 
 		 egreso.setFecha(date);
 		 hc.setEgreso(egreso);
@@ -411,7 +411,7 @@ public class AppStartupRunner implements ApplicationRunner {
 //		LocalDate date = LocalDate.parse("2018-11-22");
 		Date date;
 		
-		date = new SimpleDateFormat("yyy-MM-dd").parse("2018-10-19");
+		date = new SimpleDateFormat("yyyy-MM-dd").parse("2018-10-19");
 		ingreso.setFechaIngreso(date);
 	
 		
@@ -516,7 +516,7 @@ public class AppStartupRunner implements ApplicationRunner {
 		 Egreso egreso = new Egreso("Fin de la internacion");
 		 Date date2;
 			
-		date2 = new SimpleDateFormat("yyy-MM-dd").parse("2018-10-27");
+		date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-10-27");
 		 
 		 egreso.setFecha(date2);
 		 hc.setEgreso(egreso);
@@ -527,7 +527,66 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.getHistoriaRepository().save(hc);
 	}
 
+	public void createHistoria4() throws ParseException {
+		
+		
+		Patologia patologia1 = new Patologia("Endocarditis", "Datos");
+		this.getPatologiasRepository().save(patologia1);
+		IngresoPaciente ingreso4 = new IngresoPaciente("Ingreso 4",
+					"Ingreso 4", patologia1,
+					patologia1, "antecedentesEnfermedad", "antecedentesPersonales", "examenFisico");
+			
+			Date date;
+			
+			date = new SimpleDateFormat("yyyy-MM-dd").parse("2018-10-15");
+			ingreso4.setFechaIngreso(date);
+
+			Paciente p = new Paciente(111111, false, null, null, "Matias", "Martin", "Domicilio", "1321421");
+
+			HistoriaClinica hc = new HistoriaClinica(ingreso4);
+			hc.setPaciente(p);
+
+			 Egreso egreso = new Egreso("Fin de la internacion");
+			 Date date2;
+				
+			date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-10-25");
+			 
+			 egreso.setFecha(date2);
+			 hc.setEgreso(egreso);
+
+			this.getHistoriaRepository().save(hc);
+	}
 	
+	public void createHistoria5() throws ParseException {
+		
+		
+		Patologia patologia1 = new Patologia("Faringitis", "Datos");
+		this.getPatologiasRepository().save(patologia1);
+		IngresoPaciente ingreso5 = new IngresoPaciente("Ingreso 5",
+					"Ingreso 5", patologia1,
+					patologia1, "antecedentesEnfermedad", "antecedentesPersonales", "examenFisico");
+			
+			Date date;
+			
+			date = new SimpleDateFormat("yyyy-MM-dd").parse("2018-09-18");
+			ingreso5.setFechaIngreso(date);
+
+			Paciente p = new Paciente(1111111, false, null, null, "Matias", "Martin", "Domicilio", "1321421");
+
+			HistoriaClinica hc = new HistoriaClinica(ingreso5);
+			hc.setPaciente(p);
+
+			 Egreso egreso = new Egreso("Fin de la internacion");
+			 Date date2;
+				
+			date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-09-29");
+			 
+			 egreso.setFecha(date2);
+			 hc.setEgreso(egreso);
+
+			this.getHistoriaRepository().save(hc);
+	}
+
 	
 	
 	
