@@ -34,8 +34,6 @@ public class PatologiasController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlerAspect.class);
 	
-
-	// Listo todas las patologias
 	@CrossOrigin
 
 	@GetMapping(path = "/list")

@@ -17,5 +17,5 @@ public interface IngresoPacienteService extends GenericService {
 	IngresoPacienteDTO retrive(Long id);
 
 	List<IngresoPacienteDTO> list();
-
+	
 }

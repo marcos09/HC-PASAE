@@ -81,6 +81,7 @@ public class IngresoPacienteServiceImpl
 		return this.getTransformer().toListDTO(listIngresos);
 
 	}
+	
 
 	// idPaciente debe recibir un número menor a 0 para indicar que se creará la
 	// historia sin paciente, un número mayor que se corresponderá

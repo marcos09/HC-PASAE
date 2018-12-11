@@ -3,11 +3,13 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity.Prescripcion;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.ChartRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.repository.PrescripcionRepository;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PrescripcionService;
 
@@ -16,11 +18,15 @@ import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.PrescripcionService;
 
 public class PrescripcionServiceImpl extends GenericServiceImpl<PrescripcionRepository, Prescripcion, PrescripcionDTO> implements PrescripcionService {
 	
+	@Autowired
+	private ChartRepository chartsRepository;
+
 	@Override
 	public void create(PrescripcionDTO persistentDTO) {
 		this.getRepository().save(this.getTransformer().toEntity(persistentDTO));
 	}
 
+	
 	@Override
 	public void update(PrescripcionDTO dto) {
 		Optional<Prescripcion> op = this.getRepository().findById(dto.getId());
@@ -34,6 +40,17 @@ public class PrescripcionServiceImpl extends GenericServiceImpl<PrescripcionRepo
 	public void delete(Long id) {
 		this.getRepository().deleteById(id);
 	}
+
+	
+	public ChartRepository getChartsRepository() {
+		return chartsRepository;
+	}
+
+
+	public void setChartsRepository(ChartRepository chartsRepository) {
+		this.chartsRepository = chartsRepository;
+	}
+
 
 	@Override
 	public PrescripcionDTO retrive(Long id) {

@@ -2,13 +2,14 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend.entity;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang3.ObjectUtils;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
@@ -91,13 +92,14 @@ public class Prescripcion extends GenericPersistentClass implements Comparable<P
 		return fechaAdministracion;
 	}
 
-	private void setFechaAdministracion(Date fechaAdministracion) {
+	public void setFechaAdministracion(Date fechaAdministracion) {
 		this.fechaAdministracion = fechaAdministracion;
 	}
 
 	@Override
-	public int compareTo(Prescripcion presc) {
-		return this.getFechaAdministracion().compareTo(presc.getFechaAdministracion());
+	public int compareTo(Prescripcion prescripcion) {
+		return ObjectUtils.compare(this.getFechaAdministracion(), prescripcion.getFechaAdministracion());
+
 	}
 
 }

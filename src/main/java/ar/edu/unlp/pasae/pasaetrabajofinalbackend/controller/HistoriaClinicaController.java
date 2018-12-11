@@ -23,9 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.aspect.ExceptionHandlerAspect;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EgresoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.ElementoHistoriaDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.EstudiosDivididosDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaClinicaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaCompactaDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.HistoriaOrdenadaDTO;
+import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.PrescripcionesDivididasDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.dto.SeguimientoDTO;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.exception.BaseException;
 import ar.edu.unlp.pasae.pasaetrabajofinalbackend.services.HistoriaClinicaService;
@@ -154,8 +156,15 @@ public class HistoriaClinicaController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}
 	}
+	
+	@GetMapping(path = "/{id}/prescripciones")
+	public PrescripcionesDivididasDTO getPrescripciones(@PathVariable(value = "id") Long id) {
+		return this.getHistoriaService().getPrescripciones(id);
+	}
 
-	
-	
+	@GetMapping(path = "/{id}/estudios")
+	public EstudiosDivididosDTO getEstudios(@PathVariable(value = "id") Long id) {
+		return this.getHistoriaService().getEstudios(id);
+	}
 	
 }

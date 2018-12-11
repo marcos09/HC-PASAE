@@ -84,9 +84,10 @@ public class IngresoPacienteController {
 			response.put("errors", e.getLocalizedMessage());
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}
-	}
-
+	}	
+	
 	private IngresoPacienteService getIngresoService() {
 		return ingresoService;
 	}
+	
 }
