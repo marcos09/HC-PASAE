@@ -2,7 +2,6 @@ package ar.edu.unlp.pasae.pasaetrabajofinalbackend;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -56,7 +55,6 @@ public class AppStartupRunner implements ApplicationRunner {
 	@Autowired
 	private PacienteRepository pacientesRepository;
 
-
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 
@@ -65,6 +63,13 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.createHistoria3();
 		this.createHistoria4();
 		this.createHistoria5();
+		this.createHistoria6();
+		this.createHistoria7();
+		this.createHistoria8();
+		this.createHistoria9();
+		this.createHistoria10();
+		this.createHistoria11();
+		this.createHistoria12();
 		Medicamento med1 = new Medicamento("Enarapril", "Antihipertensivo", "contraindicacion");
 		Medicamento med2 = new Medicamento("Losartan", "Antihipertensivo", "contraindicacion2");
 		Medicamento med3 = new Medicamento("metformina", "Diabetes", "contraindicacion3");
@@ -73,7 +78,7 @@ public class AppStartupRunner implements ApplicationRunner {
 		Medicamento med6 = new Medicamento("Amoxicilina", "Antibiotico", "contraindicacion3");
 		Medicamento med7 = new Medicamento("Esomeptrazol", "Gastritis", "contraindicacion3");
 		Medicamento med8 = new Medicamento("Propinox", "Antiespasmodico", "contraindicacion3");
-		
+
 		this.getMedicamentosRepository().save(med1);
 		this.getMedicamentosRepository().save(med2);
 		this.getMedicamentosRepository().save(med3);
@@ -109,8 +114,6 @@ public class AppStartupRunner implements ApplicationRunner {
 		// this.getUserRepository().save(new User(5L,
 		// "marcosmat","iriarte.marcos@gmail.com", "ROLE_STUDENT"));
 
-		
-		
 		Patologia patologia3 = new Patologia("Amioplasia", "Otro dato");
 		Patologia patologia4 = new Patologia("Síndrome de down", "Dato Random");
 		Patologia patologia5 = new Patologia("Artrosis", "Otro dato");
@@ -122,7 +125,6 @@ public class AppStartupRunner implements ApplicationRunner {
 		Patologia patologia11 = new Patologia("Sífilis 6", "Dato random");
 		Patologia patologia12 = new Patologia("Hepatitis", "Dato random");
 		Patologia patologia13 = new Patologia("Hemiplegia", "Dato random");
-		
 
 		this.getPatologiasRepository().save(patologia3);
 		this.getPatologiasRepository().save(patologia4);
@@ -135,9 +137,9 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.getPatologiasRepository().save(patologia11);
 		this.getPatologiasRepository().save(patologia12);
 		this.getPatologiasRepository().save(patologia13);
-
-		this.getIngresoRepository().save(new IngresoPaciente("motivo1", "enfermedad 1", patologia3, patologia4,
-				"antecedentesEnfermedad", "antecedentesPersonales", "examenFisico"));
+//
+//		this.getIngresoRepository().save(new IngresoPaciente("motivo1", "enfermedad 1", patologia3, patologia4,
+//				"antecedentesEnfermedad", "antecedentesPersonales", "examenFisico"));
 
 		/*
 		 * Paciente paciente1 = new Paciente(11111111, false, null, null, "Juan Martín",
@@ -182,7 +184,7 @@ public class AppStartupRunner implements ApplicationRunner {
 		Date date;
 		date = new SimpleDateFormat("yyyy-MM-dd").parse("2018-11-19");
 		ingreso.setFechaIngreso(date);
-		
+
 		Paciente p = new Paciente(12345678, false, null, null, "Paciente historia nombre", "Apellido paciente historia",
 				"Domicilio", "1321421");
 
@@ -191,8 +193,7 @@ public class AppStartupRunner implements ApplicationRunner {
 
 		Seguimiento seg1 = new Seguimiento("Seguimiento 1 sin estudios ni indicaciones",
 				new HashSet<EstudioComplementario>(), new HashSet<Prescripcion>());
-		
-		
+
 		// Creación del estudio para el seguimiento 2
 		EstudioComplementario ec1 = new EstudioComplementario("TAC de craneo y cuello.");
 		Set<EstudioComplementario> estudioTac = new HashSet<EstudioComplementario>();
@@ -214,7 +215,7 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.medicamentosRepository.save(med0);
 		Prescripcion p0 = new Prescripcion("Unica dosis diaria");
 		p0.setMedicamento(med0);
-		
+
 		Medicamento med1 = new Medicamento("Ibuprofeno 600", "Indicaciones", "Contraindicaciones");
 		this.medicamentosRepository.save(med1);
 		Prescripcion p1 = new Prescripcion("Tomar un comprimido a las 18 hs");
@@ -222,7 +223,7 @@ public class AppStartupRunner implements ApplicationRunner {
 		Set<Prescripcion> prescSeg3 = new HashSet<Prescripcion>();
 		prescSeg3.add(p1);
 		prescSeg3.add(p0);
-		
+
 		// Fin complementos seguimiento 3
 
 		Seguimiento seg3 = new Seguimiento(
@@ -239,15 +240,15 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.medicamentosRepository.save(med2);
 		Prescripcion p2 = new Prescripcion("Única dosis");
 		p2.setMedicamento(med2);
-		
+
 		Medicamento med3 = new Medicamento("Rifampicina", "Indicaciones", "Contraindicaciones");
 		this.medicamentosRepository.save(med3);
 		Prescripcion p3 = new Prescripcion("Única dosis");
 		p3.setMedicamento(med3);
-		
+
 		Prescripcion p4 = new Prescripcion("1 cada 12 hs");
 		p4.setMedicamento(med1);
-		
+
 		Set<Prescripcion> prescSeg4 = new HashSet<Prescripcion>();
 		prescSeg4.add(p2);
 		prescSeg4.add(p3);
@@ -261,14 +262,14 @@ public class AppStartupRunner implements ApplicationRunner {
 		hc.addSeguimiento(seg2);
 		hc.addSeguimiento(seg3);
 		hc.addSeguimiento(seg4);
-		
-		 Egreso egreso = new Egreso("Fin de la internacion");
-		 Date date2;
-			
+
+		Egreso egreso = new Egreso("Fin de la internacion");
+		Date date2;
+
 		date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-11-27");
-		 
-//		 egreso.setFecha(date2);
-//		 hc.setEgreso(egreso);
+
+		egreso.setFecha(date2);
+		hc.setEgreso(egreso);
 
 		// this.getMedicamentosRepository().save(med1);
 		// this.getMedicamentosRepository().save(med2);
@@ -276,27 +277,21 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.getHistoriaRepository().save(hc);
 	}
 
-	
 	public void createHistoria2() throws ParseException {
 
 		Patologia patologia1 = new Patologia("Cancer de pulmón", "Datos");
 
 		this.getPatologiasRepository().save(patologia1);
 
-		IngresoPaciente ingreso = new IngresoPaciente("Paciente con cancer de pulmon",
-				"Cancer.", patologia1,
+		IngresoPaciente ingreso = new IngresoPaciente("Paciente con cancer de pulmon", "Cancer.", patologia1,
 				patologia1, "antecedentesEnfermedad", "antecedentesPersonales", "examenFisico");
-		
-//		LocalDate date = LocalDate.parse("2018-11-22");
+
+		// LocalDate date = LocalDate.parse("2018-11-22");
 		Date date;
-		
-		date = new SimpleDateFormat("yyyy-MM-dd").parse("2018-11-22");
+
+		date = new SimpleDateFormat("yyyy-MM-dd").parse("2018-12-01");
 		ingreso.setFechaIngreso(date);
-	
-		
-		
-		
-		
+
 		Paciente p = new Paciente(12345678, false, null, null, "Paciente historia nombre", "Apellido paciente historia",
 				"Domicilio", "1321421");
 
@@ -306,8 +301,7 @@ public class AppStartupRunner implements ApplicationRunner {
 		Seguimiento seg1 = new Seguimiento("Seguimiento 1 sin estudios ni indicaciones",
 				new HashSet<EstudioComplementario>(), new HashSet<Prescripcion>());
 		seg1.setFecha(date);
-		
-		
+
 		// Creación del estudio para el seguimiento 2
 		EstudioComplementario ec1 = new EstudioComplementario("TAC de craneo y cuello.");
 		Set<EstudioComplementario> estudioTac = new HashSet<EstudioComplementario>();
@@ -329,13 +323,12 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.medicamentosRepository.save(med0);
 		Prescripcion p0 = new Prescripcion("Una dosis diaria");
 		p0.setMedicamento(med0);
-		
+
 		Medicamento med1 = new Medicamento("Doxicilina", "Indicaciones", "Contraindicaciones");
 		this.medicamentosRepository.save(med1);
 		Prescripcion p1 = new Prescripcion("Tomar un comprimido a las 18 hs");
 		p1.setMedicamento(med1);
-		
-		
+
 		Set<Prescripcion> prescSeg3 = new HashSet<Prescripcion>();
 		prescSeg3.add(p1);
 		prescSeg3.add(p0);
@@ -350,23 +343,25 @@ public class AppStartupRunner implements ApplicationRunner {
 		ec1.setInformeResultado("El paciente está todo roto");
 		p1.ejecutarPrescripcion();
 
+		seg3.setFecha(date);
+
 		// Prescripciones seguimiento 4
 		Medicamento med2 = new Medicamento("Paracetamol", "Indicaciones", "Contraindicaciones");
 		this.medicamentosRepository.save(med2);
 		Prescripcion p2 = new Prescripcion("Única dosis");
 		p2.setMedicamento(med2);
 		Set<Prescripcion> prescSeg4 = new HashSet<Prescripcion>();
-		
+
 		Medicamento med3 = new Medicamento("Levamisol", "Indicaciones", "Contraindicaciones");
 		this.medicamentosRepository.save(med3);
 		Prescripcion p3 = new Prescripcion("1x6");
 		p3.setMedicamento(med3);
-		
+
 		Medicamento med4 = new Medicamento("Lidocaina", "Indicaciones", "Contraindicaciones");
 		this.medicamentosRepository.save(med4);
 		Prescripcion p4 = new Prescripcion("Uno cada 12");
 		p4.setMedicamento(med4);
-		
+
 		Prescripcion p5 = new Prescripcion("Única dosis");
 		p5.setMedicamento(med2);
 		prescSeg4.add(p2);
@@ -383,13 +378,14 @@ public class AppStartupRunner implements ApplicationRunner {
 		hc.addSeguimiento(seg3);
 		hc.addSeguimiento(seg4);
 
-		 Egreso egreso = new Egreso("Murio a causa de un derrame cerebral producto del fuerte golpe recibido en el cráneo");
-		 Date date2;
-			
-		date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-11-29");
-		 
-		 egreso.setFecha(date);
-		 hc.setEgreso(egreso);
+//		Egreso egreso = new Egreso(
+//				"Murio a causa de un derrame cerebral producto del fuerte golpe recibido en el cráneo");
+//		Date date2;
+//
+//		date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-12-10");
+//
+//		egreso.setFecha(date);
+//		hc.setEgreso(egreso);
 
 		// this.getMedicamentosRepository().save(med1);
 		// this.getMedicamentosRepository().save(med2);
@@ -397,47 +393,37 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.getHistoriaRepository().save(hc);
 	}
 
-	
 	public void createHistoria3() throws ParseException {
 
 		Patologia patologia1 = new Patologia("Fractura", "Datos");
 
 		this.getPatologiasRepository().save(patologia1);
 
-		IngresoPaciente ingreso = new IngresoPaciente("Paciente con fractura de femur",
-				"Cancer.", patologia1,
+		IngresoPaciente ingreso = new IngresoPaciente("Paciente con fractura de femur", "Cancer.", patologia1,
 				patologia1, "antecedentesEnfermedad", "antecedentesPersonales", "examenFisico");
-		
-//		LocalDate date = LocalDate.parse("2018-11-22");
+
+		// LocalDate date = LocalDate.parse("2018-11-22");
 		Date date;
-		
+
 		date = new SimpleDateFormat("yyyy-MM-dd").parse("2018-10-19");
 		ingreso.setFechaIngreso(date);
-	
-		
-		
-		
-		
-		Paciente p = new Paciente(12345678, false, null, null, "Matias", "Martin",
-				"Domicilio", "1321421");
+
+		Paciente p = new Paciente(12345678, false, null, null, "Matias", "Martin", "Domicilio", "1321421");
 
 		HistoriaClinica hc = new HistoriaClinica(ingreso);
 		hc.setPaciente(p);
 
-		Seguimiento seg1 = new Seguimiento("Nuevo seguimiento",
-				new HashSet<EstudioComplementario>(), new HashSet<Prescripcion>());
+		Seguimiento seg1 = new Seguimiento("Nuevo seguimiento", new HashSet<EstudioComplementario>(),
+				new HashSet<Prescripcion>());
 		seg1.setFecha(date);
-		
-		
+
 		// Creación del estudio para el seguimiento 2
 		EstudioComplementario ec1 = new EstudioComplementario("Radiografia completa");
 		Set<EstudioComplementario> estudioTac = new HashSet<EstudioComplementario>();
 		estudioTac.add(ec1);
 		// Fin estudios seguimiento 2
 
-		Seguimiento seg2 = new Seguimiento(
-				"Seguimiento 2",
-				estudioTac, new HashSet<Prescripcion>());
+		Seguimiento seg2 = new Seguimiento("Seguimiento 2", estudioTac, new HashSet<Prescripcion>());
 		seg2.setFecha(date);
 
 		// Estudios y prescripciónes del seguimiento 3
@@ -451,18 +437,18 @@ public class AppStartupRunner implements ApplicationRunner {
 		this.medicamentosRepository.save(med0);
 		Prescripcion p0 = new Prescripcion("Una dosis diaria");
 		p0.setMedicamento(med0);
-		
+
 		Medicamento med1 = new Medicamento("Pirantes", "Indicaciones", "Contraindicaciones");
 		this.medicamentosRepository.save(med1);
 		Prescripcion p1 = new Prescripcion("Tomar un comprimido a las 18 hs");
 		p1.setMedicamento(med1);
-		
+
 		Prescripcion p7 = new Prescripcion("Dosis diaria");
 		p7.setMedicamento(med0);
-		
+
 		Prescripcion p8 = new Prescripcion("1 al dia");
 		p8.setMedicamento(med0);
-		
+
 		Set<Prescripcion> prescSeg3 = new HashSet<Prescripcion>();
 		prescSeg3.add(p1);
 		prescSeg3.add(p0);
@@ -470,12 +456,10 @@ public class AppStartupRunner implements ApplicationRunner {
 		prescSeg3.add(p7);
 		// Fin complementos seguimiento 3
 
-		Seguimiento seg3 = new Seguimiento(
-				"Seguimiento 3 con 2 estudios (Rx y RMN) y una prescripción",
-				estudioSeg3, prescSeg3);
+		Seguimiento seg3 = new Seguimiento("Seguimiento 3 con 2 estudios (Rx y RMN) y una prescripción", estudioSeg3,
+				prescSeg3);
 		seg3.setFecha(date);
-		ec2.setInformeResultado(
-				"Fractura rodilla y femur");
+		ec2.setInformeResultado("Fractura rodilla y femur");
 		ec1.setInformeResultado("Rotisimo");
 		p1.ejecutarPrescripcion();
 
@@ -485,17 +469,17 @@ public class AppStartupRunner implements ApplicationRunner {
 		Prescripcion p2 = new Prescripcion("Única dosis");
 		p2.setMedicamento(med2);
 		Set<Prescripcion> prescSeg4 = new HashSet<Prescripcion>();
-		
+
 		Medicamento med3 = new Medicamento("Ritonavir", "Indicaciones", "Contraindicaciones");
 		this.medicamentosRepository.save(med3);
 		Prescripcion p3 = new Prescripcion("1x6");
 		p3.setMedicamento(med3);
-		
+
 		Medicamento med4 = new Medicamento("Artemetero", "Indicaciones", "Contraindicaciones");
 		this.medicamentosRepository.save(med4);
 		Prescripcion p4 = new Prescripcion("Uno cada 12");
 		p4.setMedicamento(med4);
-		
+
 		Prescripcion p5 = new Prescripcion("Única dosis");
 		p5.setMedicamento(med2);
 		prescSeg4.add(p2);
@@ -504,8 +488,7 @@ public class AppStartupRunner implements ApplicationRunner {
 		prescSeg4.add(p5);
 		// Fin prescripciones seguimiento 4
 
-		Seguimiento seg4 = new Seguimiento("Seguimiento 4",
-				new HashSet<EstudioComplementario>(), prescSeg4);
+		Seguimiento seg4 = new Seguimiento("Seguimiento 4", new HashSet<EstudioComplementario>(), prescSeg4);
 		seg4.setFecha(date);
 
 		hc.addSeguimiento(seg1);
@@ -513,13 +496,13 @@ public class AppStartupRunner implements ApplicationRunner {
 		hc.addSeguimiento(seg3);
 		hc.addSeguimiento(seg4);
 
-		 Egreso egreso = new Egreso("Fin de la internacion");
-		 Date date2;
-			
+		Egreso egreso = new Egreso("Fin de la internacion");
+		Date date2;
+
 		date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-10-27");
-		 
-		 egreso.setFecha(date2);
-		 hc.setEgreso(egreso);
+
+		egreso.setFecha(date2);
+		hc.setEgreso(egreso);
 
 		// this.getMedicamentosRepository().save(med1);
 		// this.getMedicamentosRepository().save(med2);
@@ -528,66 +511,331 @@ public class AppStartupRunner implements ApplicationRunner {
 	}
 
 	public void createHistoria4() throws ParseException {
-		
-		
+
 		Patologia patologia1 = new Patologia("Endocarditis", "Datos");
 		this.getPatologiasRepository().save(patologia1);
-		IngresoPaciente ingreso4 = new IngresoPaciente("Ingreso 4",
-					"Ingreso 4", patologia1,
-					patologia1, "antecedentesEnfermedad", "antecedentesPersonales", "examenFisico");
-			
-			Date date;
-			
-			date = new SimpleDateFormat("yyyy-MM-dd").parse("2018-10-15");
-			ingreso4.setFechaIngreso(date);
+		IngresoPaciente ingreso4 = new IngresoPaciente("Ingreso 4", "Ingreso 4", patologia1, patologia1,
+				"antecedentesEnfermedad", "antecedentesPersonales", "examenFisico");
 
-			Paciente p = new Paciente(111111, false, null, null, "Matias", "Martin", "Domicilio", "1321421");
+		Date date;
 
-			HistoriaClinica hc = new HistoriaClinica(ingreso4);
-			hc.setPaciente(p);
+		date = new SimpleDateFormat("yyyy-MM-dd").parse("2018-10-15");
+		ingreso4.setFechaIngreso(date);
 
-			 Egreso egreso = new Egreso("Fin de la internacion");
-			 Date date2;
-				
-			date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-10-25");
-			 
-			 egreso.setFecha(date2);
-			 hc.setEgreso(egreso);
+		Paciente p = new Paciente(111111, false, null, null, "Matias", "Martin", "Domicilio", "1321421");
 
-			this.getHistoriaRepository().save(hc);
+		HistoriaClinica hc = new HistoriaClinica(ingreso4);
+		hc.setPaciente(p);
+
+		Seguimiento seg1 = new Seguimiento("Nuevo seguimiento", new HashSet<EstudioComplementario>(),
+				new HashSet<Prescripcion>());
+		seg1.setFecha(date);
+
+		hc.addSeguimiento(seg1);
+
+		Egreso egreso = new Egreso("Fin de la internacion");
+		Date date2;
+
+		date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-10-25");
+
+		egreso.setFecha(date2);
+		hc.setEgreso(egreso);
+
+		this.getHistoriaRepository().save(hc);
 	}
-	
+
 	public void createHistoria5() throws ParseException {
-		
-		
+
 		Patologia patologia1 = new Patologia("Faringitis", "Datos");
 		this.getPatologiasRepository().save(patologia1);
-		IngresoPaciente ingreso5 = new IngresoPaciente("Ingreso 5",
-					"Ingreso 5", patologia1,
-					patologia1, "antecedentesEnfermedad", "antecedentesPersonales", "examenFisico");
-			
-			Date date;
-			
-			date = new SimpleDateFormat("yyyy-MM-dd").parse("2018-09-18");
-			ingreso5.setFechaIngreso(date);
+		IngresoPaciente ingreso5 = new IngresoPaciente("Ingreso 5", "Ingreso 5", patologia1, patologia1,
+				"antecedentesEnfermedad", "antecedentesPersonales", "examenFisico");
 
-			Paciente p = new Paciente(1111111, false, null, null, "Matias", "Martin", "Domicilio", "1321421");
+		Date date;
 
-			HistoriaClinica hc = new HistoriaClinica(ingreso5);
-			hc.setPaciente(p);
+		date = new SimpleDateFormat("yyyy-MM-dd").parse("2018-09-18");
+		ingreso5.setFechaIngreso(date);
 
-			 Egreso egreso = new Egreso("Fin de la internacion");
-			 Date date2;
-				
-			date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-09-29");
-			 
-			 egreso.setFecha(date2);
-			 hc.setEgreso(egreso);
+		Paciente p = new Paciente(1111111, false, null, null, "Matias", "Martin", "Domicilio", "1321421");
 
-			this.getHistoriaRepository().save(hc);
+		HistoriaClinica hc = new HistoriaClinica(ingreso5);
+		hc.setPaciente(p);
+
+		Seguimiento seg1 = new Seguimiento("Nuevo seguimiento", new HashSet<EstudioComplementario>(),
+				new HashSet<Prescripcion>());
+		seg1.setFecha(date);
+
+		hc.addSeguimiento(seg1);
+
+//		Egreso egreso = new Egreso("Fin de la internacion");
+//		Date date2;
+//
+//		date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-09-29");
+//
+//		egreso.setFecha(date2);
+//		hc.setEgreso(egreso);
+
+		this.getHistoriaRepository().save(hc);
 	}
 
-	
+	public void createHistoria6() throws ParseException {
+
+		Patologia patologia1 = new Patologia("Gastritis", "Datos");
+		this.getPatologiasRepository().save(patologia1);
+		IngresoPaciente ingreso6 = new IngresoPaciente("Ingreso 6", "Ingreso 6", patologia1, patologia1,
+				"antecedentesEnfermedad", "antecedentesPersonales", "examenFisico");
+
+		Date date;
+
+		date = new SimpleDateFormat("yyyy-MM-dd").parse("2018-09-15");
+		ingreso6.setFechaIngreso(date);
+
+		Paciente p = new Paciente(1112111, false, null, null, "Matias", "Martin", "Domicilio", "1321421");
+
+		HistoriaClinica hc = new HistoriaClinica(ingreso6);
+		hc.setPaciente(p);
+
+		Seguimiento seg1 = new Seguimiento("Nuevo seguimiento", new HashSet<EstudioComplementario>(),
+				new HashSet<Prescripcion>());
+		seg1.setFecha(date);
+
+		Seguimiento seg2 = new Seguimiento("Nuevo seguimiento", new HashSet<EstudioComplementario>(),
+				new HashSet<Prescripcion>());
+		seg2.setFecha(date);
+
+		hc.addSeguimiento(seg1);
+		hc.addSeguimiento(seg2);
+
+		Egreso egreso = new Egreso("Fin de la internacion");
+		Date date2;
+
+		date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-09-20");
+
+		egreso.setFecha(date2);
+		hc.setEgreso(egreso);
+
+		this.getHistoriaRepository().save(hc);
+	}
+
+	public void createHistoria7() throws ParseException {
+
+		Patologia patologia1 = new Patologia("Meningitis", "Datos");
+		this.getPatologiasRepository().save(patologia1);
+		IngresoPaciente ingreso7 = new IngresoPaciente("Ingreso 7", "Ingreso 7", patologia1, patologia1,
+				"antecedentesEnfermedad", "antecedentesPersonales", "examenFisico");
+
+		Date date;
+
+		date = new SimpleDateFormat("yyyy-MM-dd").parse("2018-08-15");
+		ingreso7.setFechaIngreso(date);
+
+		Paciente p = new Paciente(1112171, false, null, null, "Matias", "Martin", "Domicilio", "1321421");
+
+		HistoriaClinica hc = new HistoriaClinica(ingreso7);
+		hc.setPaciente(p);
+
+		Seguimiento seg1 = new Seguimiento("Nuevo seguimiento", new HashSet<EstudioComplementario>(),
+				new HashSet<Prescripcion>());
+		seg1.setFecha(date);
+
+		hc.addSeguimiento(seg1);
+
+		Egreso egreso = new Egreso("Fin de la internacion");
+		Date date2;
+
+		date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-08-23");
+
+		egreso.setFecha(date2);
+		hc.setEgreso(egreso);
+
+		this.getHistoriaRepository().save(hc);
+	}
+
+	public void createHistoria8() throws ParseException {
+
+		Patologia patologia1 = new Patologia("Malaria", "Datos");
+		this.getPatologiasRepository().save(patologia1);
+		IngresoPaciente ingreso8 = new IngresoPaciente("Ingreso 8", "Ingreso 8", patologia1, patologia1,
+				"antecedentesEnfermedad", "antecedentesPersonales", "examenFisico");
+
+		Date date;
+
+		date = new SimpleDateFormat("yyyy-MM-dd").parse("2018-08-01");
+		ingreso8.setFechaIngreso(date);
+
+		Paciente p = new Paciente(4112171, false, null, null, "Matias", "Martin", "Domicilio", "1321421");
+
+		HistoriaClinica hc = new HistoriaClinica(ingreso8);
+		hc.setPaciente(p);
+
+		Seguimiento seg1 = new Seguimiento("Nuevo seguimiento", new HashSet<EstudioComplementario>(),
+				new HashSet<Prescripcion>());
+		seg1.setFecha(date);
+
+		hc.addSeguimiento(seg1);
+
+		Egreso egreso = new Egreso("Fin de la internacion");
+		Date date2;
+
+		date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-08-10");
+
+		egreso.setFecha(date2);
+		hc.setEgreso(egreso);
+
+		this.getHistoriaRepository().save(hc);
+	}
+
+	public void createHistoria9() throws ParseException {
+
+		Patologia patologia1 = new Patologia("Paperas", "Datos");
+		this.getPatologiasRepository().save(patologia1);
+		IngresoPaciente ingreso9 = new IngresoPaciente("Ingreso 9", "Ingreso 9", patologia1, patologia1,
+				"antecedentesEnfermedad", "antecedentesPersonales", "examenFisico");
+
+		Date date;
+
+		date = new SimpleDateFormat("yyyy-MM-dd").parse("2018-08-04");
+		ingreso9.setFechaIngreso(date);
+
+		Paciente p = new Paciente(4162171, false, null, null, "Matias", "Martin", "Domicilio", "1321421");
+
+		HistoriaClinica hc = new HistoriaClinica(ingreso9);
+		hc.setPaciente(p);
+
+		Seguimiento seg1 = new Seguimiento("Nuevo seguimiento", new HashSet<EstudioComplementario>(),
+				new HashSet<Prescripcion>());
+		seg1.setFecha(date);
+
+		Seguimiento seg2 = new Seguimiento("Nuevo seguimiento", new HashSet<EstudioComplementario>(),
+				new HashSet<Prescripcion>());
+		seg2.setFecha(date);
+
+		hc.addSeguimiento(seg1);
+		hc.addSeguimiento(seg2);
+
+		Egreso egreso = new Egreso("Fin de la internacion");
+		Date date2;
+
+		date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-08-11");
+
+		egreso.setFecha(date2);
+		hc.setEgreso(egreso);
+
+		this.getHistoriaRepository().save(hc);
+	}
+
+	public void createHistoria10() throws ParseException {
+
+		Patologia patologia1 = new Patologia("Rubeola", "Datos");
+		this.getPatologiasRepository().save(patologia1);
+		IngresoPaciente ingreso10 = new IngresoPaciente("Ingreso 10", "Ingreso 10", patologia1, patologia1,
+				"antecedentesEnfermedad", "antecedentesPersonales", "examenFisico");
+
+		Date date;
+
+		date = new SimpleDateFormat("yyyy-MM-dd").parse("2018-08-04");
+		ingreso10.setFechaIngreso(date);
+
+		Paciente p = new Paciente(41632171, false, null, null, "Matias", "Martin", "Domicilio", "1321421");
+
+		HistoriaClinica hc = new HistoriaClinica(ingreso10);
+		hc.setPaciente(p);
+
+		Seguimiento seg1 = new Seguimiento("Nuevo seguimiento", new HashSet<EstudioComplementario>(),
+				new HashSet<Prescripcion>());
+		seg1.setFecha(date);
+
+		Seguimiento seg2 = new Seguimiento("Nuevo seguimiento", new HashSet<EstudioComplementario>(),
+				new HashSet<Prescripcion>());
+		seg2.setFecha(date);
+
+		hc.addSeguimiento(seg1);
+		hc.addSeguimiento(seg2);
+
+		Egreso egreso = new Egreso("Fin de la internacion");
+		Date date2;
+
+		date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-08-11");
+
+		egreso.setFecha(date2);
+		hc.setEgreso(egreso);
+
+		this.getHistoriaRepository().save(hc);
+	}
+
+	public void createHistoria11() throws ParseException {
+
+		Patologia patologia1 = new Patologia("Parkinson", "Datos");
+		this.getPatologiasRepository().save(patologia1);
+		IngresoPaciente ingreso4 = new IngresoPaciente("Ingreso 4", "Ingreso 4", patologia1, patologia1,
+				"antecedentesEnfermedad", "antecedentesPersonales", "examenFisico");
+
+		Date date;
+
+		date = new SimpleDateFormat("yyyy-MM-dd").parse("2018-10-15");
+		ingreso4.setFechaIngreso(date);
+
+		Paciente p = new Paciente(112311, false, null, null, "Matias", "Martin", "Domicilio", "1321421");
+
+		HistoriaClinica hc = new HistoriaClinica(ingreso4);
+		hc.setPaciente(p);
+
+		Seguimiento seg1 = new Seguimiento("Nuevo seguimiento", new HashSet<EstudioComplementario>(),
+				new HashSet<Prescripcion>());
+		seg1.setFecha(date);
+
+		hc.addSeguimiento(seg1);
+
+		Egreso egreso = new Egreso("Fin de la internacion");
+		Date date2;
+
+		date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-10-25");
+
+		egreso.setFecha(date2);
+		hc.setEgreso(egreso);
+
+		this.getHistoriaRepository().save(hc);
+	}
+
+	public void createHistoria12() throws ParseException {
+
+		Patologia patologia1 = new Patologia("Parkinson", "Datos");
+		this.getPatologiasRepository().save(patologia1);
+		IngresoPaciente ingreso4 = new IngresoPaciente("Ingreso 4", "Ingreso 4", patologia1, patologia1,
+				"antecedentesEnfermedad", "antecedentesPersonales", "examenFisico");
+
+		Date date;
+
+		date = new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-15");
+		ingreso4.setFechaIngreso(date);
+
+		Paciente p = new Paciente(11233311, false, null, null, "Matias", "Martin", "Domicilio", "1321421");
+
+		HistoriaClinica hc = new HistoriaClinica(ingreso4);
+		hc.setPaciente(p);
+
+		Seguimiento seg1 = new Seguimiento("Nuevo ", new HashSet<EstudioComplementario>(),
+				new HashSet<Prescripcion>());
+		seg1.setFecha(date);
+		
+		Seguimiento seg2 = new Seguimiento("Nuevo ", new HashSet<EstudioComplementario>(),
+				new HashSet<Prescripcion>());
+		seg2.setFecha(date);
+
+		hc.addSeguimiento(seg1);
+		hc.addSeguimiento(seg2);
+
+		Egreso egreso = new Egreso("Fin de la internacion");
+		Date date2;
+
+		date2 = new SimpleDateFormat("yyyy-MM-dd").parse("2018-07-25");
+
+		egreso.setFecha(date2);
+		hc.setEgreso(egreso);
+
+		this.getHistoriaRepository().save(hc);
+	}
+
 	
 	
 	public IngresoPacienteRepository getIngresoRepository() {
